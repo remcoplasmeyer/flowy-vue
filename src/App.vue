@@ -116,11 +116,9 @@ export default {
     },
     onDrop(event) {
       this.dragging = false;
-      console.log(event);
     },
     onDragStart(event) {
       this.dragging = true;
-      console.log(event);
     },
   },
   watch: {
