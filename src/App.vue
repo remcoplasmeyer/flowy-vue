@@ -1,82 +1,125 @@
 <template>
-  <div class="page main">
-    <div class="container">
-      <h1>Dropzone (check console log)</h1>
-      <dropzone
-        :data="{ holder }"
-        @enter="onEnter($event)"
-        @leave="onLeave($event)"
-        group="first_group"
-      >
-        <template #default="scope">
-          <div :class="scope" class="dropzone">
-            <div class="">This is a dropzone</div>
-          </div>
-        </template>
-      </dropzone>
-
+  <div class="page main flex flex-row flex-no-wrap">
+    <div class="container overflow-auto z-40">
+      <h1>Vue Flowy</h1>
+      <flowy
+        :nodes="nodes"
+        :blocks="blocks"
+        @onDrag="onDragStart"
+        @added-node="addNode($event)"
+      ></flowy>
+    </div>
+    <div class="side z-50">
+      Drag from below
       <draggable
         :with-handle="true"
-        @drop="onDrop($event)"
-        :draggable-mirror="{ xAxis: false }"
-        group="first_group"
+        @start="onDragStart($event)"
+        :draggable-mirror="{ xAxis: false, appendTo: 'body' }"
+        group="flowy"
       >
-        <div class="draggable">draggable item</div>
+        <example-block class="draggable"></example-block>
       </draggable>
-
-
-      <h1>Sortable & SortableItem</h1>
-      <sortable v-model="groups" group="columns">
-          <template #default="{ items: groups }">
-              <div class="">
-                  <sortable-item v-for="group in groups" :key="group.key">
-                    <div class="draggable" v-drag-handle>{{ group.key }}</div>
-                  </sortable-item>
-              </div>
-          </template>
-      </sortable>
-
-      <p class="description">Shopify Draggable Vue</p>
     </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable vue/no-unused-components */
-import Draggable from '@/components/Draggable.vue';
-import Dropzone from '@/components/Dropzone.vue';
-import Sortable from '@/components/Sortable.vue';
-import SortableItem from '@/components/SortableItem.vue';
+/* eslint-disable no-unused-vars */
+import Vue from 'vue';
+import Flowy from '@/components/Flowy.vue';
+import FlowyNode from '@/components/FlowyNode.vue';
+import find from 'lodash/find';
+
+function randomInteger() {
+  return Math.floor(Math.random() * 10000) + 1;
+}
 
 export default {
   name: 'app',
   components: {
-    Draggable,
-    Dropzone,
-    Sortable,
-    SortableItem,
+    Flowy,
+    FlowyNode,
   },
   data: () => ({
     holder: [],
-    groups: [
+    dragging: false,
+    blocks: [
       {
-        key: 'group1',
+        name: 'example-block',
+      },
+    ],
+    nodes: [
+      {
+        id: '1',
+        parentId: -1,
+        block: 'example-block',
+        props: {
+          text: 'Parent block',
+        },
       },
       {
-        key: 'group2',
+        id: '100',
+        parentId: -1,
+        block: 'example-block',
+        props: {
+          text: 'Parent block',
+        },
       },
       {
-        key: 'group3',
-      }],
+        id: '2',
+        parentId: '1',
+        block: 'example-block',
+      },
+      {
+        id: '3',
+        parentId: '1',
+        block: 'example-block',
+      },
+      {
+        id: '4',
+        parentId: '1',
+        block: 'example-block',
+      },
+      {
+        id: '5',
+        parentId: '1',
+        block: 'example-block',
+      },
+      {
+        id: '6',
+        parentId: '3',
+        block: 'example-block',
+      },
+      {
+        id: '7',
+        parentId: '3',
+        block: 'example-block',
+      },
+      {
+        id: '8',
+        parentId: '3',
+        block: 'example-block',
+      },
+    ],
   }),
   methods: {
-    onEnter(event) {
-      console.log(event);
-    },
-    onLeave(event) {
-      console.log(event);
+    addNode(_event) {
+      let id = randomInteger();
+      while (find(this.nodes, { id }) !== undefined) {
+        id = randomInteger();
+      }
+      this.nodes.push({
+        ..._event.node,
+        id,
+      });
     },
     onDrop(event) {
+      this.dragging = false;
+      console.log(event);
+    },
+    onDragStart(event) {
+      this.dragging = true;
       console.log(event);
     },
   },
@@ -99,6 +142,15 @@ export default {
     letter-spacing: 1px;
     background: #f5f5f5;
     font-weight: 300;
+  }
+
+  div {
+    position:relative;
+    z-index: 0;
+  }
+
+  .no-wrap {
+    white-space: nowrap;
   }
 
   h1 {
@@ -137,9 +189,16 @@ export default {
     min-height: 700px;
   }
 
+  .side {
+    padding: 12px;
+    width: 320px;
+    height: 100%;
+  }
+
   .container {
+    height: 100%;
     position: relative;
-    width: 800px;
+    width: auto;
     margin:auto;
   }
 

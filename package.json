@@ -1,8 +1,8 @@
 {
-  "name": "@hips/shopify-draggable-vue",
-  "version": "0.9.0",
+  "name": "@hipsjs/flowy-vue",
+  "version": "1.0.0",
   "description": "Shopify draggable for Vue",
-  "main": "./dist/lib/ShopifyDraggable.common.js",
+  "main": "./dist/lib/ShopifyDraggablePlugin.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build:demo": "vue-cli-service build --dest dist/demo",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/remcoplasmeyer/shopify-draggable-vue.git"
+    "url": "git+https://github.com/remcoplasmeyer/flowy-vue.git"
   },
   "files": [
     "dist/lib"
@@ -20,13 +20,14 @@
   "author": "Remco Plasmeijer <remco.plasmeijer@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/remcoplasmeyer/shopify-draggable-vue/issues"
+    "url": "https://github.com/remcoplasmeyer/flowy-vue/issues"
   },
   "peerDependencies": {
     "vue": "~2"
   },
   "dependencies": {
-    "@shopify/draggable": "1.0.0-beta.9"
+    "@hipsjs/shopify-draggable-vue": "^1.0.1",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.4.1",

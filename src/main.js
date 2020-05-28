@@ -1,8 +1,10 @@
 import Vue from 'vue';
-import DraggablePlugin from '@/index.js';
+import FlowyPlugin from '@/index.js';
+import ExampleBlock from '@/demo_components/ExampleBlock.vue';
 import App from './App.vue';
 
-Vue.use(DraggablePlugin);
+Vue.use(FlowyPlugin);
+Vue.component('ExampleBlock', ExampleBlock);
 
 Vue.config.productionTip = false;
 

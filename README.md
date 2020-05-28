@@ -1,23 +1,23 @@
 
 <h2 align="middle">Shopify Draggable Vue</h2>
 <p align="middle">
-    <a href="https://www.npmjs.com/package/shopify-draggable-vue" target="_blank">
-      <img src="https://img.shields.io/npm/v/shopify-draggable-vue.svg?style=flat-square&color=007acc&label=version"
+    <a href="https://www.npmjs.com/package/flowy-vue" target="_blank">
+      <img src="https://img.shields.io/npm/v/flowy-vue.svg?style=flat-square&color=007acc&label=version"
            alt="npm version" /></a>
-    <a href="https://github.com/remcoplasmeyer/shopify-draggable-vue" target="_blank">
+    <a href="https://github.com/remcoplasmeyer/flowy-vue" target="_blank">
       <img
-        src="https://img.shields.io/github/stars/remcoplasmeyer/shopify-draggable-vue.svg?color=42b883&style=flat-square"
+        src="https://img.shields.io/github/stars/remcoplasmeyer/flowy-vue.svg?color=42b883&style=flat-square"
         alt="github stars"/></a>
-    <a href="https://github.com/remcoplasmeyer/shopify-draggable-vue/blob/master/LICENSE" target="_blank">
+    <a href="https://github.com/remcoplasmeyer/flowy-vue/blob/master/LICENSE" target="_blank">
       <img
-        src="https://img.shields.io/github/license/remcoplasmeyer/shopify-draggable-vue.svg?style=flat-square&label=license&color=08CE5D"
+        src="https://img.shields.io/github/license/remcoplasmeyer/flowy-vue.svg?style=flat-square&label=license&color=08CE5D"
         alt="license"
       />
     </a>
     <a href="" target="_blank">
-      <img src="https://flat.badgen.net/bundlephobia/minzip/shopify-draggable-vue" alt="Minified library size">
+      <img src="https://flat.badgen.net/bundlephobia/minzip/flowy-vue" alt="Minified library size">
     </a>
-    <a href="https://github.com/remcoplasmeyer/shopify-draggable-vue" target="_blank"><img
+    <a href="https://github.com/remcoplasmeyer/flowy-vue" target="_blank"><img
       alt="Vue"
       src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&color=3fb984"></a>
 </p>
@@ -31,12 +31,12 @@
 ## ⚙️ Installation
 
 ```sh
-npm i @hips/shopify-draggable-vue
+npm i @hips/flowy-vue
 ```
 
 ## 📄 Documents
 
-* [**todo**](https://github.com/remcoplasmeyer/shopify-draggable-vue/blob/master/README.md)
+* [**todo**](https://github.com/remcoplasmeyer/flowy-vue/blob/master/README.md)
 
 ## 🚀 How to use
 
@@ -45,7 +45,7 @@ npm i @hips/shopify-draggable-vue
   <div>todo</div>
 </template>
 <script>
-import { todo } from '@hips/shopify-draggable-vue';
+import { todo } from '@hips/flowy-vue';
 
 export default {
   name: 'Demo',
@@ -98,12 +98,12 @@ Please give a ⭐️ if this project helped you!
 
 ## 👏 Contributing
 
-If you have any questions or requests or want to contribute to `@hips/shopify-draggable-vue` or other packages, please write the [issue](https://github.com/remcoplasmeyer/shopify-draggable-vue/issues) or give me a Pull Request freely.
+If you have any questions or requests or want to contribute to `@hips/flowy-vue` or other packages, please write the [issue](https://github.com/remcoplasmeyer/flowy-vue/issues) or give me a Pull Request freely.
 
 ## 🐞 Bug Report
 
-If you find a bug, please report to us opening a new [Issue](https://github.com/remcoplasmeyer/shopify-draggable-vue/issues) on GitHub.
+If you find a bug, please report to us opening a new [Issue](https://github.com/remcoplasmeyer/flowy-vue/issues) on GitHub.
 
 ## 📝 License
 
-This project is [MIT](https://github.com/remcoplasmeyer/shopify-draggable-vue/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/remcoplasmeyer/flowy-vue/blob/master/LICENSE) licensed.
