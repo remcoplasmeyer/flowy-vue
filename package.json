@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build:demo": "vue-cli-service build --dest dist/demo",
+    "build:gh-pages": "vue-cli-service build --dest docs",
     "build:lib": "vue-cli-service build --target lib --dest dist/lib --name ShopifyDraggablePlugin 'src/index.js'",
     "lint": "npx eslint --ext .js,.vue src *.js",
     "release": "bash scripts/release.sh"

@@ -209,7 +209,6 @@ export default {
       this.hoveringWithDrag = false;
     },
     addNode(_event) {
-      console.log(this);
       this.$emit('added-node', _event);
     },
     onDragReceive(_event) {
