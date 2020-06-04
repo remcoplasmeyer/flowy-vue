@@ -1,18 +1,11 @@
 <template lang="html">
-  <div class="example-block bg-white">
+  <div class="block">
     example block
     <div> {{ title }}</div>
   </div>
 </template>
 
-<style lang="scss">
-  .example-block {
-    width: 320px;
-    height: 120px;
-  }
-  .bg-white {
-    background-color: #ffffff;
-  }
+<style lang="scss" scoped>
 </style>
 
 <script>

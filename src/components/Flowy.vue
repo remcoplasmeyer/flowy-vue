@@ -1,143 +1,141 @@
 <template language="html">
-  <div class="flowy">
-    <div class="flowy-tree flex flex-row flex-no-wrap relative overflow-auto">
+  <div class="flowy overflow-auto">
+    <div class="flowy-tree flex flex-row flex-no-wrap relative">
       <FlowyNode
         v-bind="{ ...$props }"
-        v-on="{...$listeners}"
+        v-on="{ ...$listeners }"
         :node="node"
         :key="node.id"
-        v-for="(node) in parentNodes">
+        v-for="node in parentNodes"
+      >
       </FlowyNode>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-    .draggable-mirror {
-      z-index: 100;
-      opacity: 0.3
-    }
+.draggable-mirror {
+  z-index: 100;
+  opacity: 0.3;
+}
 
-    .node-dropzone {
-      position:absolute;
-      width: 100%;
-      height: 128px;
-      bottom: -64px;
-    }
+.node-dropzone {
+  position: absolute;
+  width: 100%;
+  height: 128px;
+  bottom: -64px;
+}
 
-    .indicator {
-      width: 12px;
-      height: 12px;
-      border-radius: 60px;
-      background-color: #217ce8;
-      left: 50%;
-      bottom: -5px;
-      margin-top: -5px;
-      margin-left: -6px;
-      opacity: 1;
-      transition: all .3s cubic-bezier(.05, .03, .35, 1);
-      transform: scale(1);
-      position: absolute;
-      z-index: 2;
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 60px;
+  background-color: #217ce8;
+  left: 50%;
+  bottom: -5px;
+  margin-top: -5px;
+  margin-left: -6px;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.05, 0.03, 0.35, 1);
+  transform: scale(1);
+  position: absolute;
+  z-index: 2;
 
-      &:after {
-        content: "";
-        display: block;
-        width: 12px;
-        height: 12px;
-        background-color: #217ce8;
-        transform: scale(1.7);
-        opacity: .2;
-        border-radius: 60px
-      }
-    }
+  &:after {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: #217ce8;
+    transform: scale(1.7);
+    opacity: 0.2;
+    border-radius: 60px;
+  }
+}
 
-    .relative {
-      position: relative;
-    }
+.relative {
+  position: relative;
+}
 
-    .arrowblock{
-      position:absolute;
-      width:100%;
-      overflow:visible;
-      pointer-events:none;
+.arrowblock {
+  position: absolute;
+  width: 100%;
+  overflow: visible;
+  pointer-events: none;
 
-      svg {
-        width: -webkit-fill-available;
-        overflow: visible;
-      }
-    }
+  svg {
+    width: -webkit-fill-available;
+    overflow: visible;
+  }
+}
 
-    .arrowblock-down{
-      position:absolute;
-      width:100%;
-      overflow:visible;
-      pointer-events:none;
-      bottom:-155px;
+.arrowblock-down {
+  position: absolute;
+  width: 100%;
+  overflow: visible;
+  pointer-events: none;
+  top: 100%;
+  svg {
+    width: -webkit-fill-available;
+    overflow: visible;
+  }
+}
 
-      svg {
-        width: -webkit-fill-available;
-        overflow: visible;
-      }
-    }
+.-mt-64px {
+  margin-top: -64px;
+}
 
-    .-mt-64px {
-      margin-top: -64px;
-    }
+.mt-64px {
+  margin-top: 64px;
+}
 
-    .mt-64px {
-      margin-top: 64px;
-    }
+.mr-24px {
+  margin-right: 24px;
+}
 
-    .mr-24px {
-      margin-right: 24px;
-    }
+.-mr-24px {
+  margin-right: -24px;
+}
 
-    .-mr-24px {
-      margin-right: -24px;
-    }
+.justify-center {
+  justify-content: center;
+}
 
-    .justify-center {
-      justify-content: center;
-    }
+.items-center {
+  align-items: center;
+}
 
-    .items-center {
-      align-items: center;
-    }
+.flex {
+  display: flex;
+}
 
-    .flex {
-      display: flex
-    }
+.flex-row {
+  flex-direction: row;
+}
 
-    .flex-row {
-      flex-direction: row;
-    }
+.flex-col {
+  flex-direction: column;
+}
 
-    .flex-col {
-      flex-direction: column;
-    }
+.flex-no-wrap {
+  flex-wrap: nowrap;
+}
 
-    .flex-no-wrap {
-      flex-wrap: nowrap;
-    }
+.overflow-auto {
+  overflow: auto;
+}
 
-    .overflow-auto {
-      overflow: auto;
-    }
+.overflow-visible {
+  overflow: visible;
+}
 
-    .overflow-visible {
-      overflow: visible;
-    }
+.z-40 {
+  z-index: 50;
+}
 
-    .z-40 {
-      z-index: 50;
-    }
-
-    .z-50 {
-      z-index: 50;
-    }
-
-
+.z-50 {
+  z-index: 50;
+}
 </style>
 
 <script>
@@ -157,36 +155,33 @@ export default {
     },
   },
   data() {
-    return {
-
-    };
+    return {};
   },
   computed: {
     parentNodes() {
-      return filter(this.nodes, { parentId: -1 });
+      return filter(this.nodes, {
+        parentId: -1,
+      });
     },
     rows() {
-      return [
-        this.parentNodes,
-      ];
+      return [this.parentNodes];
     },
   },
-  mounted() {
-
-  },
-  destroyed() {
-
-  },
+  mounted() { },
+  destroyed() { },
   methods: {
+    onDrop(event) {
+      this.dragging = false;
+    },
+    onDragStart(event) {
+      this.dragging = true;
+    },
     getChildren(parentId) {
-      return filter(this.nodes, { parentId });
+      return filter(this.nodes, {
+        parentId,
+      });
     },
-    onDragEnd(_event) {
-
-    },
-    onDragStart(_event) {
-
-    },
+    onDragEnd(_event) { },
   },
 };
 </script>

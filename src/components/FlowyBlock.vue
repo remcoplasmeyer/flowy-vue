@@ -18,6 +18,10 @@ export default {
       type: Object,
       required: true,
     },
+    remove: {
+      type: Function,
+      required: true,
+    },
   },
   data() {
     return {
@@ -32,11 +36,11 @@ export default {
   },
   computed: {
     component() {
-      return this.node.block;
+      return this.node.nodeComponent;
       // return find(this.blocks, { name: this.node.block }).name;
     },
     passedProps() {
-      return this.node.props;
+      return this.node.data;
     },
   },
   methods: {

@@ -1,70 +1,78 @@
 <template lang="html">
   <div class="flowy-node flex flex-col flex-no-wrap items-center relative overflow-visible">
-    <!-- the node itself -->
-    <flowy-block
-      v-bind="{ ...$props, ...passedProps }"
-      ref="block"
+    <draggable
+      :with-handle="false"
+      @drop="onDrop(node, $event)"
+      :draggable-mirror="{ xAxis: false, appendTo: 'body' }"
+      group="flowy"
+      :data="{ draggingNode: node }"
     >
-      <div
-        :style="arrowBlockStyle"
-        class="arrowblock -mt-64px overflow-visible"
-        v-if="!isTopParent && mounted"
-      >
-        <svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- line -->
-          <path :d="linePath" stroke="#C5CCD0" stroke-width="2px"/>
-          <!-- arrow -->
-        </svg>
-      </div>
-
-      <div
-        :style="arrowBlockStyle"
-        class="arrowblock-down overflow-visible"
-        v-if="hasChildren && mounted"
-      >
-        <svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- line -->
-          <path :d="linePathDown" stroke="#C5CCD0" stroke-width="2px"/>
-          <!-- arrow -->
-        </svg>
-      </div>
-
-      <div class="indicator" v-show="showIndicator"></div>
-      <dropzone
+      <!-- the node itself -->
+      <flowy-block
         :data="node"
-        @enter="onEnterDrag($event)"
-        @leave="onLeaveDrag($event)"
-        @drop="onDragStop($event)"
-        @receive="onDragReceive($event)"
-        group="first_group"
-        class="node-dropzone"
+        class="draggable"
+        :remove="removeNode"
+        v-bind="{ ...$props, ...passedProps }" ref="block"
+      >
+        <div
+          :style="arrowBlockStyle"
+          class="arrowblock -mt-64px overflow-visible"
+          v-if="!isTopParent && mounted"
         >
-        <template #default="scope">
-          <div :class="scope" class="node-dropzone">
-            <div class="">This is a dropzone</div>
-          </div>
-        </template>
-      </dropzone>
-    </flowy-block>
+          <svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- line -->
+            <path :d="linePath" stroke="#C5CCD0" stroke-width="2px" />
+            <!-- arrow -->
+          </svg>
+        </div>
+
+        <div
+          :style="arrowBlockStyle"
+          class="arrowblock-down overflow-visible"
+          v-if="hasChildren && mounted"
+        >
+          <svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- line -->
+            <path :d="linePathDown" stroke="#C5CCD0" stroke-width="2px" />
+            <!-- arrow -->
+          </svg>
+        </div>
+
+        <div class="indicator" v-show="showIndicator"></div>
+        <dropzone
+          :data="{ dropzoneNode: node }"
+          @enter="onEnterDrag($event)"
+          @leave="onLeaveDrag($event)"
+          @drop="onDragStop($event)"
+          @receive="onDragReceive($event)"
+          group="first_group"
+          class="node-dropzone"
+        >
+          <template #default="scope">
+            <div :class="scope" class="node-dropzone">
+              <div class="">This is a dropzone</div>
+            </div>
+          </template>
+        </dropzone>
+      </flowy-block>
+    </draggable>
 
     <!-- children tree -->
     <div class="flowy-tree flex flex-row flex-no-wrap overflow-visible mt-64px">
       <template v-for="(child, index) in children">
-        <FlowyNode
-          v-bind="{ ...$props }"
-          v-on="{...$listeners}"
-          :index="index"
-          :total-children="children.length"
-          :node="child"
-          :ref="child.id"
-          :key="child.id"
-          :parent-x="xPos"
-        >
-        </FlowyNode>
-
-      </template>
+  <flowy-node
+    v-bind="{ ...$props }"
+    v-on="{ ...$listeners }"
+    :index="index"
+    :total-children="children.length"
+    :node="child"
+    :ref="child.id"
+    :key="child.id"
+    :parent-x="xPos"
+  >
+  </flowy-node>
+</template>
     </div>
-
   </div>
 </template>
 
@@ -72,6 +80,9 @@
 /* eslint-disable no-unused-vars */
 import find from 'lodash/find';
 import filter from 'lodash/filter';
+import isNil from 'lodash/isNil';
+import get from 'lodash/get';
+import cloneDeep from 'lodash/cloneDeep';
 
 function getOffset(el) {
   const rect = el.getBoundingClientRect();
@@ -118,9 +129,7 @@ export default {
   mounted() {
     this.mounted = true;
   },
-  destroyed() {
-
-  },
+  destroyed() { },
   updated() {
     this.$nextTick(() => {
       // Code that will run only after the
@@ -150,15 +159,14 @@ export default {
       return 64;
     },
     isOddChildren() {
-      return (Math.abs(this.totalChildren % 2) === 1);
+      return Math.abs(this.totalChildren % 2) === 1;
     },
     isMiddle() {
-      return this.isOddChildren
-       && (this.index + 1) === Math.ceil(this.totalChildren / 2);
+      return this.isOddChildren && this.index + 1 === Math.ceil(this.totalChildren / 2);
     },
     isLeftSide() {
       // if block as at the left side in the row of nodes
-      return (this.index + 1) <= Math.ceil(this.totalChildren / 2);
+      return this.index + 1 <= Math.ceil(this.totalChildren / 2);
     },
     lineStartX() {
       return this.blockWidth / 2;
@@ -183,7 +191,8 @@ export default {
       return this.node.props;
     },
     linePathDown() {
-      return `M0 0L0 ${this.lineTotalHeight / 2}L0 ${this.lineTotalHeight / 2}L0 ${this.lineTotalHeight / 2}`;
+      return `M0 0L0 ${this.lineTotalHeight / 2}L0 ${this.lineTotalHeight / 2}L0 ${this
+        .lineTotalHeight / 2}`;
     },
     linePath() {
       const height = this.lineTotalHeight / 2;
@@ -205,26 +214,63 @@ export default {
     },
   },
   methods: {
+    removeNode() {
+      this.$emit('remove', { node: this.node });
+    },
+    draggingNodeFromEvent(event) {
+      return get(event, 'oldComponent.$attrs.data.draggingNode', false);
+    },
+    dropzoneNodeFromEvent(event) {
+      return get(event, 'newComponent.$attrs.data.dropzoneNode', false);
+    },
+    blockFromNewNodeEvent(event) {
+      const data = get(event, 'oldComponent.$attrs.data', false);
+      return {
+        nodeComponent: data.componentName,
+        data: cloneDeep(data.props),
+      };
+    },
+    onDrop(node, _event) {
+      // console.log('ondrop', _event);
+      this.hoveringWithDrag = true;
+    },
     onDragStop(_event) {
+      console.log(_event);
       this.hoveringWithDrag = false;
     },
-    addNode(_event) {
-      this.$emit('added-node', _event);
-    },
-    onDragReceive(_event) {
-      this.hoveringWithDrag = false;
-      const parentNode = this.node;
-      this.$emit('added-node', {
+    newNode(newNode, parentNode) {
+      console.log('newNode', parentNode);
+      this.$emit('add', {
         node: {
           parentId: parentNode.id,
-          block: 'example-block',
-          props: {
-            text: 'Parent block',
-          },
+          ...newNode,
         },
       });
     },
+    moveNode(from, to) {
+      console.log('moveNode', from, to);
+      this.$emit('move', {
+        dragged: from,
+        to,
+      });
+    },
+    onDragReceive(_event) {
+      console.log('onDragReceive', _event);
+      this.hoveringWithDrag = false;
+
+      const draggingNode = this.draggingNodeFromEvent(_event);
+      // const dropzoneNode = this.dropzoneNodeFromEvent(_event);
+      if (draggingNode === false) {
+        // not dragging from existing node (so dragged from new node list)
+        const newNode = this.blockFromNewNodeEvent(_event);
+        this.newNode(newNode, this.node);
+      } else {
+        // dragged from existing node
+        this.moveNode(draggingNode, this.node);
+      }
+    },
     onEnterDrag(_event) {
+      console.log('onEnterDag', _event);
       this.hoveringWithDrag = true;
     },
     onLeaveDrag(_event) {
