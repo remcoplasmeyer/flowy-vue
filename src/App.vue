@@ -278,7 +278,7 @@ body {
 }
 
 .flowy {
-  background-image: url("/demo_assets/tile.png");
+  background-image: url("/flowy-vue/demo_assets/tile.png");
   background-repeat: repeat;
   background-size: 30px 30px;
   background-color: #fbfbfb;
