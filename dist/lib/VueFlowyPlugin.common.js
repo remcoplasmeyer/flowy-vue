@@ -4952,6 +4952,51 @@ module.exports = function (it) {
 
 /***/ }),
 
+/***/ "1c7e":
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__("b622");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var called = 0;
+  var iteratorWithReturn = {
+    next: function () {
+      return { done: !!called++ };
+    },
+    'return': function () {
+      SAFE_CLOSING = true;
+    }
+  };
+  iteratorWithReturn[ITERATOR] = function () {
+    return this;
+  };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(iteratorWithReturn, function () { throw 2; });
+} catch (error) { /* empty */ }
+
+module.exports = function (exec, SKIP_CLOSING) {
+  if (!SKIP_CLOSING && !SAFE_CLOSING) return false;
+  var ITERATION_SUPPORT = false;
+  try {
+    var object = {};
+    object[ITERATOR] = function () {
+      return {
+        next: function () {
+          return { done: ITERATION_SUPPORT = true };
+        }
+      };
+    };
+    exec(object);
+  } catch (error) { /* empty */ }
+  return ITERATION_SUPPORT;
+};
+
+
+/***/ }),
+
 /***/ "1d80":
 /***/ (function(module, exports) {
 
@@ -5199,6 +5244,24 @@ $({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES, sham: !CORRECT_PR
 var getBuiltIn = __webpack_require__("d066");
 
 module.exports = getBuiltIn('navigator', 'userAgent') || '';
+
+
+/***/ }),
+
+/***/ "35a1":
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__("f5df");
+var Iterators = __webpack_require__("3f8c");
+var wellKnownSymbol = __webpack_require__("b622");
+
+var ITERATOR = wellKnownSymbol('iterator');
+
+module.exports = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
 
 
 /***/ }),
@@ -5493,7 +5556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 68);
+/******/ 	return __webpack_require__(__webpack_require__.s = 66);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -5507,7 +5570,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _AbstractEvent = __webpack_require__(66);
+var _AbstractEvent = __webpack_require__(64);
 
 var _AbstractEvent2 = _interopRequireDefault(_AbstractEvent);
 
@@ -5526,7 +5589,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _AbstractPlugin = __webpack_require__(62);
+var _AbstractPlugin = __webpack_require__(60);
 
 var _AbstractPlugin2 = _interopRequireDefault(_AbstractPlugin);
 
@@ -5545,7 +5608,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _closest = __webpack_require__(53);
+var _closest = __webpack_require__(51);
 
 Object.defineProperty(exports, 'closest', {
   enumerable: true,
@@ -5554,21 +5617,12 @@ Object.defineProperty(exports, 'closest', {
   }
 });
 
-var _requestNextAnimationFrame = __webpack_require__(51);
+var _requestNextAnimationFrame = __webpack_require__(49);
 
 Object.defineProperty(exports, 'requestNextAnimationFrame', {
   enumerable: true,
   get: function () {
     return _interopRequireDefault(_requestNextAnimationFrame).default;
-  }
-});
-
-var _distance = __webpack_require__(49);
-
-Object.defineProperty(exports, 'distance', {
-  enumerable: true,
-  get: function () {
-    return _interopRequireDefault(_distance).default;
   }
 });
 
@@ -5879,7 +5933,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Announcement = __webpack_require__(64);
+var _Announcement = __webpack_require__(62);
 
 Object.defineProperty(exports, 'Announcement', {
   enumerable: true,
@@ -5894,7 +5948,7 @@ Object.defineProperty(exports, 'defaultAnnouncementOptions', {
   }
 });
 
-var _Focusable = __webpack_require__(61);
+var _Focusable = __webpack_require__(59);
 
 Object.defineProperty(exports, 'Focusable', {
   enumerable: true,
@@ -5903,7 +5957,7 @@ Object.defineProperty(exports, 'Focusable', {
   }
 });
 
-var _Mirror = __webpack_require__(59);
+var _Mirror = __webpack_require__(57);
 
 Object.defineProperty(exports, 'Mirror', {
   enumerable: true,
@@ -5918,7 +5972,7 @@ Object.defineProperty(exports, 'defaultMirrorOptions', {
   }
 });
 
-var _Scrollable = __webpack_require__(55);
+var _Scrollable = __webpack_require__(53);
 
 Object.defineProperty(exports, 'Scrollable', {
   enumerable: true,
@@ -5946,7 +6000,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _DraggableEvent = __webpack_require__(65);
+var _DraggableEvent = __webpack_require__(63);
 
 Object.keys(_DraggableEvent).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -5969,7 +6023,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _DragEvent = __webpack_require__(67);
+var _DragEvent = __webpack_require__(65);
 
 Object.keys(_DragEvent).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -7391,7 +7445,7 @@ class SortableSortEvent extends SortableEvent {
    * @readonly
    */
   get over() {
-    return this.data.over;
+    return this.data.oldIndex;
   }
 
   /**
@@ -7401,7 +7455,7 @@ class SortableSortEvent extends SortableEvent {
    * @readonly
    */
   get overContainer() {
-    return this.data.dragEvent.overContainer;
+    return this.data.newIndex;
   }
 }
 
@@ -8499,7 +8553,6 @@ const defaultOptions = exports.defaultOptions = {
   draggable: '.draggable-source',
   handle: null,
   delay: 100,
-  distance: 0,
   placedTimeout: 800,
   plugins: [],
   sensors: []
@@ -9495,8 +9548,6 @@ class DragSensor extends _Sensor2.default {
     this.trigger(container, dragStopEvent);
 
     this.dragging = false;
-    this.delayOver = false;
-    this.startEvent = null;
 
     this[reset]();
   }
@@ -9541,10 +9592,7 @@ class DragSensor extends _Sensor2.default {
       return;
     }
 
-    this.startEvent = event;
-
     this.mouseDownTimeout = setTimeout(() => {
-      this.delayOver = true;
       target.draggable = true;
       this.draggableElement = target;
     }, this.options.delay);
@@ -9627,10 +9675,9 @@ var _SensorEvent = __webpack_require__(3);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const onTouchStart = Symbol('onTouchStart');
+const onTouchHold = Symbol('onTouchHold');
 const onTouchEnd = Symbol('onTouchEnd');
 const onTouchMove = Symbol('onTouchMove');
-const startDrag = Symbol('startDrag');
-const onDistanceChange = Symbol('onDistanceChange');
 
 /**
  * Prevents scrolling when set to true
@@ -9686,10 +9733,9 @@ class TouchSensor extends _Sensor2.default {
     this.touchMoved = false;
 
     this[onTouchStart] = this[onTouchStart].bind(this);
+    this[onTouchHold] = this[onTouchHold].bind(this);
     this[onTouchEnd] = this[onTouchEnd].bind(this);
     this[onTouchMove] = this[onTouchMove].bind(this);
-    this[startDrag] = this[startDrag].bind(this);
-    this[onDistanceChange] = this[onDistanceChange].bind(this);
   }
 
   /**
@@ -9718,69 +9764,43 @@ class TouchSensor extends _Sensor2.default {
       return;
     }
 
-    this.startEvent = event;
-
     document.addEventListener('touchmove', this[onTouchMove]);
     document.addEventListener('touchend', this[onTouchEnd]);
     document.addEventListener('touchcancel', this[onTouchEnd]);
-    document.addEventListener('touchmove', this[onDistanceChange]);
     container.addEventListener('contextmenu', onContextMenu);
 
-    if (this.options.distance) {
-      preventScrolling = true;
-    }
-
     this.currentContainer = container;
-    this.tapTimeout = setTimeout(() => {
-      this.delayOver = true;
-      if (this.touchMoved || this.distance < this.options.distance) {
+    this.tapTimeout = setTimeout(this[onTouchHold](event, container), this.options.delay);
+  }
+
+  /**
+   * Touch hold handler
+   * @private
+   * @param {Event} event - Touch start event
+   * @param {HTMLElement} container - Container element
+   */
+  [onTouchHold](event, container) {
+    return () => {
+      if (this.touchMoved) {
         return;
       }
-      this[startDrag]();
-    }, this.options.delay);
-  }
 
-  /**
-   * Start the drag
-   * @private
-   */
-  [startDrag]() {
-    const startEvent = this.startEvent;
-    const container = this.currentContainer;
-    const touch = startEvent.touches[0] || startEvent.changedTouches[0];
+      const touch = event.touches[0] || event.changedTouches[0];
+      const target = event.target;
 
-    const dragStartEvent = new _SensorEvent.DragStartSensorEvent({
-      clientX: touch.pageX,
-      clientY: touch.pageY,
-      target: startEvent.target,
-      container,
-      originalEvent: startEvent
-    });
+      const dragStartEvent = new _SensorEvent.DragStartSensorEvent({
+        clientX: touch.pageX,
+        clientY: touch.pageY,
+        target,
+        container,
+        originalEvent: event
+      });
 
-    this.trigger(this.currentContainer, dragStartEvent);
+      this.trigger(container, dragStartEvent);
 
-    this.dragging = !dragStartEvent.canceled();
-    preventScrolling = this.dragging;
-  }
-
-  /**
-   * Detect change in distance
-   * @private
-   * @param {Event} event - Touch move event
-   */
-  [onDistanceChange](event) {
-    if (this.dragging || !this.options.distance) {
-      return;
-    }
-
-    const tap = this.startEvent.touches[0] || this.startEvent.changedTouches[0];
-    const touch = event.touches[0] || event.changedTouches[0];
-
-    this.distance = (0, _utils.distance)(tap.pageX, tap.pageY, touch.pageX, touch.pageY);
-
-    if (this.delayOver && this.distance >= this.options.distance) {
-      this[startDrag]();
-    }
+      this.dragging = !dragStartEvent.canceled();
+      preventScrolling = this.dragging;
+    };
   }
 
   /**
@@ -9821,7 +9841,6 @@ class TouchSensor extends _Sensor2.default {
     document.removeEventListener('touchend', this[onTouchEnd]);
     document.removeEventListener('touchcancel', this[onTouchEnd]);
     document.removeEventListener('touchmove', this[onTouchMove]);
-    document.removeEventListener('touchmove', this[onDistanceChange]);
 
     if (this.currentContainer) {
       this.currentContainer.removeEventListener('contextmenu', onContextMenu);
@@ -9850,9 +9869,6 @@ class TouchSensor extends _Sensor2.default {
 
     this.currentContainer = null;
     this.dragging = false;
-    this.distance = 0;
-    this.delayOver = false;
-    this.startEvent = null;
   }
 }
 
@@ -10034,8 +10050,6 @@ const onContextMenuWhileDragging = Symbol('onContextMenuWhileDragging');
 const onMouseDown = Symbol('onMouseDown');
 const onMouseMove = Symbol('onMouseMove');
 const onMouseUp = Symbol('onMouseUp');
-const startDrag = Symbol('startDrag');
-const onDistanceChange = Symbol('onDistanceChange');
 
 /**
  * This sensor picks up native browser mouse events and dictates drag operations
@@ -10054,18 +10068,30 @@ class MouseSensor extends _Sensor2.default {
     super(containers, options);
 
     /**
+     * Indicates if mouse button is still down
+     * @property mouseDown
+     * @type {Boolean}
+     */
+    this.mouseDown = false;
+
+    /**
      * Mouse down timer which will end up triggering the drag start operation
      * @property mouseDownTimeout
      * @type {Number}
      */
     this.mouseDownTimeout = null;
 
+    /**
+     * Indicates if context menu has been opened during drag operation
+     * @property openedContextMenu
+     * @type {Boolean}
+     */
+    this.openedContextMenu = false;
+
     this[onContextMenuWhileDragging] = this[onContextMenuWhileDragging].bind(this);
     this[onMouseDown] = this[onMouseDown].bind(this);
     this[onMouseMove] = this[onMouseMove].bind(this);
     this[onMouseUp] = this[onMouseUp].bind(this);
-    this[startDrag] = this[startDrag].bind(this);
-    this[onDistanceChange] = this[onDistanceChange].bind(this);
   }
 
   /**
@@ -10092,12 +10118,10 @@ class MouseSensor extends _Sensor2.default {
       return;
     }
 
-    this.startEvent = event;
-
     document.addEventListener('mouseup', this[onMouseUp]);
-    document.addEventListener('mousemove', this[onDistanceChange]);
 
-    const container = (0, _utils.closest)(event.target, this.containers);
+    const target = document.elementFromPoint(event.clientX, event.clientY);
+    const container = (0, _utils.closest)(target, this.containers);
 
     if (!container) {
       return;
@@ -10105,54 +10129,32 @@ class MouseSensor extends _Sensor2.default {
 
     document.addEventListener('dragstart', preventNativeDragStart);
 
-    this.currentContainer = container;
+    this.mouseDown = true;
+
+    clearTimeout(this.mouseDownTimeout);
     this.mouseDownTimeout = setTimeout(() => {
-      this.delayOver = true;
-      if (this.distance < this.options.distance) {
+      if (!this.mouseDown) {
         return;
       }
-      this[startDrag]();
+
+      const dragStartEvent = new _SensorEvent.DragStartSensorEvent({
+        clientX: event.clientX,
+        clientY: event.clientY,
+        target,
+        container,
+        originalEvent: event
+      });
+
+      this.trigger(container, dragStartEvent);
+
+      this.currentContainer = container;
+      this.dragging = !dragStartEvent.canceled();
+
+      if (this.dragging) {
+        document.addEventListener('contextmenu', this[onContextMenuWhileDragging]);
+        document.addEventListener('mousemove', this[onMouseMove]);
+      }
     }, this.options.delay);
-  }
-
-  /**
-   * Start the drag
-   * @private
-   */
-  [startDrag]() {
-    const startEvent = this.startEvent;
-    const container = this.currentContainer;
-
-    const dragStartEvent = new _SensorEvent.DragStartSensorEvent({
-      clientX: startEvent.clientX,
-      clientY: startEvent.clientY,
-      target: startEvent.target,
-      container,
-      originalEvent: startEvent
-    });
-
-    this.trigger(this.currentContainer, dragStartEvent);
-
-    this.dragging = !dragStartEvent.canceled();
-
-    if (this.dragging) {
-      document.addEventListener('contextmenu', this[onContextMenuWhileDragging], true);
-      document.addEventListener('mousemove', this[onMouseMove]);
-    }
-  }
-
-  /**
-   * Detect change in distance
-   * @private
-   * @param {Event} event - Mouse move event
-   */
-  [onDistanceChange](event) {
-    if (this.dragging) return;
-    this.distance = (0, _utils.distance)(this.startEvent.pageX, this.startEvent.pageY, event.pageX, event.pageY);
-
-    if (this.delayOver && this.distance >= this.options.distance) {
-      this[startDrag]();
-    }
   }
 
   /**
@@ -10184,15 +10186,15 @@ class MouseSensor extends _Sensor2.default {
    * @param {Event} event - Mouse up event
    */
   [onMouseUp](event) {
-    clearTimeout(this.mouseDownTimeout);
+    this.mouseDown = Boolean(this.openedContextMenu);
 
-    if (event.button !== 0) {
+    if (this.openedContextMenu) {
+      this.openedContextMenu = false;
       return;
     }
 
     document.removeEventListener('mouseup', this[onMouseUp]);
     document.removeEventListener('dragstart', preventNativeDragStart);
-    document.removeEventListener('mousemove', this[onDistanceChange]);
 
     if (!this.dragging) {
       return;
@@ -10210,14 +10212,11 @@ class MouseSensor extends _Sensor2.default {
 
     this.trigger(this.currentContainer, dragStopEvent);
 
-    document.removeEventListener('contextmenu', this[onContextMenuWhileDragging], true);
+    document.removeEventListener('contextmenu', this[onContextMenuWhileDragging]);
     document.removeEventListener('mousemove', this[onMouseMove]);
 
     this.currentContainer = null;
     this.dragging = false;
-    this.distance = 0;
-    this.delayOver = false;
-    this.startEvent = null;
   }
 
   /**
@@ -10227,6 +10226,7 @@ class MouseSensor extends _Sensor2.default {
    */
   [onContextMenuWhileDragging](event) {
     event.preventDefault();
+    this.openedContextMenu = true;
   }
 }
 
@@ -10307,27 +10307,6 @@ class Sensor {
      * @type {HTMLElement}
      */
     this.currentContainer = null;
-
-    /**
-     * The distance moved from the first pointer down location, no longer updated after the drag has started
-     * @property distance
-     * @type {Number}
-     */
-    this.distance = 0;
-
-    /**
-     * Indicates whether the delay has ended
-     * @property delayOver
-     * @type {Boolean}
-     */
-    this.delayOver = false;
-
-    /**
-     * The event of the initial sensor down
-     * @property startEvent
-     * @type {Event}
-     */
-    this.startEvent = null;
   }
 
   /**
@@ -10391,17 +10370,11 @@ exports.default = Sensor;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = distance;
-/**
- * Returns the distance between two points
- * @param  {Number} x1 The X position of the first point
- * @param  {Number} y1 The Y position of the first point
- * @param  {Number} x2 The X position of the second point
- * @param  {Number} y2 The Y position of the second point
- * @return {Number}
- */
-function distance(x1, y1, x2, y2) {
-  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+exports.default = requestNextAnimationFrame;
+function requestNextAnimationFrame(callback) {
+  return requestAnimationFrame(() => {
+    requestAnimationFrame(callback);
+  });
 }
 
 /***/ }),
@@ -10415,43 +10388,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _distance = __webpack_require__(48);
-
-var _distance2 = _interopRequireDefault(_distance);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _distance2.default;
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = requestNextAnimationFrame;
-function requestNextAnimationFrame(callback) {
-  return requestAnimationFrame(() => {
-    requestAnimationFrame(callback);
-  });
-}
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _requestNextAnimationFrame = __webpack_require__(50);
+var _requestNextAnimationFrame = __webpack_require__(48);
 
 var _requestNextAnimationFrame2 = _interopRequireDefault(_requestNextAnimationFrame);
 
@@ -10460,7 +10397,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _requestNextAnimationFrame2.default;
 
 /***/ }),
-/* 52 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10528,7 +10465,7 @@ function closest(element, value) {
 }
 
 /***/ }),
-/* 53 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10538,7 +10475,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _closest = __webpack_require__(52);
+var _closest = __webpack_require__(50);
 
 var _closest2 = _interopRequireDefault(_closest);
 
@@ -10547,7 +10484,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _closest2.default;
 
 /***/ }),
-/* 54 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10869,7 +10806,7 @@ function getDocumentScrollingElement() {
 }
 
 /***/ }),
-/* 55 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10880,7 +10817,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultOptions = undefined;
 
-var _Scrollable = __webpack_require__(54);
+var _Scrollable = __webpack_require__(52);
 
 var _Scrollable2 = _interopRequireDefault(_Scrollable);
 
@@ -10890,7 +10827,7 @@ exports.default = _Scrollable2.default;
 exports.defaultOptions = _Scrollable.defaultOptions;
 
 /***/ }),
-/* 56 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11049,24 +10986,6 @@ class MirrorMoveEvent extends MirrorEvent {
   get mirror() {
     return this.data.mirror;
   }
-
-  /**
-   * Sensor has exceeded mirror's threshold on x axis
-   * @type {Boolean}
-   * @readonly
-   */
-  get passedThreshX() {
-    return this.data.passedThreshX;
-  }
-
-  /**
-   * Sensor has exceeded mirror's threshold on y axis
-   * @type {Boolean}
-   * @readonly
-   */
-  get passedThreshY() {
-    return this.data.passedThreshY;
-  }
 }
 
 exports.MirrorMoveEvent = MirrorMoveEvent; /**
@@ -11095,7 +11014,7 @@ MirrorDestroyEvent.type = 'mirror:destroy';
 MirrorDestroyEvent.cancelable = true;
 
 /***/ }),
-/* 57 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11105,7 +11024,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MirrorEvent = __webpack_require__(56);
+var _MirrorEvent = __webpack_require__(54);
 
 Object.keys(_MirrorEvent).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -11118,7 +11037,7 @@ Object.keys(_MirrorEvent).forEach(function (key) {
 });
 
 /***/ }),
-/* 58 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11135,7 +11054,7 @@ var _AbstractPlugin = __webpack_require__(1);
 
 var _AbstractPlugin2 = _interopRequireDefault(_AbstractPlugin);
 
-var _MirrorEvent = __webpack_require__(57);
+var _MirrorEvent = __webpack_require__(55);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11164,9 +11083,7 @@ const defaultOptions = exports.defaultOptions = {
   xAxis: true,
   yAxis: true,
   cursorOffsetX: null,
-  cursorOffsetY: null,
-  thresholdX: null,
-  thresholdY: null
+  cursorOffsetY: null
 };
 
 /**
@@ -11262,12 +11179,6 @@ class Mirror extends _AbstractPlugin2.default {
 
     const { source, originalSource, sourceContainer, sensorEvent } = dragEvent;
 
-    // Last sensor position of mirror move
-    this.lastMirrorMovedClient = {
-      x: sensorEvent.clientX,
-      y: sensorEvent.clientY
-    };
-
     const mirrorCreateEvent = new _MirrorEvent.MirrorCreateEvent({
       source,
       originalSource,
@@ -11315,38 +11226,13 @@ class Mirror extends _AbstractPlugin2.default {
 
     const { source, originalSource, sourceContainer, sensorEvent } = dragEvent;
 
-    let passedThreshX = true;
-    let passedThreshY = true;
-
-    if (this.options.thresholdX || this.options.thresholdY) {
-      const { x: lastX, y: lastY } = this.lastMirrorMovedClient;
-
-      if (Math.abs(lastX - sensorEvent.clientX) < this.options.thresholdX) {
-        passedThreshX = false;
-      } else {
-        this.lastMirrorMovedClient.x = sensorEvent.clientX;
-      }
-
-      if (Math.abs(lastY - sensorEvent.clientY) < this.options.thresholdY) {
-        passedThreshY = false;
-      } else {
-        this.lastMirrorMovedClient.y = sensorEvent.clientY;
-      }
-
-      if (!passedThreshX && !passedThreshY) {
-        return;
-      }
-    }
-
     const mirrorMoveEvent = new _MirrorEvent.MirrorMoveEvent({
       source,
       originalSource,
       sourceContainer,
       sensorEvent,
       dragEvent,
-      mirror: this.mirror,
-      passedThreshX,
-      passedThreshY
+      mirror: this.mirror
     });
 
     this.draggable.trigger(mirrorMoveEvent);
@@ -11404,8 +11290,6 @@ class Mirror extends _AbstractPlugin2.default {
       this.mirrorOffset = mirrorOffset;
       this.initialX = initialX;
       this.initialY = initialY;
-      this.lastMovedX = initialX;
-      this.lastMovedY = initialY;
       return _extends({ mirrorOffset, initialX, initialY }, args);
     };
 
@@ -11415,9 +11299,7 @@ class Mirror extends _AbstractPlugin2.default {
       sensorEvent,
       mirrorClass,
       scrollOffset: this.scrollOffset,
-      options: this.options,
-      passedThreshX: true,
-      passedThreshY: true
+      options: this.options
     };
 
     return Promise.resolve(initialState)
@@ -11436,16 +11318,6 @@ class Mirror extends _AbstractPlugin2.default {
       return null;
     }
 
-    const setState = (_ref2) => {
-      let { lastMovedX, lastMovedY } = _ref2,
-          args = _objectWithoutProperties(_ref2, ['lastMovedX', 'lastMovedY']);
-
-      this.lastMovedX = lastMovedX;
-      this.lastMovedY = lastMovedY;
-
-      return _extends({ lastMovedX, lastMovedY }, args);
-    };
-
     const initialState = {
       mirror: mirrorEvent.mirror,
       sensorEvent: mirrorEvent.sensorEvent,
@@ -11453,14 +11325,10 @@ class Mirror extends _AbstractPlugin2.default {
       options: this.options,
       initialX: this.initialX,
       initialY: this.initialY,
-      scrollOffset: this.scrollOffset,
-      passedThreshX: mirrorEvent.passedThreshX,
-      passedThreshY: mirrorEvent.passedThreshY,
-      lastMovedX: this.lastMovedX,
-      lastMovedY: this.lastMovedY
+      scrollOffset: this.scrollOffset
     };
 
-    return Promise.resolve(initialState).then(positionMirror({ raf: true })).then(setState);
+    return Promise.resolve(initialState).then(positionMirror({ raf: true }));
   }
 
   /**
@@ -11494,9 +11362,9 @@ exports.default = Mirror; /**
                            * @private
                            */
 
-function computeMirrorDimensions(_ref3) {
-  let { source } = _ref3,
-      args = _objectWithoutProperties(_ref3, ['source']);
+function computeMirrorDimensions(_ref2) {
+  let { source } = _ref2,
+      args = _objectWithoutProperties(_ref2, ['source']);
 
   return withPromise(resolve => {
     const sourceRect = source.getBoundingClientRect();
@@ -11513,9 +11381,9 @@ function computeMirrorDimensions(_ref3) {
  * @return {Promise}
  * @private
  */
-function calculateMirrorOffset(_ref4) {
-  let { sensorEvent, sourceRect, options } = _ref4,
-      args = _objectWithoutProperties(_ref4, ['sensorEvent', 'sourceRect', 'options']);
+function calculateMirrorOffset(_ref3) {
+  let { sensorEvent, sourceRect, options } = _ref3,
+      args = _objectWithoutProperties(_ref3, ['sensorEvent', 'sourceRect', 'options']);
 
   return withPromise(resolve => {
     const top = options.cursorOffsetY === null ? sensorEvent.clientY - sourceRect.top : options.cursorOffsetY;
@@ -11536,9 +11404,9 @@ function calculateMirrorOffset(_ref4) {
  * @return {Promise}
  * @private
  */
-function resetMirror(_ref5) {
-  let { mirror, source, options } = _ref5,
-      args = _objectWithoutProperties(_ref5, ['mirror', 'source', 'options']);
+function resetMirror(_ref4) {
+  let { mirror, source, options } = _ref4,
+      args = _objectWithoutProperties(_ref4, ['mirror', 'source', 'options']);
 
   return withPromise(resolve => {
     let offsetHeight;
@@ -11573,9 +11441,9 @@ function resetMirror(_ref5) {
  * @return {Promise}
  * @private
  */
-function addMirrorClasses(_ref6) {
-  let { mirror, mirrorClass } = _ref6,
-      args = _objectWithoutProperties(_ref6, ['mirror', 'mirrorClass']);
+function addMirrorClasses(_ref5) {
+  let { mirror, mirrorClass } = _ref5,
+      args = _objectWithoutProperties(_ref5, ['mirror', 'mirrorClass']);
 
   return withPromise(resolve => {
     mirror.classList.add(mirrorClass);
@@ -11590,9 +11458,9 @@ function addMirrorClasses(_ref6) {
  * @return {Promise}
  * @private
  */
-function removeMirrorID(_ref7) {
-  let { mirror } = _ref7,
-      args = _objectWithoutProperties(_ref7, ['mirror']);
+function removeMirrorID(_ref6) {
+  let { mirror } = _ref6,
+      args = _objectWithoutProperties(_ref6, ['mirror']);
 
   return withPromise(resolve => {
     mirror.removeAttribute('id');
@@ -11614,21 +11482,9 @@ function removeMirrorID(_ref7) {
  * @private
  */
 function positionMirror({ withFrame = false, initial = false } = {}) {
-  return (_ref8) => {
-    let {
-      mirror,
-      sensorEvent,
-      mirrorOffset,
-      initialY,
-      initialX,
-      scrollOffset,
-      options,
-      passedThreshX,
-      passedThreshY,
-      lastMovedX,
-      lastMovedY
-    } = _ref8,
-        args = _objectWithoutProperties(_ref8, ['mirror', 'sensorEvent', 'mirrorOffset', 'initialY', 'initialX', 'scrollOffset', 'options', 'passedThreshX', 'passedThreshY', 'lastMovedX', 'lastMovedY']);
+  return (_ref7) => {
+    let { mirror, sensorEvent, mirrorOffset, initialY, initialX, scrollOffset, options } = _ref7,
+        args = _objectWithoutProperties(_ref7, ['mirror', 'sensorEvent', 'mirrorOffset', 'initialY', 'initialX', 'scrollOffset', 'options']);
 
     return withPromise(resolve => {
       const result = _extends({
@@ -11639,8 +11495,8 @@ function positionMirror({ withFrame = false, initial = false } = {}) {
       }, args);
 
       if (mirrorOffset) {
-        const x = passedThreshX ? Math.round((sensorEvent.clientX - mirrorOffset.left - scrollOffset.x) / (options.thresholdX || 1)) * (options.thresholdX || 1) : lastMovedX;
-        const y = passedThreshY ? Math.round((sensorEvent.clientY - mirrorOffset.top - scrollOffset.y) / (options.thresholdY || 1)) * (options.thresholdY || 1) : lastMovedY;
+        const x = sensorEvent.clientX - mirrorOffset.left - scrollOffset.x;
+        const y = sensorEvent.clientY - mirrorOffset.top - scrollOffset.y;
 
         if (options.xAxis && options.yAxis || initial) {
           mirror.style.transform = `translate3d(${x}px, ${y}px, 0)`;
@@ -11654,9 +11510,6 @@ function positionMirror({ withFrame = false, initial = false } = {}) {
           result.initialX = x;
           result.initialY = y;
         }
-
-        result.lastMovedX = x;
-        result.lastMovedY = y;
       }
 
       resolve(result);
@@ -11694,7 +11547,7 @@ function isNativeDragEvent(sensorEvent) {
 }
 
 /***/ }),
-/* 59 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11705,7 +11558,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultOptions = undefined;
 
-var _Mirror = __webpack_require__(58);
+var _Mirror = __webpack_require__(56);
 
 var _Mirror2 = _interopRequireDefault(_Mirror);
 
@@ -11715,7 +11568,7 @@ exports.default = _Mirror2.default;
 exports.defaultOptions = _Mirror.defaultOptions;
 
 /***/ }),
-/* 60 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11860,7 +11713,7 @@ function stripElement(element) {
 }
 
 /***/ }),
-/* 61 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11870,7 +11723,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Focusable = __webpack_require__(60);
+var _Focusable = __webpack_require__(58);
 
 var _Focusable2 = _interopRequireDefault(_Focusable);
 
@@ -11879,7 +11732,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _Focusable2.default;
 
 /***/ }),
-/* 62 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11928,7 +11781,7 @@ class AbstractPlugin {
 exports.default = AbstractPlugin;
 
 /***/ }),
-/* 63 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12123,7 +11976,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /***/ }),
-/* 64 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12134,7 +11987,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.defaultOptions = undefined;
 
-var _Announcement = __webpack_require__(63);
+var _Announcement = __webpack_require__(61);
 
 var _Announcement2 = _interopRequireDefault(_Announcement);
 
@@ -12144,7 +11997,7 @@ exports.default = _Announcement2.default;
 exports.defaultOptions = _Announcement.defaultOptions;
 
 /***/ }),
-/* 65 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12203,7 +12056,7 @@ exports.DraggableDestroyEvent = DraggableDestroyEvent;
 DraggableDestroyEvent.type = 'draggable:destroy';
 
 /***/ }),
-/* 66 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12304,7 +12157,7 @@ AbstractEvent.type = 'event';
 AbstractEvent.cancelable = false;
 
 /***/ }),
-/* 67 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12554,7 +12407,7 @@ exports.DragStopEvent = DragStopEvent;
 DragStopEvent.type = 'drag:stop';
 
 /***/ }),
-/* 68 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12765,6 +12618,55 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
     return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
+
+
+/***/ }),
+
+/***/ "4df4":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var bind = __webpack_require__("0366");
+var toObject = __webpack_require__("7b0b");
+var callWithSafeIterationClosing = __webpack_require__("9bdd");
+var isArrayIteratorMethod = __webpack_require__("e95a");
+var toLength = __webpack_require__("50c4");
+var createProperty = __webpack_require__("8418");
+var getIteratorMethod = __webpack_require__("35a1");
+
+// `Array.from` method implementation
+// https://tc39.github.io/ecma262/#sec-array.from
+module.exports = function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+  var O = toObject(arrayLike);
+  var C = typeof this == 'function' ? this : Array;
+  var argumentsLength = arguments.length;
+  var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
+  var mapping = mapfn !== undefined;
+  var iteratorMethod = getIteratorMethod(O);
+  var index = 0;
+  var length, result, step, iterator, next, value;
+  if (mapping) mapfn = bind(mapfn, argumentsLength > 2 ? arguments[2] : undefined, 2);
+  // if the target is not iterable or it's an array with the default iterator - use a simple case
+  if (iteratorMethod != undefined && !(C == Array && isArrayIteratorMethod(iteratorMethod))) {
+    iterator = iteratorMethod.call(O);
+    next = iterator.next;
+    result = new C();
+    for (;!(step = next.call(iterator)).done; index++) {
+      value = mapping ? callWithSafeIterationClosing(iterator, mapfn, [step.value, index], true) : step.value;
+      createProperty(result, index, value);
+    }
+  } else {
+    length = toLength(O.length);
+    result = new C(length);
+    for (;length > index; index++) {
+      value = mapping ? mapfn(O[index], index) : O[index];
+      createProperty(result, index, value);
+    }
+  }
+  result.length = index;
+  return result;
+};
 
 
 /***/ }),
@@ -13173,6 +13075,38 @@ module.exports = Object.create || function create(O, Properties) {
 
 /***/ }),
 
+/***/ "7db0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $find = __webpack_require__("b727").find;
+var addToUnscopables = __webpack_require__("44d2");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var FIND = 'find';
+var SKIPS_HOLES = true;
+
+var USES_TO_LENGTH = arrayMethodUsesToLength(FIND);
+
+// Shouldn't skip holes
+if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false; });
+
+// `Array.prototype.find` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.find
+$({ target: 'Array', proto: true, forced: SKIPS_HOLES || !USES_TO_LENGTH }, {
+  find: function find(callbackfn /* , that = undefined */) {
+    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables(FIND);
+
+
+/***/ }),
+
 /***/ "7dd0":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13494,6 +13428,94 @@ module.exports = isForced;
 
 /***/ }),
 
+/***/ "99af":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var fails = __webpack_require__("d039");
+var isArray = __webpack_require__("e8b5");
+var isObject = __webpack_require__("861d");
+var toObject = __webpack_require__("7b0b");
+var toLength = __webpack_require__("50c4");
+var createProperty = __webpack_require__("8418");
+var arraySpeciesCreate = __webpack_require__("65f0");
+var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+var wellKnownSymbol = __webpack_require__("b622");
+var V8_VERSION = __webpack_require__("2d00");
+
+var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
+var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded';
+
+// We can't use this feature detection in V8 since it causes
+// deoptimization and serious performance degradation
+// https://github.com/zloirock/core-js/issues/679
+var IS_CONCAT_SPREADABLE_SUPPORT = V8_VERSION >= 51 || !fails(function () {
+  var array = [];
+  array[IS_CONCAT_SPREADABLE] = false;
+  return array.concat()[0] !== array;
+});
+
+var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('concat');
+
+var isConcatSpreadable = function (O) {
+  if (!isObject(O)) return false;
+  var spreadable = O[IS_CONCAT_SPREADABLE];
+  return spreadable !== undefined ? !!spreadable : isArray(O);
+};
+
+var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
+
+// `Array.prototype.concat` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.concat
+// with adding support of @@isConcatSpreadable and @@species
+$({ target: 'Array', proto: true, forced: FORCED }, {
+  concat: function concat(arg) { // eslint-disable-line no-unused-vars
+    var O = toObject(this);
+    var A = arraySpeciesCreate(O, 0);
+    var n = 0;
+    var i, k, length, len, E;
+    for (i = -1, length = arguments.length; i < length; i++) {
+      E = i === -1 ? O : arguments[i];
+      if (isConcatSpreadable(E)) {
+        len = toLength(E.length);
+        if (n + len > MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+        for (k = 0; k < len; k++, n++) if (k in E) createProperty(A, n, E[k]);
+      } else {
+        if (n >= MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+        createProperty(A, n++, E);
+      }
+    }
+    A.length = n;
+    return A;
+  }
+});
+
+
+/***/ }),
+
+/***/ "9bdd":
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__("825a");
+
+// call something on iterator step with safe closing on error
+module.exports = function (iterator, fn, value, ENTRIES) {
+  try {
+    return ENTRIES ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (error) {
+    var returnMethod = iterator['return'];
+    if (returnMethod !== undefined) anObject(returnMethod.call(iterator));
+    throw error;
+  }
+};
+
+
+/***/ }),
+
 /***/ "9bf2":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13541,6 +13563,84 @@ module.exports = function (IteratorConstructor, NAME, next) {
   Iterators[TO_STRING_TAG] = returnThis;
   return IteratorConstructor;
 };
+
+
+/***/ }),
+
+/***/ "a434":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var toAbsoluteIndex = __webpack_require__("23cb");
+var toInteger = __webpack_require__("a691");
+var toLength = __webpack_require__("50c4");
+var toObject = __webpack_require__("7b0b");
+var arraySpeciesCreate = __webpack_require__("65f0");
+var createProperty = __webpack_require__("8418");
+var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
+var USES_TO_LENGTH = arrayMethodUsesToLength('splice', { ACCESSORS: true, 0: 0, 1: 2 });
+
+var max = Math.max;
+var min = Math.min;
+var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+var MAXIMUM_ALLOWED_LENGTH_EXCEEDED = 'Maximum allowed length exceeded';
+
+// `Array.prototype.splice` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.splice
+// with adding support of @@species
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+  splice: function splice(start, deleteCount /* , ...items */) {
+    var O = toObject(this);
+    var len = toLength(O.length);
+    var actualStart = toAbsoluteIndex(start, len);
+    var argumentsLength = arguments.length;
+    var insertCount, actualDeleteCount, A, k, from, to;
+    if (argumentsLength === 0) {
+      insertCount = actualDeleteCount = 0;
+    } else if (argumentsLength === 1) {
+      insertCount = 0;
+      actualDeleteCount = len - actualStart;
+    } else {
+      insertCount = argumentsLength - 2;
+      actualDeleteCount = min(max(toInteger(deleteCount), 0), len - actualStart);
+    }
+    if (len + insertCount - actualDeleteCount > MAX_SAFE_INTEGER) {
+      throw TypeError(MAXIMUM_ALLOWED_LENGTH_EXCEEDED);
+    }
+    A = arraySpeciesCreate(O, actualDeleteCount);
+    for (k = 0; k < actualDeleteCount; k++) {
+      from = actualStart + k;
+      if (from in O) createProperty(A, k, O[from]);
+    }
+    A.length = actualDeleteCount;
+    if (insertCount < actualDeleteCount) {
+      for (k = actualStart; k < len - actualDeleteCount; k++) {
+        from = k + actualDeleteCount;
+        to = k + insertCount;
+        if (from in O) O[to] = O[from];
+        else delete O[to];
+      }
+      for (k = len; k > len - actualDeleteCount + insertCount; k--) delete O[k - 1];
+    } else if (insertCount > actualDeleteCount) {
+      for (k = len - actualDeleteCount; k > actualStart; k--) {
+        from = k + actualDeleteCount - 1;
+        to = k + insertCount - 1;
+        if (from in O) O[to] = O[from];
+        else delete O[to];
+      }
+    }
+    for (k = 0; k < insertCount; k++) {
+      O[k + actualStart] = arguments[k + 2];
+    }
+    O.length = len - actualDeleteCount + insertCount;
+    return A;
+  }
+});
 
 
 /***/ }),
@@ -13864,6 +13964,26 @@ hiddenKeys[HIDDEN] = true;
 
 /***/ }),
 
+/***/ "a630":
+/***/ (function(module, exports, __webpack_require__) {
+
+var $ = __webpack_require__("23e7");
+var from = __webpack_require__("4df4");
+var checkCorrectnessOfIteration = __webpack_require__("1c7e");
+
+var INCORRECT_ITERATION = !checkCorrectnessOfIteration(function (iterable) {
+  Array.from(iterable);
+});
+
+// `Array.from` method
+// https://tc39.github.io/ecma262/#sec-array.from
+$({ target: 'Array', stat: true, forced: INCORRECT_ITERATION }, {
+  from: from
+});
+
+
+/***/ }),
+
 /***/ "a640":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14035,6 +14155,35 @@ var classof = __webpack_require__("f5df");
 module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
   return '[object ' + classof(this) + ']';
 };
+
+
+/***/ }),
+
+/***/ "b0c0":
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__("83ab");
+var defineProperty = __webpack_require__("9bf2").f;
+
+var FunctionPrototype = Function.prototype;
+var FunctionPrototypeToString = FunctionPrototype.toString;
+var nameRE = /^\s*function ([^ (]*)/;
+var NAME = 'name';
+
+// Function instances `.name` property
+// https://tc39.github.io/ecma262/#sec-function-instances-name
+if (DESCRIPTORS && !(NAME in FunctionPrototype)) {
+  defineProperty(FunctionPrototype, NAME, {
+    configurable: true,
+    get: function () {
+      try {
+        return FunctionPrototypeToString.call(this).match(nameRE)[1];
+      } catch (error) {
+        return '';
+      }
+    }
+  });
+}
 
 
 /***/ }),
@@ -14234,6 +14383,36 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+
+/***/ }),
+
+/***/ "c975":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var $indexOf = __webpack_require__("4d64").indexOf;
+var arrayMethodIsStrict = __webpack_require__("a640");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var nativeIndexOf = [].indexOf;
+
+var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
+var STRICT_METHOD = arrayMethodIsStrict('indexOf');
+var USES_TO_LENGTH = arrayMethodUsesToLength('indexOf', { ACCESSORS: true, 1: 0 });
+
+// `Array.prototype.indexOf` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.indexof
+$({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD || !USES_TO_LENGTH }, {
+  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
+    return NEGATIVE_ZERO
+      // convert -0 to +0
+      ? nativeIndexOf.apply(this, arguments) || 0
+      : $indexOf(this, searchElement, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
 
 
 /***/ }),
@@ -14792,6 +14971,23 @@ module.exports = Array.isArray || function isArray(arg) {
 
 /***/ }),
 
+/***/ "e95a":
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__("b622");
+var Iterators = __webpack_require__("3f8c");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var ArrayPrototype = Array.prototype;
+
+// check on default Array iterator
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayPrototype[ITERATOR] === it);
+};
+
+
+/***/ }),
+
 /***/ "f5df":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15172,6 +15368,103 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var Dropzone = (component.exports);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
+var es_array_concat = __webpack_require__("99af");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.find.js
+var es_array_find = __webpack_require__("7db0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.index-of.js
+var es_array_index_of = __webpack_require__("c975");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.slice.js
+var es_array_slice = __webpack_require__("fb6a");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.splice.js
+var es_array_splice = __webpack_require__("a434");
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
+var es_symbol_description = __webpack_require__("e01a");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.iterator.js
+var es_symbol_iterator = __webpack_require__("d28b");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.from.js
+var es_array_from = __webpack_require__("a630");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
+var es_array_iterator = __webpack_require__("e260");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__("d3b7");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
+var es_string_iterator = __webpack_require__("3ca3");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
+var web_dom_collections_iterator = __webpack_require__("ddb0");
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+
+
+
+
+
+
+
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__("b0c0");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
+var es_regexp_to_string = __webpack_require__("25f0");
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+
+
+
+
+
+
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+
+
+
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -15233,12 +15526,6 @@ function _getPrototypeOf(o) {
   };
   return _getPrototypeOf(o);
 }
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__("d3b7");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.regexp.to-string.js
-var es_regexp_to_string = __webpack_require__("25f0");
-
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/isNativeReflectConstruct.js
 
 
@@ -15255,21 +15542,6 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.description.js
-var es_symbol_description = __webpack_require__("e01a");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.iterator.js
-var es_symbol_iterator = __webpack_require__("d28b");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
-var es_array_iterator = __webpack_require__("e260");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.string.iterator.js
-var es_string_iterator = __webpack_require__("3ca3");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
-var web_dom_collections_iterator = __webpack_require__("ddb0");
-
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
 
 
@@ -15479,23 +15751,14 @@ _defineProperty(VueDragStart_VueDragStart, "type", 'vue:drag:start');
 
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Sortable.vue?vue&type=script&lang=js&
-function Sortablevue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Sortablevue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { Sortablevue_type_script_lang_js_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Sortablevue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function Sortablevue_type_script_lang_js_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 /* eslint-disable no-underscore-dangle */
 
@@ -15595,6 +15858,11 @@ function moveArray(items, oldIndex, newIndex) {
       default: true
     }
   },
+  data: function data() {
+    return {
+      initDone: false
+    };
+  },
   mounted: function mounted() {
     this.init();
   },
@@ -15604,22 +15872,27 @@ function moveArray(items, oldIndex, newIndex) {
   watch: {
     enabled: function enabled(val) {
       if (val) {
-        this.breakdown();
         this.init();
+      } else {
+        this.breakdown();
       }
     }
   },
   methods: {
     init: function init() {
-      if (this.enabled) {
+      if (this.enabled && !this.initDone) {
+        this.initDone = true;
         this.$draggable.addContainer(this.$el);
         this.$draggable.on('drag:start', this.onDragStart).on('drag:over:container', this.onDragOverContainer).on('drag:out:container', this.onDragOutContainer).on('drag:over', this.onDragOver).on('drag:stop', this.onDragStop);
       } else {// this.breakdown();
       }
     },
     breakdown: function breakdown() {
-      this.$draggable.removeContainer(this.$el);
-      this.$draggable.off('drag:start', this.onDragStart).off('drag:over:container', this.onDragOverContainer).off('drag:out:container', this.onDragOutContainer).off('drag:over', this.onDragOver).off('drag:stop', this.onDragStop);
+      if (this.initDone) {
+        this.$draggable.removeContainer(this.$el);
+        this.$draggable.off('drag:start', this.onDragStart).off('drag:over:container', this.onDragOverContainer).off('drag:out:container', this.onDragOutContainer).off('drag:over', this.onDragOver).off('drag:stop', this.onDragStop);
+        this.initDone = false;
+      }
     },
     shouldIgnore: function shouldIgnore(e) {
       if (e.oldComponent.group !== this.group) {
@@ -15660,7 +15933,7 @@ function moveArray(items, oldIndex, newIndex) {
       }
 
       var oldIndex = this.index(event.source);
-      this.$draggable.trigger(new VueDragStart_VueDragStart(_objectSpread(_objectSpread({}, event.data), {}, {
+      this.$draggable.trigger(new VueDragStart_VueDragStart(objectSpread2_objectSpread2(objectSpread2_objectSpread2({}, event.data), {}, {
         sourceComponent: this
       })));
       event.source._source = {
@@ -15805,7 +16078,7 @@ function moveArray(items, oldIndex, newIndex) {
 
       var newItems = moveArray(this.value, e.oldIndex, e.newIndex);
       this.$emit('input', newItems);
-      this.$emit('move', _objectSpread({
+      this.$emit('move', objectSpread2_objectSpread2({
         newItems: newItems
       }, e));
     },
@@ -15818,7 +16091,7 @@ function moveArray(items, oldIndex, newIndex) {
 
       newItems.splice(e.newIndex, 0, e.item);
       this.$emit('input', newItems);
-      this.$emit('receive', _objectSpread(_objectSpread({}, e), {}, {
+      this.$emit('receive', objectSpread2_objectSpread2(objectSpread2_objectSpread2({}, e), {}, {
         newItems: newItems
       }));
     },
@@ -15831,7 +16104,7 @@ function moveArray(items, oldIndex, newIndex) {
         return item !== e.item;
       });
       this.$emit('input', newItems);
-      this.$emit('remove', _objectSpread(_objectSpread({}, e), {}, {
+      this.$emit('remove', objectSpread2_objectSpread2(objectSpread2_objectSpread2({}, e), {}, {
         newItems: newItems
       }));
     }
@@ -16008,7 +16281,9 @@ var Draggable_component = normalizeComponent(
 
 
 
+ // draggable api: https://github.com/Shopify/draggable/issues/372
 
+delete draggable_bundle["Draggable"].Plugins.Focusable;
 var VuePlugin = {};
 
 VuePlugin.install = function install(_Vue) {
@@ -16019,7 +16294,7 @@ VuePlugin.install = function install(_Vue) {
   Vue.prototype.$draggable = new draggable_bundle["Draggable"]([], {
     draggableClass: draggableClass,
     dragHandleClass: dragHandleClass,
-    delay: 200,
+    delay: 50,
     tresholdDistance: 2,
     draggable: ".".concat(draggableClass),
     handle: ".".concat(dragHandleClass),
@@ -16027,17 +16302,19 @@ VuePlugin.install = function install(_Vue) {
     mirror: {
       constrainDimensions: true
     },
+    appendTo: 'body',
     scrollable: {
       speed: 20,
       sensitivity: 80
-    } // swapAnimation: {
+    },
+    // swapAnimation: {
     //   duration: 300,
     //   easingFunction: "ease-in-out",
     //   horizontal: false
     // },
-    // plugins: []
-
+    plugins: []
   });
+  Vue.prototype.$draggable.removePlugin(draggable_bundle["Draggable"].Plugins.Focusable);
   Vue.directive('DragHandle', {
     inserted: function inserted(el) {
       if (el.getAttribute('drag-disabled') !== 'true') {
@@ -16069,6 +16346,63 @@ VuePlugin.install = function install(_Vue) {
 
 /* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src_0);
 
+
+
+/***/ }),
+
+/***/ "fb6a":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__("23e7");
+var isObject = __webpack_require__("861d");
+var isArray = __webpack_require__("e8b5");
+var toAbsoluteIndex = __webpack_require__("23cb");
+var toLength = __webpack_require__("50c4");
+var toIndexedObject = __webpack_require__("fc6a");
+var createProperty = __webpack_require__("8418");
+var wellKnownSymbol = __webpack_require__("b622");
+var arrayMethodHasSpeciesSupport = __webpack_require__("1dde");
+var arrayMethodUsesToLength = __webpack_require__("ae40");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
+var USES_TO_LENGTH = arrayMethodUsesToLength('slice', { ACCESSORS: true, 0: 0, 1: 2 });
+
+var SPECIES = wellKnownSymbol('species');
+var nativeSlice = [].slice;
+var max = Math.max;
+
+// `Array.prototype.slice` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.slice
+// fallback for not array-like ES3 strings and DOM objects
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+  slice: function slice(start, end) {
+    var O = toIndexedObject(this);
+    var length = toLength(O.length);
+    var k = toAbsoluteIndex(start, length);
+    var fin = toAbsoluteIndex(end === undefined ? length : end, length);
+    // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
+    var Constructor, result, n;
+    if (isArray(O)) {
+      Constructor = O.constructor;
+      // cross-realm fallback
+      if (typeof Constructor == 'function' && (Constructor === Array || isArray(Constructor.prototype))) {
+        Constructor = undefined;
+      } else if (isObject(Constructor)) {
+        Constructor = Constructor[SPECIES];
+        if (Constructor === null) Constructor = undefined;
+      }
+      if (Constructor === Array || Constructor === undefined) {
+        return nativeSlice.call(O, k, fin);
+      }
+    }
+    result = new (Constructor === undefined ? Array : Constructor)(max(fin - k, 0));
+    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
+    result.length = n;
+    return result;
+  }
+});
 
 
 /***/ }),
@@ -19376,12 +19710,12 @@ if (typeof window !== 'undefined') {
 var ShopifyDraggablePlugin_common = __webpack_require__("952a");
 var ShopifyDraggablePlugin_common_default = /*#__PURE__*/__webpack_require__.n(ShopifyDraggablePlugin_common);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a9d2d4da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Flowy.vue?vue&type=template&id=80c6a208&language=html&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb8515d-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Flowy.vue?vue&type=template&id=a03b093c&language=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy overflow-auto"},[_c('div',{staticClass:"flowy-tree flex flex-row flex-no-wrap relative"},_vm._l((_vm.parentNodes),function(node){return _c('FlowyNode',_vm._g(_vm._b({key:node.id,attrs:{"node":node}},'FlowyNode',Object.assign({}, _vm.$props),false),Object.assign({}, _vm.$listeners)))}),1)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Flowy.vue?vue&type=template&id=80c6a208&language=html&
+// CONCATENATED MODULE: ./src/components/Flowy.vue?vue&type=template&id=a03b093c&language=html&
 
 // EXTERNAL MODULE: ./node_modules/lodash/find.js
 var find = __webpack_require__("2769");
@@ -19391,6 +19725,10 @@ var filter = __webpack_require__("9380");
 var filter_default = /*#__PURE__*/__webpack_require__.n(filter);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Flowy.vue?vue&type=script&lang=js&
+//
+//
+//
+//
 //
 //
 //
@@ -19702,7 +20040,7 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var Flowy = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a9d2d4da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNode.vue?vue&type=template&id=3afb0769&lang=html&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb8515d-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNode.vue?vue&type=template&id=3afb0769&lang=html&
 var FlowyNodevue_type_template_id_3afb0769_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-node flex flex-col flex-no-wrap items-center relative overflow-visible"},[_c('draggable',{attrs:{"with-handle":false,"draggable-mirror":{ xAxis: false, appendTo: 'body' },"group":"flowy","data":{ draggingNode: _vm.node }},on:{"drop":function($event){return _vm.onDrop(_vm.node, $event)}}},[_c('flowy-block',_vm._b({ref:"block",staticClass:"draggable",attrs:{"data":_vm.node,"remove":_vm.removeNode}},'flowy-block',Object.assign({}, _vm.$props, _vm.passedProps),false),[(!_vm.isTopParent && _vm.mounted)?_c('div',{staticClass:"arrowblock -mt-64px overflow-visible",style:(_vm.arrowBlockStyle)},[_c('svg',{attrs:{"preserveaspectratio":"none","fill":"none","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":_vm.linePath,"stroke":"#C5CCD0","stroke-width":"2px"}})])]):_vm._e(),(_vm.hasChildren && _vm.mounted)?_c('div',{staticClass:"arrowblock-down overflow-visible",style:(_vm.arrowBlockStyle)},[_c('svg',{attrs:{"preserveaspectratio":"none","fill":"none","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":_vm.linePathDown,"stroke":"#C5CCD0","stroke-width":"2px"}})])]):_vm._e(),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showIndicator),expression:"showIndicator"}],staticClass:"indicator"}),_c('dropzone',{staticClass:"node-dropzone",attrs:{"data":{ dropzoneNode: _vm.node },"group":"first_group"},on:{"enter":function($event){return _vm.onEnterDrag($event)},"leave":function($event){return _vm.onLeaveDrag($event)},"drop":function($event){return _vm.onDragStop($event)},"receive":function($event){return _vm.onDragReceive($event)}},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('div',{staticClass:"node-dropzone",class:scope},[_c('div',{},[_vm._v("This is a dropzone")])])]}}])})],1)],1),_c('div',{staticClass:"flowy-tree flex flex-row flex-no-wrap overflow-visible mt-64px"},[_vm._l((_vm.children),function(child,index){return [_c('flowy-node',_vm._g(_vm._b({key:child.id,ref:child.id,refInFor:true,attrs:{"index":index,"total-children":_vm.children.length,"node":child,"parent-x":_vm.xPos}},'flowy-node',Object.assign({}, _vm.$props),false),Object.assign({}, _vm.$listeners)))]})],2)],1)}
 var FlowyNodevue_type_template_id_3afb0769_lang_html_staticRenderFns = []
 
@@ -20113,7 +20451,7 @@ var FlowyNode_component = normalizeComponent(
 )
 
 /* harmony default export */ var FlowyNode = (FlowyNode_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a9d2d4da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyBlock.vue?vue&type=template&id=693af488&lang=html&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb8515d-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyBlock.vue?vue&type=template&id=693af488&lang=html&
 var FlowyBlockvue_type_template_id_693af488_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-block mr-24px relative"},[_vm._t("default"),_c(_vm.component,_vm._b({ref:"block",tag:"component"},'component',Object.assign({}, _vm.$props, _vm.$attrs, _vm.passedProps),false))],2)}
 var FlowyBlockvue_type_template_id_693af488_lang_html_staticRenderFns = []
 
@@ -20189,7 +20527,7 @@ var FlowyBlock_component = normalizeComponent(
 )
 
 /* harmony default export */ var FlowyBlock = (FlowyBlock_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"a9d2d4da-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNewBlock.vue?vue&type=template&id=007f21f4&lang=html&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb8515d-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNewBlock.vue?vue&type=template&id=007f21f4&lang=html&
 var FlowyNewBlockvue_type_template_id_007f21f4_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-block mr-24px relative"},[_c('draggable',{attrs:{"with-handle":false,"draggable-mirror":{ xAxis: false, appendTo: 'body' },"group":"flowy","data":Object.assign({}, {type: 'new'}, _vm.nodeData)}},[_vm._t("preview")],2)],1)}
 var FlowyNewBlockvue_type_template_id_007f21f4_lang_html_staticRenderFns = []
 

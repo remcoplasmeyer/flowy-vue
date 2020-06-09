@@ -16,7 +16,11 @@
 <style lang="scss">
 .draggable-mirror {
   z-index: 100;
-  opacity: 0.3;
+  opacity: 1;
+
+  svg {
+    display: none;
+  }
 }
 
 .node-dropzone {
@@ -48,7 +52,7 @@
     height: 12px;
     background-color: #217ce8;
     transform: scale(1.7);
-    opacity: 0.2;
+    opacity: 0.5;
     border-radius: 60px;
   }
 }
