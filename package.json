@@ -1,10 +1,11 @@
 {
   "name": "@hipsjs/flowy-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shopify draggable for Vue",
   "main": "./dist/lib/VueFlowyPlugin.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build:all": "npm run build:lib && npm run build:lib && npm run build:gh-pages",
     "build:demo": "vue-cli-service build --dest dist/demo",
     "build:gh-pages": "vue-cli-service build --dest docs",
     "build:lib": "vue-cli-service build --target lib --dest dist/lib --name VueFlowyPlugin 'src/index.js'",
@@ -27,7 +28,7 @@
     "vue": "~2"
   },
   "dependencies": {
-    "@hipsjs/shopify-draggable-vue": "^1.0.1",
+    "@hipsjs/shopify-draggable-vue": "^1.0.2",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
