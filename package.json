@@ -29,7 +29,7 @@
     "vue": "~2"
   },
   "dependencies": {
-    "@hipsjs/shopify-draggable-vue": "^1.0.4",
+    "@hipsjs/shopify-draggable-vue": "^1.0.6",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
