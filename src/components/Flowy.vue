@@ -1,5 +1,10 @@
 <template language="html">
-  <div class="flowy overflow-auto">
+  <div
+    class="flowy overflow-auto"
+    :class="{
+      dragging: dragging
+    }"
+  >
     <div class="flowy-tree flex flex-row flex-no-wrap relative">
       <FlowyNode
         v-bind="{ ...$props }"
@@ -7,20 +12,101 @@
         :node="node"
         :key="node.id"
         v-for="node in parentNodes"
+        @drag-start="onDragStart($event)"
+        @drag-stop="onDragStop($event)"
+        @enter-drop="onEnterDrop($event)"
+        :before-move="onBeforeMove"
+        :is-dragging="dragging"
       >
       </FlowyNode>
     </div>
   </div>
 </template>
 
+<script>
+/* eslint-disable no-unused-vars */
+import find from 'lodash/find';
+import filter from 'lodash/filter';
+
+export default {
+  props: {
+    nodes: {
+      type: Array,
+      required: false,
+    },
+    beforeMove: {
+      type: Function,
+      default: () => true,
+    },
+  },
+  data() {
+    return {
+      draggingNode: null,
+    };
+  },
+  computed: {
+    parentNodes() {
+      return filter(this.nodes, {
+        parentId: -1,
+      });
+    },
+    rows() {
+      return [this.parentNodes];
+    },
+    dragging() {
+      return this.draggingNode !== false && this.draggingNode !== null;
+    },
+  },
+  mounted() { },
+  destroyed() { },
+  methods: {
+    setNotDragging() {
+      setTimeout(() => {
+        this.draggingNode = null;
+      }, 50);
+    },
+    onBeforeMove(to) {
+      return this.beforeMove({ to, from: this.draggingNode });
+    },
+    onDrop(event) {
+      this.setNotDragging();
+    },
+    onDragStart(event) {
+      this.draggingNode = event.node;
+      this.$emit('drag-start', event);
+    },
+    onDragStop(event) {
+      this.setNotDragging();
+      this.$emit('drag-stop', event);
+    },
+    onEnterDrop(event) {
+      this.$emit('enter-drop', {
+        to: event.to,
+        from: this.draggingNode,
+      });
+    },
+    getChildren(parentId) {
+      return filter(this.nodes, {
+        parentId,
+      });
+    },
+    onDragEnd(_event) { },
+  },
+};
+</script>
+
 <style lang="scss">
 .draggable-mirror {
   z-index: 100;
-  opacity: 1;
+  opacity: 0.7;
 
-  svg {
+  svg.flowy-line {
     display: none;
   }
+}
+
+.flowy-node {
+  transition: all 0.3s;
 }
 
 .node-dropzone {
@@ -28,6 +114,10 @@
   width: 100%;
   height: 128px;
   bottom: -64px;
+}
+
+.flowy.dragging .node-dropzone {
+  z-index: 9999;
 }
 
 .indicator {
@@ -54,6 +144,25 @@
     transform: scale(1.7);
     opacity: 0.5;
     border-radius: 60px;
+  }
+}
+
+.scale-enter,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.scale-enter-active,
+.scale-leave-active {
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.indicator.not-allowed {
+  background-color: #f5365c;
+
+  &:after {
+    background-color: #f5365c;
   }
 }
 
@@ -141,51 +250,3 @@
   z-index: 50;
 }
 </style>
-
-<script>
-/* eslint-disable no-unused-vars */
-import find from 'lodash/find';
-import filter from 'lodash/filter';
-
-export default {
-  props: {
-    nodes: {
-      type: Array,
-      required: false,
-    },
-    blocks: {
-      type: Array,
-      required: true,
-    },
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    parentNodes() {
-      return filter(this.nodes, {
-        parentId: -1,
-      });
-    },
-    rows() {
-      return [this.parentNodes];
-    },
-  },
-  mounted() { },
-  destroyed() { },
-  methods: {
-    onDrop(event) {
-      this.dragging = false;
-    },
-    onDragStart(event) {
-      this.dragging = true;
-    },
-    getChildren(parentId) {
-      return filter(this.nodes, {
-        parentId,
-      });
-    },
-    onDragEnd(_event) { },
-  },
-};
-</script>

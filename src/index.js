@@ -8,7 +8,9 @@ const VuePlugin = {};
 
 VuePlugin.install = function install(_Vue) {
   const Vue = _Vue;
-  Vue.use(DraggablePlugin);
+  Vue.use(DraggablePlugin, {
+
+  });
 
   Vue.component('Flowy', Flowy);
   Vue.component('FlowyNode', FlowyNode);

@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="example-node relative  bg-white rounded border border-gray-300">
+  <div class="example-node relative  bg-white rounded border border-gray-300"
+  :style="{ width: `${width}px`} ">
     <div class="flex flex-col border-b border-gray-300">
       <div class="flex flex-row flex-no-wrap justify-between items-center p-4">
         <div class="flex flex-row flex-no-wrap justify-start items-center">
@@ -12,7 +13,7 @@
           </div>
         </div>
 
-        <div @click="dropdown = !dropdown">
+        <div @click.stop="dropdown = !dropdown">
           <img class="drag-handle" :src="`demo_assets/grabme.svg`" />
           <div class="absolute z-50 -ml-10 py-2 bg-white shadow rounded text-xs" v-show="dropdown">
             <span class="cursor-pointer p-2 hover:bg-gray-200" @click="remove()">remove</span>
@@ -46,6 +47,9 @@
 
 export default {
   props: {
+    width: {
+      default: 200,
+    },
     remove: {
       type: Function,
       required: true,

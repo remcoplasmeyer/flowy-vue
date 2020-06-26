@@ -1,8 +1,9 @@
 {
   "name": "@hipsjs/flowy-vue",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Shopify draggable for Vue",
   "main": "./dist/lib/VueFlowyPlugin.common.js",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build:all": "npm run build:lib && npm run build:lib && npm run build:gh-pages",

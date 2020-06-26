@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="example-block p-2 bg-white mb-4 rounded border border-gray-300">
+  <div class="example-block p-2 bg-white mb-4 rounded border border-gray-300"
+  :style="{ width: `${width}px`} ">
     <div class="flex flex-row flex-no-wrap ml-2">
       <div class="flex-none flex
        flex-row flex-no-wrap items-start justify-start" style="width:60px;">
@@ -24,7 +25,7 @@
 
 <style lang="scss">
 .example-block {
-  width: 320px;
+  width: auto;
 }
 .bg-white {
   background-color: #ffffff;
@@ -36,6 +37,9 @@
 
 export default {
   props: {
+    width: {
+      default: 200,
+    },
     icon: {
       type: String,
       required: true,

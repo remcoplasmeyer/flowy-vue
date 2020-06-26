@@ -36,17 +36,13 @@
         <flowy
           class="h-full w-full p-6"
           :nodes="nodes"
-          :blocks="blocks"
-          @onDrag="onDragStart"
-          :onEnterDragFn="onEnter"
-          :beforeEmptyDrop="onEmptyDrop"
-          @afterEmptyDrop="onEmptyDrop"
-          @afterMove="onMove"
-          :beforeMove="beforeMove"
-          :beforeAdd="beforeAdd"
+          @drag-start="onDragStart"
           @add="add"
           @move="move"
           @remove="remove"
+          :beforeAdd="beforeAdd"
+          :beforeMove="beforeMove"
+          :onEnterDragFn="onEnter"
         ></flowy>
       </div>
     </div>
@@ -57,140 +53,23 @@
 /* eslint-disable vue/no-unused-components */
 /* eslint-disable no-unused-vars */
 import Vue from 'vue';
-import Flowy from '@/components/Flowy.vue';
-import FlowyNode from '@/components/FlowyNode.vue';
-import DemoBlock from '@/demo_components/DemoBlock.vue';
-import DemoNode from '@/demo_components/DemoNode.vue';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import generateId from './lib/generateId';
+import nodes from './demo_data/simple';
+import blocks from './demo_data/sampleBlocks';
 
 
 export default {
   name: 'app',
   components: {
-    Flowy,
-    FlowyNode,
+
   },
   data: () => ({
     holder: [],
     dragging: false,
-    blocks: [
-      {
-        preview: {
-          title: 'New visitor',
-          description: 'Triggers when somebody visits a specified page',
-          icon: 'eye',
-        },
-        node: {
-          title: 'New visitor',
-          description: '<span>When a <span class="font-bold">new visitor</span> goes to <span class="font-bold">Site 1</span></span>',
-          icon: 'eyeblue',
-        },
-      },
-      {
-        preview: {
-          title: 'Update database',
-          description: 'Triggers when somebody performs a specified action',
-          icon: 'error',
-        },
-        node: {
-          title: 'Update database',
-          description: '<span>Triggers when somebody performs a <span class="font-bold">specified action</span></span>',
-          icon: 'errorred',
-        },
-      },
-      {
-        preview: {
-          title: 'Time has passed',
-          description: 'Triggers after a specified amount of time',
-          icon: 'database',
-        },
-        node: {
-          title: 'Time has passed',
-          description: 'Triggers after a specified <span class="font-bold">amount</span> of time',
-          icon: 'databaseorange',
-        },
-      },
-    ],
-    nodes: [
-      {
-        id: '1',
-        parentId: -1,
-        nodeComponent: 'demo-node',
-        data: {
-          text: 'Parent block',
-          title: 'New Visitor',
-          description: '<span>When a <span class="font-bold">new visitor</span> goes to <span class="font-bold">Site 1</span></span>',
-          icon: 'eyeblue',
-        },
-      },
-      {
-        id: '2',
-        parentId: '1',
-        nodeComponent: 'demo-node',
-        data: {
-          text: 'Parent block',
-          title: 'New Visitor',
-          description: '<span>When a <span class="font-bold">new visitor</span> goes to <span class="font-bold">Site 1</span></span>',
-          icon: 'eyeblue',
-        },
-      },
-      {
-        id: '3',
-        parentId: '1',
-        nodeComponent: 'demo-node',
-        data: {
-          text: 'Parent block',
-          title: 'New Visitor',
-          description: '<span>When a <span class="font-bold">new visitor</span> goes to <span class="font-bold">Site 1</span></span>',
-          icon: 'eyeblue',
-        },
-      },
-      // {
-      //   id: '100',
-      //   parentId: -1,
-      //   block: 'demo-block',
-      //   props: {
-      //     text: 'Parent block',
-      //   },
-      // },
-      // {
-      //   id: '2',
-      //   parentId: '1',
-      //   block: 'demo-block',
-      // },
-      // {
-      //   id: '3',
-      //   parentId: '1',
-      //   block: 'demo-block',
-      // },
-      // {
-      //   id: '4',
-      //   parentId: '1',
-      //   block: 'demo-block',
-      // },
-      // {
-      //   id: '5',
-      //   parentId: '1',
-      //   block: 'demo-block',
-      // },
-      // {
-      //   id: '6',
-      //   parentId: '3',
-      //   block: 'demo-block',
-      // },
-      // {
-      //   id: '7',
-      //   parentId: '3',
-      //   block: 'demo-block',
-      // },
-      // {
-      //   id: '8',
-      //   parentId: '3',
-      //   block: 'demo-block',
-      // },
-    ],
+    blocks,
+    nodes,
   }),
   methods: {
     onDropBlock(_event) {
@@ -203,15 +82,16 @@ export default {
     afterAdd() {
 
     },
-    beforeMove() {
-      console.log('before move');
+    onEnterDrop(event) {
+      console.log('entered drop');
       return true;
     },
-    onEmptyDrop(event) {
-      console.log(event);
-    },
-    onMove(event) {
-      console.log(event);
+    beforeMove({ to, from }) {
+      console.log(to, from);
+      if (from && from.id === '1') {
+        return false;
+      }
+      return true;
     },
     onEnter() {
 
@@ -225,10 +105,10 @@ export default {
     },
     remove(event) {
       const nodeIndex = findIndex(this.nodes, { id: event.node.id });
-      console.log(nodeIndex);
       this.nodes.splice(nodeIndex, 1);
     },
     move(event) {
+      console.log('move', event);
       const { dragged, to } = event;
       dragged.parentId = to.id;
     },
@@ -238,19 +118,9 @@ export default {
         id,
         ...event.node,
       });
-
-      // const toNode = event.data.dropzoneNode;
-
-      // this.nodes.push({
-      //   block: 'demo-block',
-      //   parentId: toNode.id,
-      //   id: generateId(this.nodes),
-      // });
-
-      // console.log('ondrop', event);
-      // this.dragging = false;
     },
     onDragStart(event) {
+      console.log('onDragStart', event);
       this.dragging = true;
     },
   },
@@ -345,5 +215,9 @@ a {
 
 .example-block {
   width: 320px;
+}
+
+.flowy-block.draggable-mirror {
+  opacity: 0.6;
 }
 </style>

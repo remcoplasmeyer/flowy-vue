@@ -1,8 +1,10 @@
 <template lang="html">
   <div class="flowy-node flex flex-col flex-no-wrap items-center relative overflow-visible">
     <draggable
+      class="flowy-draggable"
       :with-handle="false"
-      @drop="onDrop(node, $event)"
+      @stop="onStop(node, $event)"
+      @start="onStart(node, $event)"
       :draggable-mirror="{ xAxis: false, appendTo: 'body' }"
       group="flowy"
       :data="{ draggingNode: node }"
@@ -12,14 +14,15 @@
         :data="node"
         class="draggable"
         :remove="removeNode"
-        v-bind="{ ...$props, ...passedProps }" ref="block"
+        v-bind="{ ...$props, ...passedProps }"
       >
+        <div style="position:absolute; width: 100%; height:100%;" ref="block" />
         <div
           :style="arrowBlockStyle"
           class="arrowblock -mt-64px overflow-visible"
           v-if="!isTopParent && mounted"
         >
-          <svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="flowy-line" preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- line -->
             <path :d="linePath" stroke="#C5CCD0" stroke-width="2px" />
             <!-- arrow -->
@@ -31,26 +34,33 @@
           class="arrowblock-down overflow-visible"
           v-if="hasChildren && mounted"
         >
-          <svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="flowy-line" preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- line -->
             <path :d="linePathDown" stroke="#C5CCD0" stroke-width="2px" />
             <!-- arrow -->
           </svg>
         </div>
 
-        <div class="indicator" v-show="showIndicator"></div>
+        <transition name="scale">
+          <div
+            class="indicator"
+            :class="{
+              'not-allowed': !this.dropAllowed
+              }"
+            v-show="showIndicator"></div>
+        </transition>
         <dropzone
           :data="{ dropzoneNode: node }"
-          @enter="onEnterDrag($event)"
+          @enter="onEnterDrag({ to: node })"
           @leave="onLeaveDrag($event)"
-          @drop="onDragStop($event)"
-          @receive="onDragReceive($event)"
+          @drop="onDrop($event)"
+          @receive="onDragReceive({ ...$event, to: node })"
           group="first_group"
           class="node-dropzone"
         >
           <template #default="scope">
             <div :class="scope" class="node-dropzone">
-              <div class="">This is a dropzone</div>
+              <div class=""></div>
             </div>
           </template>
         </dropzone>
@@ -87,8 +97,7 @@ import cloneDeep from 'lodash/cloneDeep';
 function getOffset(el) {
   const rect = el.getBoundingClientRect();
   return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY,
+    left: (rect.left + rect.width / 2) + window.scrollX,
   };
 }
 
@@ -106,10 +115,6 @@ export default {
       type: Object,
       required: true,
     },
-    blocks: {
-      type: Array,
-      required: true,
-    },
     nodes: {
       type: Array,
       required: true,
@@ -118,12 +123,20 @@ export default {
       type: Number,
       required: false,
     },
+    beforeMove: {
+      type: Function,
+      default: () => true,
+    },
+    isDragging: {
+      type: Boolean,
+    },
   },
   data() {
     return {
       hoveringWithDrag: false,
       mounted: false, // we need to be mounted before $refs is popuplated
       xPosProxy: 0,
+      dropAllowed: true,
     };
   },
   mounted() {
@@ -135,7 +148,13 @@ export default {
       // Code that will run only after the
       // entire view has been re-rendered
       if (this.$refs.block === undefined) return;
-      this.xPosProxy = getOffset(this.$refs.block.$el).left;
+      const xPos = getOffset(this.$refs.block).left;
+
+      // for some reason there's a bug where we end up with 0
+      // even though the dom should be rendered at this point?
+      if (xPos !== 0) {
+        this.xPosProxy = getOffset(this.$refs.block).left;
+      }
     });
   },
   computed: {
@@ -172,14 +191,14 @@ export default {
       return this.blockWidth / 2;
     },
     blockWidth() {
-      return this.$refs.block.$el.offsetWidth;
+      return this.$refs.block.offsetWidth;
     },
     holderWidth() {
       // includes margin
-      return this.$refs.block.$el.parentElement.offsetWidth;
+      return this.$refs.block.parentElement.offsetWidth;
     },
     rowWidth() {
-      return this.$refs.block.$el.parentElement.parentElement.offsetWidth;
+      return this.$refs.block.parentElement.parentElement.offsetWidth;
     },
     isTopParent() {
       return this.node.parentId === -1;
@@ -230,16 +249,18 @@ export default {
         data: cloneDeep(data.props),
       };
     },
-    onDrop(node, _event) {
-      // console.log('ondrop', _event);
-      this.hoveringWithDrag = true;
+    onStop(node, _event) {
+      this.$emit('drag-stop');
+      this.hoveringWithDrag = false;
     },
-    onDragStop(_event) {
-      console.log(_event);
+    onStart(node) {
+      this.$emit('drag-start', { node });
+    },
+    onDrop(_event) {
+      this.$emit('drag-stop');
       this.hoveringWithDrag = false;
     },
     newNode(newNode, parentNode) {
-      console.log('newNode', parentNode);
       this.$emit('add', {
         node: {
           parentId: parentNode.id,
@@ -248,17 +269,16 @@ export default {
       });
     },
     moveNode(from, to) {
-      console.log('moveNode', from, to);
       this.$emit('move', {
         dragged: from,
         to,
       });
     },
     onDragReceive(_event) {
-      console.log('onDragReceive', _event);
       this.hoveringWithDrag = false;
 
       const draggingNode = this.draggingNodeFromEvent(_event);
+      const toNode = _event.to;
       // const dropzoneNode = this.dropzoneNodeFromEvent(_event);
       if (draggingNode === false) {
         // not dragging from existing node (so dragged from new node list)
@@ -266,12 +286,19 @@ export default {
         this.newNode(newNode, this.node);
       } else {
         // dragged from existing node
-        this.moveNode(draggingNode, this.node);
+        const dropAllowed = this.beforeMove(toNode);
+        if (dropAllowed) {
+          this.moveNode(draggingNode, toNode);
+        }
       }
+      this.dropAllowed = true;
     },
     onEnterDrag(_event) {
-      console.log('onEnterDag', _event);
       this.hoveringWithDrag = true;
+      this.dropAllowed = this.beforeMove(_event.to);
+      // this.$emit('enter-drop', {
+      //   to: _event.to,
+      // });
     },
     onLeaveDrag(_event) {
       this.hoveringWithDrag = false;
