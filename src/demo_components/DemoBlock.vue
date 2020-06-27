@@ -38,7 +38,7 @@
 export default {
   props: {
     width: {
-      default: 200,
+      default: 320,
     },
     icon: {
       type: String,

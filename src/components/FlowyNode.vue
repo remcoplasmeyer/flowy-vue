@@ -97,7 +97,7 @@ import cloneDeep from 'lodash/cloneDeep';
 function getOffset(el) {
   const rect = el.getBoundingClientRect();
   return {
-    left: (rect.left + rect.width / 2) + window.scrollX,
+    left: (rect.left + rect.width / 2),
   };
 }
 
@@ -136,25 +136,23 @@ export default {
       hoveringWithDrag: false,
       mounted: false, // we need to be mounted before $refs is popuplated
       xPosProxy: 0,
+      width: 0,
       dropAllowed: true,
+      timer: null,
     };
   },
   mounted() {
     this.mounted = true;
+    this.timer = setInterval(this.setWidth, 200);
   },
-  destroyed() { },
+  destroyed() {
+    clearInterval(this.timer);
+  },
   updated() {
     this.$nextTick(() => {
       // Code that will run only after the
       // entire view has been re-rendered
-      if (this.$refs.block === undefined) return;
-      const xPos = getOffset(this.$refs.block).left;
-
-      // for some reason there's a bug where we end up with 0
-      // even though the dom should be rendered at this point?
-      if (xPos !== 0) {
-        this.xPosProxy = getOffset(this.$refs.block).left;
-      }
+      this.setWidth();
     });
   },
   computed: {
@@ -191,7 +189,7 @@ export default {
       return this.blockWidth / 2;
     },
     blockWidth() {
-      return this.$refs.block.offsetWidth;
+      return this.width;
     },
     holderWidth() {
       // includes margin
@@ -233,6 +231,17 @@ export default {
     },
   },
   methods: {
+    setWidth() {
+      if (this.$refs.block === undefined) return;
+      const xPos = getOffset(this.$refs.block).left;
+
+      // for some reason there's a bug where we end up with 0
+      // even though the dom should be rendered at this point?
+      if (xPos !== 0) {
+        this.xPosProxy = xPos;
+        this.width = this.$refs.block.offsetWidth;
+      }
+    },
     removeNode() {
       this.$emit('remove', { node: this.node });
     },

@@ -1,6 +1,6 @@
 {
   "name": "@hipsjs/flowy-vue",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Shopify draggable for Vue",
   "main": "./dist/lib/VueFlowyPlugin.common.js",
   "private": false,
