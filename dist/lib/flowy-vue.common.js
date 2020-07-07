@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["VueFlowyPlugin"] = factory();
-	else
-		root["VueFlowyPlugin"] = factory();
-})((typeof self !== 'undefined' ? self : this), function() {
-return /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -306,6 +297,91 @@ exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnProper
   if (has(O, P)) return createPropertyDescriptor(!propertyIsEnumerableModule.f.call(O, P), O[P]);
 };
 
+
+/***/ }),
+
+/***/ "071f":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ef14c44e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNewBlock.vue?vue&type=template&id=007f21f4&lang=html&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-block mr-24px relative"},[_c('draggable',{attrs:{"with-handle":false,"draggable-mirror":{ xAxis: false, appendTo: 'body' },"group":"flowy","data":Object.assign({}, {type: 'new'}, _vm.nodeData)}},[_vm._t("preview")],2)],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/FlowyNewBlock.vue?vue&type=template&id=007f21f4&lang=html&
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js + 1 modules
+var objectSpread2 = __webpack_require__("5530");
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNewBlock.vue?vue&type=script&lang=js&
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* eslint-disable no-unused-vars */
+/* harmony default export */ var FlowyNewBlockvue_type_script_lang_js_ = ({
+  props: {},
+  data: function data() {
+    return {
+      node: {
+        componentName: '',
+        props: {}
+      }
+    };
+  },
+  mounted: function mounted() {
+    var node = this.$scopedSlots.node()[0];
+    this.node.componentName = node.componentOptions.tag;
+    this.node.props = Object(objectSpread2["a" /* default */])(Object(objectSpread2["a" /* default */])({}, node.componentOptions.propsData), node.data.attrs);
+  },
+  destroyed: function destroyed() {},
+  computed: {
+    nodeData: function nodeData() {
+      return this.node;
+    }
+  },
+  methods: {
+    remove: function remove() {}
+  }
+});
+// CONCATENATED MODULE: ./src/components/FlowyNewBlock.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_FlowyNewBlockvue_type_script_lang_js_ = (FlowyNewBlockvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__("2877");
+
+// CONCATENATED MODULE: ./src/components/FlowyNewBlock.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_FlowyNewBlockvue_type_script_lang_js_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var FlowyNewBlock = __webpack_exports__["a"] = (component.exports);
 
 /***/ }),
 
@@ -1425,6 +1501,113 @@ module.exports = find;
 
 /***/ }),
 
+/***/ "2877":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functional component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
 /***/ "28c9":
 /***/ (function(module, exports) {
 
@@ -1518,6 +1701,93 @@ var root = freeGlobal || freeSelf || Function('return this')();
 
 module.exports = root;
 
+
+/***/ }),
+
+/***/ "2bdc":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ef14c44e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyBlock.vue?vue&type=template&id=693af488&lang=html&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-block mr-24px relative"},[_vm._t("default"),_c(_vm.component,_vm._b({ref:"block",tag:"component"},'component',Object.assign({}, _vm.$props, _vm.$attrs, _vm.passedProps),false))],2)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/FlowyBlock.vue?vue&type=template&id=693af488&lang=html&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyBlock.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* eslint-disable no-unused-vars */
+/* harmony default export */ var FlowyBlockvue_type_script_lang_js_ = ({
+  props: {
+    node: {
+      type: Object,
+      required: true
+    },
+    remove: {
+      type: Function,
+      required: true
+    }
+  },
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {},
+  destroyed: function destroyed() {},
+  computed: {
+    component: function component() {
+      return this.node.nodeComponent; // return find(this.blocks, { name: this.node.block }).name;
+    },
+    passedProps: function passedProps() {
+      return this.node.data;
+    }
+  },
+  methods: {
+    onDragEnd: function onDragEnd(_event) {},
+    onDragStart: function onDragStart(_event) {}
+  },
+  render: function render(c) {
+    var item = this.$scopedSlots.default()[0];
+    return item;
+  }
+});
+// CONCATENATED MODULE: ./src/components/FlowyBlock.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_FlowyBlockvue_type_script_lang_js_ = (FlowyBlockvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__("2877");
+
+// CONCATENATED MODULE: ./src/components/FlowyBlock.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_FlowyBlockvue_type_script_lang_js_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var FlowyBlock = __webpack_exports__["a"] = (component.exports);
 
 /***/ }),
 
@@ -2657,6 +2927,96 @@ function copySymbols(source, object) {
 
 module.exports = copySymbols;
 
+
+/***/ }),
+
+/***/ "5530":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _objectSpread2; });
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
+var es_symbol = __webpack_require__("a4d3");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
+var es_array_filter = __webpack_require__("4de4");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
+var es_array_for_each = __webpack_require__("4160");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
+var es_object_get_own_property_descriptor = __webpack_require__("e439");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptors.js
+var es_object_get_own_property_descriptors = __webpack_require__("dbb4");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
+var es_object_keys = __webpack_require__("b64b");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
+var web_dom_collections_for_each = __webpack_require__("159b");
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
+
+
+
+
+
+
+
+
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
 
 /***/ }),
 
@@ -7418,6 +7778,401 @@ module.exports = mapCacheHas;
 
 /***/ }),
 
+/***/ "a54e":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ef14c44e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNode.vue?vue&type=template&id=baccb974&lang=html&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-node flex flex-col flex-no-wrap items-center relative overflow-visible"},[_c('draggable',{staticClass:"flowy-draggable",attrs:{"with-handle":false,"draggable-mirror":{ xAxis: false, appendTo: 'body' },"group":"flowy","data":{ draggingNode: _vm.node }},on:{"stop":function($event){return _vm.onStop(_vm.node, $event)},"start":function($event){return _vm.onStart(_vm.node, $event)}}},[_c('flowy-block',_vm._b({staticClass:"draggable",attrs:{"data":_vm.node,"remove":_vm.removeNode}},'flowy-block',Object.assign({}, _vm.$props, _vm.passedProps),false),[_c('div',{ref:"block",staticStyle:{"position":"absolute","width":"100%","height":"100%"}}),(!_vm.isTopParent && _vm.mounted)?_c('div',{staticClass:"arrowblock -mt-64px overflow-visible",style:(_vm.arrowBlockStyle)},[_c('svg',{staticClass:"flowy-line",attrs:{"preserveaspectratio":"none","fill":"none","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":_vm.linePath,"stroke":"#C5CCD0","stroke-width":"2px"}})])]):_vm._e(),(_vm.hasChildren && _vm.mounted)?_c('div',{staticClass:"arrowblock-down overflow-visible",style:(_vm.arrowBlockStyle)},[_c('svg',{staticClass:"flowy-line",attrs:{"preserveaspectratio":"none","fill":"none","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":_vm.linePathDown,"stroke":"#C5CCD0","stroke-width":"2px"}})])]):_vm._e(),_c('transition',{attrs:{"name":"scale"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showIndicator),expression:"showIndicator"}],staticClass:"indicator",class:{
+              'not-allowed': !this.dropAllowed
+              }})]),_c('dropzone',{staticClass:"node-dropzone",attrs:{"data":{ dropzoneNode: _vm.node },"group":"first_group"},on:{"enter":function($event){return _vm.onEnterDrag({ to: _vm.node })},"leave":function($event){return _vm.onLeaveDrag($event)},"drop":function($event){return _vm.onDrop($event)},"receive":function($event){return _vm.onDragReceive(Object.assign({}, $event, {to: _vm.node}))}},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('div',{staticClass:"node-dropzone",class:scope},[_c('div',{})])]}}])})],1)],1),_c('div',{staticClass:"flowy-tree flex flex-row flex-no-wrap overflow-visible mt-64px"},[_vm._l((_vm.children),function(child,index){return [_c('flowy-node',_vm._g(_vm._b({key:child.id,ref:child.id,refInFor:true,attrs:{"index":index,"total-children":_vm.children.length,"node":child,"parent-x":_vm.xPos}},'flowy-node',Object.assign({}, _vm.$props),false),Object.assign({}, _vm.$listeners)))]})],2)],1)}
+var staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/FlowyNode.vue?vue&type=template&id=baccb974&lang=html&
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
+var es_array_concat = __webpack_require__("99af");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
+var es_number_constructor = __webpack_require__("a9e3");
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js + 1 modules
+var objectSpread2 = __webpack_require__("5530");
+
+// EXTERNAL MODULE: ./node_modules/lodash/find.js
+var find = __webpack_require__("2769");
+
+// EXTERNAL MODULE: ./node_modules/lodash/filter.js
+var filter = __webpack_require__("9380");
+var filter_default = /*#__PURE__*/__webpack_require__.n(filter);
+
+// EXTERNAL MODULE: ./node_modules/lodash/isNil.js
+var isNil = __webpack_require__("2768");
+
+// EXTERNAL MODULE: ./node_modules/lodash/get.js
+var get = __webpack_require__("9b02");
+var get_default = /*#__PURE__*/__webpack_require__.n(get);
+
+// EXTERNAL MODULE: ./node_modules/lodash/cloneDeep.js
+var cloneDeep = __webpack_require__("0644");
+var cloneDeep_default = /*#__PURE__*/__webpack_require__.n(cloneDeep);
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNode.vue?vue&type=script&lang=js&
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* eslint-disable no-unused-vars */
+
+
+
+
+
+
+function getOffset(el) {
+  var rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + rect.width / 2
+  };
+}
+
+/* harmony default export */ var FlowyNodevue_type_script_lang_js_ = ({
+  props: {
+    index: {
+      type: Number,
+      required: false
+    },
+    totalChildren: {
+      type: Number,
+      required: false
+    },
+    node: {
+      type: Object,
+      required: true
+    },
+    nodes: {
+      type: Array,
+      required: true
+    },
+    parentX: {
+      type: Number,
+      required: false
+    },
+    beforeMove: {
+      type: Function,
+      default: function _default() {
+        return true;
+      }
+    },
+    isDragging: {
+      type: Boolean
+    }
+  },
+  data: function data() {
+    return {
+      hoveringWithDrag: false,
+      mounted: false,
+      // we need to be mounted before $refs is popuplated
+      xPosProxy: 0,
+      width: 0,
+      dropAllowed: true,
+      timer: null
+    };
+  },
+  mounted: function mounted() {
+    this.mounted = true;
+    this.timer = setInterval(this.setWidth, 200);
+  },
+  destroyed: function destroyed() {
+    clearInterval(this.timer);
+  },
+  updated: function updated() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      // Code that will run only after the
+      // entire view has been re-rendered
+      _this.setWidth();
+    });
+  },
+  computed: {
+    xPos: function xPos() {
+      if (!this.mounted) return 0;
+      return this.xPosProxy;
+    },
+    hasChildren: function hasChildren() {
+      return this.children.length > 0;
+    },
+    showIndicator: function showIndicator() {
+      return this.hoveringWithDrag;
+    },
+    arrowBlockStyle: function arrowBlockStyle() {
+      return {
+        marginLeft: "".concat(this.blockWidth / 2, "px")
+      };
+    },
+    lineTotalHeight: function lineTotalHeight() {
+      // todo
+      return 64;
+    },
+    isOddChildren: function isOddChildren() {
+      return Math.abs(this.totalChildren % 2) === 1;
+    },
+    isMiddle: function isMiddle() {
+      return this.isOddChildren && this.index + 1 === Math.ceil(this.totalChildren / 2);
+    },
+    isLeftSide: function isLeftSide() {
+      // if block as at the left side in the row of nodes
+      return this.index + 1 <= Math.ceil(this.totalChildren / 2);
+    },
+    lineStartX: function lineStartX() {
+      return this.blockWidth / 2;
+    },
+    blockWidth: function blockWidth() {
+      return this.width;
+    },
+    holderWidth: function holderWidth() {
+      // includes margin
+      return this.$refs.block.parentElement.offsetWidth;
+    },
+    rowWidth: function rowWidth() {
+      return this.$refs.block.parentElement.parentElement.offsetWidth;
+    },
+    isTopParent: function isTopParent() {
+      return this.node.parentId === -1;
+    },
+    children: function children() {
+      return filter_default()(this.nodes, {
+        parentId: this.node.id
+      });
+    },
+    passedProps: function passedProps() {
+      return this.node.props;
+    },
+    linePathDown: function linePathDown() {
+      return "M0 0L0 ".concat(this.lineTotalHeight / 2, "L0 ").concat(this.lineTotalHeight / 2, "L0 ").concat(this.lineTotalHeight / 2);
+    },
+    linePath: function linePath() {
+      var height = this.lineTotalHeight / 2;
+      var width = this.lengthFromMiddle;
+      var modifier = this.isLeftSide ? '' : '-'; // if (this.isMiddle) {
+      //   return `M0 0L0 ${this.lineTotalHeight / 2}
+      //  ${this.lineTotalHeight / 2} ${this.lineTotalHeight / 2}`;
+      // }
+
+      return "M".concat(modifier).concat(width, " ").concat(height, "L").concat(modifier).concat(width, " ").concat(height, "L0 ").concat(height, "L0 ").concat(this.lineTotalHeight);
+    },
+    lengthFromMiddle: function lengthFromMiddle() {
+      return Math.abs(this.xPos - this.parentX); // const addHalf = this.isOddChildren ? 0 : 0.5;
+      // const subtractRight = !this.isLeftSide && !this.isOddChildren ? -1 : 0;
+      // return Math.abs(Math.ceil((this.totalChildren / 2)) - (this.index + 1))
+      //   + addHalf + subtractRight;
+    }
+  },
+  methods: {
+    setWidth: function setWidth() {
+      if (this.$refs.block === undefined) return;
+      var xPos = getOffset(this.$refs.block).left; // for some reason there's a bug where we end up with 0
+      // even though the dom should be rendered at this point?
+
+      if (xPos !== 0) {
+        this.xPosProxy = xPos;
+        this.width = this.$refs.block.offsetWidth;
+      }
+    },
+    removeNode: function removeNode() {
+      this.$emit('remove', {
+        node: this.node
+      });
+    },
+    draggingNodeFromEvent: function draggingNodeFromEvent(event) {
+      return get_default()(event, 'oldComponent.$attrs.data.draggingNode', false);
+    },
+    dropzoneNodeFromEvent: function dropzoneNodeFromEvent(event) {
+      return get_default()(event, 'newComponent.$attrs.data.dropzoneNode', false);
+    },
+    blockFromNewNodeEvent: function blockFromNewNodeEvent(event) {
+      var data = get_default()(event, 'oldComponent.$attrs.data', false);
+      return {
+        nodeComponent: data.componentName,
+        data: cloneDeep_default()(data.props)
+      };
+    },
+    onStop: function onStop(node, _event) {
+      this.$emit('drag-stop');
+      this.hoveringWithDrag = false;
+    },
+    onStart: function onStart(node) {
+      this.$emit('drag-start', {
+        node: node
+      });
+    },
+    onDrop: function onDrop(_event) {
+      this.$emit('drag-stop');
+      this.hoveringWithDrag = false;
+    },
+    newNode: function newNode(_newNode, parentNode) {
+      this.$emit('add', {
+        node: Object(objectSpread2["a" /* default */])({
+          parentId: parentNode.id
+        }, _newNode)
+      });
+    },
+    moveNode: function moveNode(from, to) {
+      this.$emit('move', {
+        dragged: from,
+        to: to
+      });
+    },
+    onDragReceive: function onDragReceive(_event) {
+      this.hoveringWithDrag = false;
+      var draggingNode = this.draggingNodeFromEvent(_event);
+      var toNode = _event.to; // const dropzoneNode = this.dropzoneNodeFromEvent(_event);
+
+      if (draggingNode === false) {
+        // not dragging from existing node (so dragged from new node list)
+        var newNode = this.blockFromNewNodeEvent(_event);
+        this.newNode(newNode, this.node);
+      } else {
+        // dragged from existing node
+        var dropAllowed = this.beforeMove(toNode);
+
+        if (dropAllowed) {
+          this.moveNode(draggingNode, toNode);
+        }
+      }
+
+      this.dropAllowed = true;
+    },
+    onEnterDrag: function onEnterDrag(_event) {
+      this.hoveringWithDrag = true;
+      this.dropAllowed = this.beforeMove(_event.to); // this.$emit('enter-drop', {
+      //   to: _event.to,
+      // });
+    },
+    onLeaveDrag: function onLeaveDrag(_event) {
+      this.hoveringWithDrag = false;
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/FlowyNode.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_FlowyNodevue_type_script_lang_js_ = (FlowyNodevue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__("2877");
+
+// CONCATENATED MODULE: ./src/components/FlowyNode.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_FlowyNodevue_type_script_lang_js_,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* harmony default export */ var FlowyNode = __webpack_exports__["a"] = (component.exports);
+
+/***/ }),
+
 /***/ "a640":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7923,6 +8678,62 @@ module.exports = function (name) {
   } return WellKnownSymbolsStore[name];
 };
 
+
+/***/ }),
+
+/***/ "b635":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return install; });
+/* harmony import */ var _hipsjs_shopify_draggable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("952a");
+/* harmony import */ var _hipsjs_shopify_draggable_vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_hipsjs_shopify_draggable_vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Flowy_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("f841");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _components_Flowy_vue__WEBPACK_IMPORTED_MODULE_1__["a"]; });
+
+/* harmony import */ var _components_FlowyNode_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("a54e");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "d", function() { return _components_FlowyNode_vue__WEBPACK_IMPORTED_MODULE_2__["a"]; });
+
+/* harmony import */ var _components_FlowyBlock_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("2bdc");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "b", function() { return _components_FlowyBlock_vue__WEBPACK_IMPORTED_MODULE_3__["a"]; });
+
+/* harmony import */ var _components_FlowyNewBlock_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("071f");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "c", function() { return _components_FlowyNewBlock_vue__WEBPACK_IMPORTED_MODULE_4__["a"]; });
+
+
+
+
+
+ // Declare install function executed by Vue.use()
+
+function install(_Vue) {
+  var Vue = _Vue;
+  Vue.use(_hipsjs_shopify_draggable_vue__WEBPACK_IMPORTED_MODULE_0___default.a, {});
+  Vue.component('Flowy', _components_Flowy_vue__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]);
+  Vue.component('FlowyNode', _components_FlowyNode_vue__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]);
+  Vue.component('FlowyBlock', _components_FlowyBlock_vue__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]);
+  Vue.component('FlowyNewBlock', _components_FlowyNewBlock_vue__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]);
+} // Create module definition for Vue.use()
+
+var plugin = {
+  install: install
+}; // UMD auto-install when vue is found (eg. in browser via <script> tag)
+
+var GlobalVue = null;
+
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+}
+
+
+/* harmony default export */ __webpack_exports__["e"] = (plugin);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
 
 /***/ }),
 
@@ -9630,127 +10441,10 @@ module.exports = function (key) {
 
 /***/ }),
 
-/***/ "f8af":
-/***/ (function(module, exports, __webpack_require__) {
-
-var Uint8Array = __webpack_require__("2474");
-
-/**
- * Creates a clone of `arrayBuffer`.
- *
- * @private
- * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
- * @returns {ArrayBuffer} Returns the cloned array buffer.
- */
-function cloneArrayBuffer(arrayBuffer) {
-  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
-  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
-  return result;
-}
-
-module.exports = cloneArrayBuffer;
-
-
-/***/ }),
-
-/***/ "f9ce":
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseProperty = __webpack_require__("ef5d"),
-    basePropertyDeep = __webpack_require__("e3f8"),
-    isKey = __webpack_require__("f608"),
-    toKey = __webpack_require__("f4d6");
-
-/**
- * Creates a function that returns the value at `path` of a given object.
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Util
- * @param {Array|string} path The path of the property to get.
- * @returns {Function} Returns the new accessor function.
- * @example
- *
- * var objects = [
- *   { 'a': { 'b': 2 } },
- *   { 'a': { 'b': 1 } }
- * ];
- *
- * _.map(objects, _.property('a.b'));
- * // => [2, 1]
- *
- * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
- * // => [1, 2]
- */
-function property(path) {
-  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
-}
-
-module.exports = property;
-
-
-/***/ }),
-
-/***/ "fa21":
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseCreate = __webpack_require__("7530"),
-    getPrototype = __webpack_require__("2dcb"),
-    isPrototype = __webpack_require__("eac5");
-
-/**
- * Initializes an object clone.
- *
- * @private
- * @param {Object} object The object to clone.
- * @returns {Object} Returns the initialized clone.
- */
-function initCloneObject(object) {
-  return (typeof object.constructor == 'function' && !isPrototype(object))
-    ? baseCreate(getPrototype(object))
-    : {};
-}
-
-module.exports = initCloneObject;
-
-
-/***/ }),
-
-/***/ "fb15":
+/***/ "f841":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
-// This file is imported into lib/wc client bundles.
-
-if (typeof window !== 'undefined') {
-  var currentScript = window.document.currentScript
-  if (true) {
-    var getCurrentScript = __webpack_require__("8875")
-    currentScript = getCurrentScript()
-
-    // for backward compatibility, because previously we directly included the polyfill
-    if (!('currentScript' in document)) {
-      Object.defineProperty(document, 'currentScript', { get: getCurrentScript })
-    }
-  }
-
-  var src = currentScript && currentScript.src.match(/(.+\/)[^/]+\.js(\?.*)?$/)
-  if (src) {
-    __webpack_require__.p = src[1] // eslint-disable-line
-  }
-}
-
-// Indicate to webpack that this file can be concatenated
-/* harmony default export */ var setPublicPath = (null);
-
-// EXTERNAL MODULE: ./node_modules/@hipsjs/shopify-draggable-vue/dist/lib/ShopifyDraggablePlugin.common.js
-var ShopifyDraggablePlugin_common = __webpack_require__("952a");
-var ShopifyDraggablePlugin_common_default = /*#__PURE__*/__webpack_require__.n(ShopifyDraggablePlugin_common);
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ef14c44e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Flowy.vue?vue&type=template&id=5d3b0e92&language=html&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy overflow-auto",class:{
@@ -9875,105 +10569,8 @@ var filter_default = /*#__PURE__*/__webpack_require__.n(filter);
 // EXTERNAL MODULE: ./src/components/Flowy.vue?vue&type=style&index=0&lang=scss&
 var Flowyvue_type_style_index_0_lang_scss_ = __webpack_require__("af83");
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        )
-      }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functional component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__("2877");
 
 // CONCATENATED MODULE: ./src/components/Flowy.vue
 
@@ -9984,7 +10581,7 @@ function normalizeComponent (
 
 /* normalize component */
 
-var component = normalizeComponent(
+var component = Object(componentNormalizer["a" /* default */])(
   components_Flowyvue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -9995,629 +10592,142 @@ var component = normalizeComponent(
   
 )
 
-/* harmony default export */ var Flowy = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ef14c44e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNode.vue?vue&type=template&id=baccb974&lang=html&
-var FlowyNodevue_type_template_id_baccb974_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-node flex flex-col flex-no-wrap items-center relative overflow-visible"},[_c('draggable',{staticClass:"flowy-draggable",attrs:{"with-handle":false,"draggable-mirror":{ xAxis: false, appendTo: 'body' },"group":"flowy","data":{ draggingNode: _vm.node }},on:{"stop":function($event){return _vm.onStop(_vm.node, $event)},"start":function($event){return _vm.onStart(_vm.node, $event)}}},[_c('flowy-block',_vm._b({staticClass:"draggable",attrs:{"data":_vm.node,"remove":_vm.removeNode}},'flowy-block',Object.assign({}, _vm.$props, _vm.passedProps),false),[_c('div',{ref:"block",staticStyle:{"position":"absolute","width":"100%","height":"100%"}}),(!_vm.isTopParent && _vm.mounted)?_c('div',{staticClass:"arrowblock -mt-64px overflow-visible",style:(_vm.arrowBlockStyle)},[_c('svg',{staticClass:"flowy-line",attrs:{"preserveaspectratio":"none","fill":"none","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":_vm.linePath,"stroke":"#C5CCD0","stroke-width":"2px"}})])]):_vm._e(),(_vm.hasChildren && _vm.mounted)?_c('div',{staticClass:"arrowblock-down overflow-visible",style:(_vm.arrowBlockStyle)},[_c('svg',{staticClass:"flowy-line",attrs:{"preserveaspectratio":"none","fill":"none","xmlns":"http://www.w3.org/2000/svg"}},[_c('path',{attrs:{"d":_vm.linePathDown,"stroke":"#C5CCD0","stroke-width":"2px"}})])]):_vm._e(),_c('transition',{attrs:{"name":"scale"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showIndicator),expression:"showIndicator"}],staticClass:"indicator",class:{
-              'not-allowed': !this.dropAllowed
-              }})]),_c('dropzone',{staticClass:"node-dropzone",attrs:{"data":{ dropzoneNode: _vm.node },"group":"first_group"},on:{"enter":function($event){return _vm.onEnterDrag({ to: _vm.node })},"leave":function($event){return _vm.onLeaveDrag($event)},"drop":function($event){return _vm.onDrop($event)},"receive":function($event){return _vm.onDragReceive(Object.assign({}, $event, {to: _vm.node}))}},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [_c('div',{staticClass:"node-dropzone",class:scope},[_c('div',{})])]}}])})],1)],1),_c('div',{staticClass:"flowy-tree flex flex-row flex-no-wrap overflow-visible mt-64px"},[_vm._l((_vm.children),function(child,index){return [_c('flowy-node',_vm._g(_vm._b({key:child.id,ref:child.id,refInFor:true,attrs:{"index":index,"total-children":_vm.children.length,"node":child,"parent-x":_vm.xPos}},'flowy-node',Object.assign({}, _vm.$props),false),Object.assign({}, _vm.$listeners)))]})],2)],1)}
-var FlowyNodevue_type_template_id_baccb974_lang_html_staticRenderFns = []
+/* harmony default export */ var Flowy = __webpack_exports__["a"] = (component.exports);
 
+/***/ }),
 
-// CONCATENATED MODULE: ./src/components/FlowyNode.vue?vue&type=template&id=baccb974&lang=html&
+/***/ "f8af":
+/***/ (function(module, exports, __webpack_require__) {
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.concat.js
-var es_array_concat = __webpack_require__("99af");
+var Uint8Array = __webpack_require__("2474");
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.number.constructor.js
-var es_number_constructor = __webpack_require__("a9e3");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
-var es_symbol = __webpack_require__("a4d3");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
-var es_array_filter = __webpack_require__("4de4");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
-var es_array_for_each = __webpack_require__("4160");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptor.js
-var es_object_get_own_property_descriptor = __webpack_require__("e439");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.get-own-property-descriptors.js
-var es_object_get_own_property_descriptors = __webpack_require__("dbb4");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
-var es_object_keys = __webpack_require__("b64b");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
-var web_dom_collections_for_each = __webpack_require__("159b");
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
-
-
-
-
-
-
-
-
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
 }
 
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-// EXTERNAL MODULE: ./node_modules/lodash/isNil.js
-var isNil = __webpack_require__("2768");
-
-// EXTERNAL MODULE: ./node_modules/lodash/get.js
-var get = __webpack_require__("9b02");
-var get_default = /*#__PURE__*/__webpack_require__.n(get);
-
-// EXTERNAL MODULE: ./node_modules/lodash/cloneDeep.js
-var cloneDeep = __webpack_require__("0644");
-var cloneDeep_default = /*#__PURE__*/__webpack_require__.n(cloneDeep);
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNode.vue?vue&type=script&lang=js&
+module.exports = cloneArrayBuffer;
 
 
+/***/ }),
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/***/ "f9ce":
+/***/ (function(module, exports, __webpack_require__) {
 
-/* eslint-disable no-unused-vars */
+var baseProperty = __webpack_require__("ef5d"),
+    basePropertyDeep = __webpack_require__("e3f8"),
+    isKey = __webpack_require__("f608"),
+    toKey = __webpack_require__("f4d6");
 
-
-
-
-
-
-function getOffset(el) {
-  var rect = el.getBoundingClientRect();
-  return {
-    left: rect.left + rect.width / 2
-  };
+/**
+ * Creates a function that returns the value at `path` of a given object.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ * @example
+ *
+ * var objects = [
+ *   { 'a': { 'b': 2 } },
+ *   { 'a': { 'b': 1 } }
+ * ];
+ *
+ * _.map(objects, _.property('a.b'));
+ * // => [2, 1]
+ *
+ * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
+ * // => [1, 2]
+ */
+function property(path) {
+  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
 }
 
-/* harmony default export */ var FlowyNodevue_type_script_lang_js_ = ({
-  props: {
-    index: {
-      type: Number,
-      required: false
-    },
-    totalChildren: {
-      type: Number,
-      required: false
-    },
-    node: {
-      type: Object,
-      required: true
-    },
-    nodes: {
-      type: Array,
-      required: true
-    },
-    parentX: {
-      type: Number,
-      required: false
-    },
-    beforeMove: {
-      type: Function,
-      default: function _default() {
-        return true;
-      }
-    },
-    isDragging: {
-      type: Boolean
-    }
-  },
-  data: function data() {
-    return {
-      hoveringWithDrag: false,
-      mounted: false,
-      // we need to be mounted before $refs is popuplated
-      xPosProxy: 0,
-      width: 0,
-      dropAllowed: true,
-      timer: null
-    };
-  },
-  mounted: function mounted() {
-    this.mounted = true;
-    this.timer = setInterval(this.setWidth, 200);
-  },
-  destroyed: function destroyed() {
-    clearInterval(this.timer);
-  },
-  updated: function updated() {
-    var _this = this;
+module.exports = property;
 
-    this.$nextTick(function () {
-      // Code that will run only after the
-      // entire view has been re-rendered
-      _this.setWidth();
-    });
-  },
-  computed: {
-    xPos: function xPos() {
-      if (!this.mounted) return 0;
-      return this.xPosProxy;
-    },
-    hasChildren: function hasChildren() {
-      return this.children.length > 0;
-    },
-    showIndicator: function showIndicator() {
-      return this.hoveringWithDrag;
-    },
-    arrowBlockStyle: function arrowBlockStyle() {
-      return {
-        marginLeft: "".concat(this.blockWidth / 2, "px")
-      };
-    },
-    lineTotalHeight: function lineTotalHeight() {
-      // todo
-      return 64;
-    },
-    isOddChildren: function isOddChildren() {
-      return Math.abs(this.totalChildren % 2) === 1;
-    },
-    isMiddle: function isMiddle() {
-      return this.isOddChildren && this.index + 1 === Math.ceil(this.totalChildren / 2);
-    },
-    isLeftSide: function isLeftSide() {
-      // if block as at the left side in the row of nodes
-      return this.index + 1 <= Math.ceil(this.totalChildren / 2);
-    },
-    lineStartX: function lineStartX() {
-      return this.blockWidth / 2;
-    },
-    blockWidth: function blockWidth() {
-      return this.width;
-    },
-    holderWidth: function holderWidth() {
-      // includes margin
-      return this.$refs.block.parentElement.offsetWidth;
-    },
-    rowWidth: function rowWidth() {
-      return this.$refs.block.parentElement.parentElement.offsetWidth;
-    },
-    isTopParent: function isTopParent() {
-      return this.node.parentId === -1;
-    },
-    children: function children() {
-      return filter_default()(this.nodes, {
-        parentId: this.node.id
-      });
-    },
-    passedProps: function passedProps() {
-      return this.node.props;
-    },
-    linePathDown: function linePathDown() {
-      return "M0 0L0 ".concat(this.lineTotalHeight / 2, "L0 ").concat(this.lineTotalHeight / 2, "L0 ").concat(this.lineTotalHeight / 2);
-    },
-    linePath: function linePath() {
-      var height = this.lineTotalHeight / 2;
-      var width = this.lengthFromMiddle;
-      var modifier = this.isLeftSide ? '' : '-'; // if (this.isMiddle) {
-      //   return `M0 0L0 ${this.lineTotalHeight / 2}
-      //  ${this.lineTotalHeight / 2} ${this.lineTotalHeight / 2}`;
-      // }
 
-      return "M".concat(modifier).concat(width, " ").concat(height, "L").concat(modifier).concat(width, " ").concat(height, "L0 ").concat(height, "L0 ").concat(this.lineTotalHeight);
-    },
-    lengthFromMiddle: function lengthFromMiddle() {
-      return Math.abs(this.xPos - this.parentX); // const addHalf = this.isOddChildren ? 0 : 0.5;
-      // const subtractRight = !this.isLeftSide && !this.isOddChildren ? -1 : 0;
-      // return Math.abs(Math.ceil((this.totalChildren / 2)) - (this.index + 1))
-      //   + addHalf + subtractRight;
-    }
-  },
-  methods: {
-    setWidth: function setWidth() {
-      if (this.$refs.block === undefined) return;
-      var xPos = getOffset(this.$refs.block).left; // for some reason there's a bug where we end up with 0
-      // even though the dom should be rendered at this point?
+/***/ }),
 
-      if (xPos !== 0) {
-        this.xPosProxy = xPos;
-        this.width = this.$refs.block.offsetWidth;
-      }
-    },
-    removeNode: function removeNode() {
-      this.$emit('remove', {
-        node: this.node
-      });
-    },
-    draggingNodeFromEvent: function draggingNodeFromEvent(event) {
-      return get_default()(event, 'oldComponent.$attrs.data.draggingNode', false);
-    },
-    dropzoneNodeFromEvent: function dropzoneNodeFromEvent(event) {
-      return get_default()(event, 'newComponent.$attrs.data.dropzoneNode', false);
-    },
-    blockFromNewNodeEvent: function blockFromNewNodeEvent(event) {
-      var data = get_default()(event, 'oldComponent.$attrs.data', false);
-      return {
-        nodeComponent: data.componentName,
-        data: cloneDeep_default()(data.props)
-      };
-    },
-    onStop: function onStop(node, _event) {
-      this.$emit('drag-stop');
-      this.hoveringWithDrag = false;
-    },
-    onStart: function onStart(node) {
-      this.$emit('drag-start', {
-        node: node
-      });
-    },
-    onDrop: function onDrop(_event) {
-      this.$emit('drag-stop');
-      this.hoveringWithDrag = false;
-    },
-    newNode: function newNode(_newNode, parentNode) {
-      this.$emit('add', {
-        node: _objectSpread2({
-          parentId: parentNode.id
-        }, _newNode)
-      });
-    },
-    moveNode: function moveNode(from, to) {
-      this.$emit('move', {
-        dragged: from,
-        to: to
-      });
-    },
-    onDragReceive: function onDragReceive(_event) {
-      this.hoveringWithDrag = false;
-      var draggingNode = this.draggingNodeFromEvent(_event);
-      var toNode = _event.to; // const dropzoneNode = this.dropzoneNodeFromEvent(_event);
+/***/ "fa21":
+/***/ (function(module, exports, __webpack_require__) {
 
-      if (draggingNode === false) {
-        // not dragging from existing node (so dragged from new node list)
-        var newNode = this.blockFromNewNodeEvent(_event);
-        this.newNode(newNode, this.node);
-      } else {
-        // dragged from existing node
-        var dropAllowed = this.beforeMove(toNode);
+var baseCreate = __webpack_require__("7530"),
+    getPrototype = __webpack_require__("2dcb"),
+    isPrototype = __webpack_require__("eac5");
 
-        if (dropAllowed) {
-          this.moveNode(draggingNode, toNode);
-        }
-      }
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneObject(object) {
+  return (typeof object.constructor == 'function' && !isPrototype(object))
+    ? baseCreate(getPrototype(object))
+    : {};
+}
 
-      this.dropAllowed = true;
-    },
-    onEnterDrag: function onEnterDrag(_event) {
-      this.hoveringWithDrag = true;
-      this.dropAllowed = this.beforeMove(_event.to); // this.$emit('enter-drop', {
-      //   to: _event.to,
-      // });
-    },
-    onLeaveDrag: function onLeaveDrag(_event) {
-      this.hoveringWithDrag = false;
+module.exports = initCloneObject;
+
+
+/***/ }),
+
+/***/ "fb15":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "install", function() { return /* reexport */ src_0["f" /* install */]; });
+__webpack_require__.d(__webpack_exports__, "Flowy", function() { return /* reexport */ src_0["a" /* Flowy */]; });
+__webpack_require__.d(__webpack_exports__, "FlowyNode", function() { return /* reexport */ src_0["d" /* FlowyNode */]; });
+__webpack_require__.d(__webpack_exports__, "FlowyBlock", function() { return /* reexport */ src_0["b" /* FlowyBlock */]; });
+__webpack_require__.d(__webpack_exports__, "FlowyNewBlock", function() { return /* reexport */ src_0["c" /* FlowyNewBlock */]; });
+
+// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
+// This file is imported into lib/wc client bundles.
+
+if (typeof window !== 'undefined') {
+  var currentScript = window.document.currentScript
+  if (true) {
+    var getCurrentScript = __webpack_require__("8875")
+    currentScript = getCurrentScript()
+
+    // for backward compatibility, because previously we directly included the polyfill
+    if (!('currentScript' in document)) {
+      Object.defineProperty(document, 'currentScript', { get: getCurrentScript })
     }
   }
-});
-// CONCATENATED MODULE: ./src/components/FlowyNode.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_FlowyNodevue_type_script_lang_js_ = (FlowyNodevue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/FlowyNode.vue
 
-
-
-
-
-/* normalize component */
-
-var FlowyNode_component = normalizeComponent(
-  components_FlowyNodevue_type_script_lang_js_,
-  FlowyNodevue_type_template_id_baccb974_lang_html_render,
-  FlowyNodevue_type_template_id_baccb974_lang_html_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var FlowyNode = (FlowyNode_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ef14c44e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyBlock.vue?vue&type=template&id=693af488&lang=html&
-var FlowyBlockvue_type_template_id_693af488_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-block mr-24px relative"},[_vm._t("default"),_c(_vm.component,_vm._b({ref:"block",tag:"component"},'component',Object.assign({}, _vm.$props, _vm.$attrs, _vm.passedProps),false))],2)}
-var FlowyBlockvue_type_template_id_693af488_lang_html_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/FlowyBlock.vue?vue&type=template&id=693af488&lang=html&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyBlock.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* eslint-disable no-unused-vars */
-/* harmony default export */ var FlowyBlockvue_type_script_lang_js_ = ({
-  props: {
-    node: {
-      type: Object,
-      required: true
-    },
-    remove: {
-      type: Function,
-      required: true
-    }
-  },
-  data: function data() {
-    return {};
-  },
-  mounted: function mounted() {},
-  destroyed: function destroyed() {},
-  computed: {
-    component: function component() {
-      return this.node.nodeComponent; // return find(this.blocks, { name: this.node.block }).name;
-    },
-    passedProps: function passedProps() {
-      return this.node.data;
-    }
-  },
-  methods: {
-    onDragEnd: function onDragEnd(_event) {},
-    onDragStart: function onDragStart(_event) {}
-  },
-  render: function render(c) {
-    var item = this.$scopedSlots.default()[0];
-    return item;
+  var src = currentScript && currentScript.src.match(/(.+\/)[^/]+\.js(\?.*)?$/)
+  if (src) {
+    __webpack_require__.p = src[1] // eslint-disable-line
   }
-});
-// CONCATENATED MODULE: ./src/components/FlowyBlock.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_FlowyBlockvue_type_script_lang_js_ = (FlowyBlockvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/FlowyBlock.vue
+}
 
+// Indicate to webpack that this file can be concatenated
+/* harmony default export */ var setPublicPath = (null);
 
+// EXTERNAL MODULE: ./src/index.js
+var src_0 = __webpack_require__("b635");
 
-
-
-/* normalize component */
-
-var FlowyBlock_component = normalizeComponent(
-  components_FlowyBlockvue_type_script_lang_js_,
-  FlowyBlockvue_type_template_id_693af488_lang_html_render,
-  FlowyBlockvue_type_template_id_693af488_lang_html_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var FlowyBlock = (FlowyBlock_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ef14c44e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNewBlock.vue?vue&type=template&id=007f21f4&lang=html&
-var FlowyNewBlockvue_type_template_id_007f21f4_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flowy-block mr-24px relative"},[_c('draggable',{attrs:{"with-handle":false,"draggable-mirror":{ xAxis: false, appendTo: 'body' },"group":"flowy","data":Object.assign({}, {type: 'new'}, _vm.nodeData)}},[_vm._t("preview")],2)],1)}
-var FlowyNewBlockvue_type_template_id_007f21f4_lang_html_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/FlowyNewBlock.vue?vue&type=template&id=007f21f4&lang=html&
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/FlowyNewBlock.vue?vue&type=script&lang=js&
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* eslint-disable no-unused-vars */
-/* harmony default export */ var FlowyNewBlockvue_type_script_lang_js_ = ({
-  props: {},
-  data: function data() {
-    return {
-      node: {
-        componentName: '',
-        props: {}
-      }
-    };
-  },
-  mounted: function mounted() {
-    var node = this.$scopedSlots.node()[0];
-    this.node.componentName = node.componentOptions.tag;
-    this.node.props = _objectSpread2(_objectSpread2({}, node.componentOptions.propsData), node.data.attrs);
-  },
-  destroyed: function destroyed() {},
-  computed: {
-    nodeData: function nodeData() {
-      return this.node;
-    }
-  },
-  methods: {
-    remove: function remove() {}
-  }
-});
-// CONCATENATED MODULE: ./src/components/FlowyNewBlock.vue?vue&type=script&lang=js&
- /* harmony default export */ var components_FlowyNewBlockvue_type_script_lang_js_ = (FlowyNewBlockvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/components/FlowyNewBlock.vue
-
-
-
-
-
-/* normalize component */
-
-var FlowyNewBlock_component = normalizeComponent(
-  components_FlowyNewBlockvue_type_script_lang_js_,
-  FlowyNewBlockvue_type_template_id_007f21f4_lang_html_render,
-  FlowyNewBlockvue_type_template_id_007f21f4_lang_html_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var FlowyNewBlock = (FlowyNewBlock_component.exports);
-// CONCATENATED MODULE: ./src/index.js
-
-
-
-
-
-var VuePlugin = {};
-
-VuePlugin.install = function install(_Vue) {
-  var Vue = _Vue;
-  Vue.use(ShopifyDraggablePlugin_common_default.a, {});
-  Vue.component('Flowy', Flowy);
-  Vue.component('FlowyNode', FlowyNode);
-  Vue.component('FlowyBlock', FlowyBlock);
-  Vue.component('FlowyNewBlock', FlowyNewBlock);
-};
-
-/* harmony default export */ var src_0 = (VuePlugin);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src_0);
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src_0["e" /* default */]);
 
 
 
@@ -10753,5 +10863,3 @@ module.exports = isSymbol;
 /***/ })
 
 /******/ });
-});
-//# sourceMappingURL=VueFlowyPlugin.umd.js.map
