@@ -15,7 +15,7 @@ export default function (title, links) {
       title: `${title} listing`,
 
       meta: getMeta(
-        `${title} | Quasar Framework`,
+        `${title} | Flowy Vue`,
         `List of pages under the '${title}' section`
       )
     },

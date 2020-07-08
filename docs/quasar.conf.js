@@ -18,7 +18,7 @@ module.exports = function (ctx) {
       showProgress: ctx.dev,
       distDir: "dist/spa",
       publicPath: !ctx.dev
-        ? "https://remcoplasmeyer.github.io/quasar-app-extension-flowy/"
+        ? "https://remcoplasmeyer.github.io/flowy-vue/"
         : "",
       // analyze: true,
 

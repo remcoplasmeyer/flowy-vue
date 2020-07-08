@@ -1,3 +1,4 @@
+/* global gtag */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -25,9 +26,11 @@ export default function () {
   })
 
   process.env.CLIENT === true && Router.afterEach(to => {
-    // gtag('config', 'UA-6317975-6', {
-    //   page_path: to.path
-    // })
+    if (gtag) {
+      gtag('config', 'UA-172063534-1', {
+        page_path: to.path
+      })
+    }
   })
 
   return Router

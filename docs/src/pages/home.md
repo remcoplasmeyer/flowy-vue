@@ -28,9 +28,7 @@ import Vue from "vue";
 import FlowyPlugin from "@hipsjs/flowy-vue";
 import "@hipsjs/flowy-vue/dist/lib/flowy-vue.css";
 
-export default ({ Vue }) => {
-  Vue.use(FlowyPlugin);
-}
+Vue.use(FlowyPlugin);
 ```
 
 ### UMD
@@ -65,7 +63,7 @@ export default ({ Vue }) => {
 
 ### Codepen
 
-Click the codepen button the examples below :)
+Click the codepen button in the examples below :)
 
 ## Usage
 

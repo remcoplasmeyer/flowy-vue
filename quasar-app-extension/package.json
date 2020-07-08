@@ -1,0 +1,25 @@
+{
+  "name": "quasar-app-extension-flowy",
+  "version": "1.0.4",
+  "description": "A Quasar extension for flowy-vue",
+  "author": "Remco Plasmeijer",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "bugs": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "",
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "dependencies": {
+    "@hipsjs/flowy-vue": "^1.0.12"
+  }
+}

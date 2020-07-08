@@ -42,7 +42,7 @@ module.exports = {
 
     'no-void': 'off',
     'quotes': 'off',
-    'array-bracket-spacing': ['error', 'always'],
+    'array-bracket-spacing': 'off',
     'brace-style': ['error', 'stroustrup'],
 
     'import/export': 'off',

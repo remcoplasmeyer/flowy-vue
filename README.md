@@ -10,7 +10,7 @@
 - Based on [Shopify Draggable Vue](https://github.com/remcoplasmeyer/shopify-draggable-vue)
 - (Optional) [Quasar](https://www.quasar.dev) app extension
 
-## 📄 Instructions / documentation
+## 📄 Instructions / documentation / examples
 
 * [**Documentation**](https://remcoplasmeyer.github.io/flowy-vue-quasar/)
 

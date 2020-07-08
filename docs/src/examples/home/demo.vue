@@ -1,35 +1,38 @@
 <template>
   <div class="q-ma-md">
     <div class="column">
-      <div class="">
-          <div class="q-mb-md">Drag blocks to the node tree below using the drag handle</div>
-          <div class="row">
-            <flowy-new-block
-              v-for="(block, index) in blocks"
-              :key="index"
-              class="q-mr-md"
-              @drag-start="onDragStartNewBlock"
-              @drag-stop="onDragStopNewBlock"
-            >
-              <template v-slot:preview="{}">
-                <demo-block
-                  :title="block.preview.title"
-                  :description="block.preview.description"
-                />
-              </template>
-              <template v-slot:node="{}">
-                <demo-node
-                  :title="block.node.title"
-                  :description="block.node.description"
-                  :custom-attribute="block.node.canBeAdded"
-                />
-              </template>
-            </flowy-new-block>
-          </div>
+      <div>
+        <div class="q-mb-md">Drag blocks to the node tree below using the drag handle</div>
+        <div class="row">
+          <flowy-new-block
+            v-for="(block, index) in blocks"
+            :key="index"
+            class="q-mr-md"
+            @drag-start="onDragStartNewBlock"
+            @drag-stop="onDragStopNewBlock"
+          >
+            <template v-slot:preview="{}">
+              <demo-block
+                :title="block.preview.title"
+                :description="block.preview.description"
+              />
+            </template>
+            <template v-slot:node="{}">
+              <demo-node
+                :title="block.node.title"
+                :description="block.node.description"
+                :custom-attribute="block.node.canBeAdded"
+              />
+            </template>
+          </flowy-new-block>
+        </div>
       </div>
       <q-separator class="q-my-lg" />
 
-      <div class="flex-grow overflow-auto" style="width:100%;">
+      <div
+        class="flex-grow overflow-auto"
+        style="width:100%;"
+      >
         <flowy
           class="q-mx-auto"
           :nodes="nodes"
@@ -238,7 +241,7 @@ const DemoNode = {
       text: 'This is component A'
     }
   },
-  props: [ 'remove', 'node', 'title', 'description' ],
+  props: ['remove', 'node', 'title', 'description'],
   template: `
     <q-card flat bordered class="my-card bg-white q-pa-md">
       <div class="row items-center no-wrap">
@@ -247,7 +250,9 @@ const DemoNode = {
         </div>
 
         <div class="col-auto">
-          <q-btn size="sm" color="grey-7" class="drag-handle" round flat icon="drag_handle" />
+          <flowy-drag-handle>
+            <q-btn size="sm" color="grey-7" round flat icon="drag_handle" />
+          </flowy-drag-handle>
         </div>
       </div>
 
@@ -266,11 +271,13 @@ const DemoBlock = {
       text: 'This is component A'
     }
   },
-  props: [ 'remove', 'node', 'title', 'description' ],
+  props: ['remove', 'node', 'title', 'description'],
   template: `
     <q-card flat bordered class="q-px-md q-py-sm row items-center justify-between">
       <div class="text-subtitle1">{{ title }}</div>
-      <q-btn color="grey-7" size="sm" class="drag-handle q-ml-md" round flat icon="drag_handle" />
+      <flowy-drag-handle>
+        <q-btn color="grey-7" size="sm" class="q-ml-md" round flat icon="drag_handle" />
+      </flowy-drag-handle>
     </q-card>
   `
 }
@@ -280,7 +287,7 @@ Vue.component('demo-node', DemoNode)
 </script>
 
 <style lang="scss">
-.drag-handle {
+.flowy-drag-handle button {
   cursor: grab;
 }
 

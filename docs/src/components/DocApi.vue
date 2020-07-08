@@ -213,7 +213,7 @@ export default {
       this.aggregationModel = {}
 
       if (type === 'component' && api.props !== void 0) {
-        for (const apiGroup of [ 'props' ]) {
+        for (const apiGroup of ['props']) {
           api[apiGroup] = groupBy(api[apiGroup], 'category', 'general')
           this.currentInnerTab[apiGroup] = this.apiTabs(apiGroup, api)[0]
           this.aggregationModel[apiGroup] = true
@@ -267,7 +267,7 @@ export default {
         return total
       }
 
-      if ([ 'value', 'arg', 'quasarConfOptions', 'injection' ].includes(tab)) {
+      if (['value', 'arg', 'quasarConfOptions', 'injection'].includes(tab)) {
         return 1
       }
 
@@ -308,7 +308,7 @@ export default {
     import(
       /* webpackChunkName: "quasar-app-extension-flowy" */
       /* webpackMode: "lazy-once" */
-      'quasar-app-extension-flowy/src/components/' + this.file + '.json'
+      '@hipsjs/flowy-vue/dist/lib/' + this.file + '.json'
     ).then(json => {
       this.parseJson(this.file, json.default)
       this.loading = false

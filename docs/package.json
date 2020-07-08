@@ -10,6 +10,7 @@
     "dev:ssr": "quasar dev -m ssr",
     "build": "quasar build -m spa",
     "deploy": "gh-pages -d dist/spa",
+    "generate-icons": "icongenie generate -m spa --icon ./public/logo.png",
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0"
   },
@@ -18,10 +19,10 @@
     "core-js": "^3.6.5",
     "prismjs": "^1.15.0",
     "quasar": "^1.0.0",
-    "quasar-app-extension-flowy": "^1.0.0"
+    "quasar-app-extension-flowy": "^1.0.3"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0",
+    "@quasar/app": "^2.0.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
