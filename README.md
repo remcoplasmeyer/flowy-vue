@@ -14,16 +14,16 @@
 
 ## 📄 Instructions / documentation / examples
 
-* [**Documentation**](https://remcoplasmeyer.github.io/flowy-vue-quasar/)
+* [**Documentation**](https://remcoplasmeyer.github.io/flowy-vue/)
 
 ## ⚙️ Developments
 
 ### `npm run serve`
 
-Runs the app in the development mode.<br>
+Runs the app in the development mode.
 Open [http://localhost:8080/flowy-vue](http://localhost:8080/flowy-vue) to view it in the browser.
 
-The page will reload if you make edits.<br>
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 ## ⭐️ Show Your Support
