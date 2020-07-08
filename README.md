@@ -1,6 +1,8 @@
 
 <h2 align="middle">Flowy Vue</h2>
 
+![](/public/demo.gif)
+
 ## 🔥 Features
 
 - Use Vue components to create a flowchart or hierarchy system

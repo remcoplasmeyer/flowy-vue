@@ -19,7 +19,7 @@
     "core-js": "^3.6.5",
     "prismjs": "^1.15.0",
     "quasar": "^1.0.0",
-    "quasar-app-extension-flowy": "^1.0.3"
+    "quasar-app-extension-flowy": "^1.0.5"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.1",
