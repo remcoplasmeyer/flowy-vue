@@ -1,0 +1,91 @@
+{
+  "type": "component",
+  "props": {
+    "nodes": {
+      "type": "Array",
+      "desc": "Initial array of nodes",
+      "definition": {
+        "id": {
+          "desc": "ID of the node",
+          "type": "String"
+        },
+        "parentId": {
+          "desc": "ID of the parent node",
+          "type": "String"
+        },
+        "nodeComponent": {
+          "desc": "Name of the Vue component that will be rendered for this node",
+          "type": "Component"
+        }
+      }
+    }
+  },
+  "events": {
+    "add": {
+      "desc": "Called when a node is added, add your adding node logic here",
+      "required": true,
+      "params": {
+        "node": {
+          "desc": "Node that is being dragged to"
+        }
+      }
+    },
+    "move": {
+      "desc": "Called when a node is moved, add your moving node logic here",
+      "params": {
+        "dragged": {
+          "desc": "Node that is being dragged"
+        },
+        "to": {
+          "desc": "Node that is being dragged to"
+        }
+      }
+    },
+    "remove": {
+      "desc": "Called when the remove method is called, add your removing node logic here",
+      "params": {
+        "node": {
+          "desc": "Node that is being removed"
+        }
+      }
+    },
+    "drag-start": {
+      "params": {
+        "node": {
+          "desc": "Node that is being dragged"
+        }
+      }
+    }
+  },
+  "methods": {
+    "beforeAdd": {
+      "desc": "Called during drag when a node is added, has to be implemented",
+      "params": {
+        "node": {
+          "desc": "Node that is being dragged to"
+        }
+      },
+      "returns": {
+        "type": "Boolean",
+        "desc": "Return true if the node can be added"
+      }
+    },
+    "beforeMove": {
+      "desc": "Called during drag when a node is moved, has to be implemented",
+      "params": {
+        "event": {
+          "type": "Object",
+          "definition": {
+            "node": {
+              "desc": "Node that is being dragged to"
+            }
+          }
+        }
+      },
+      "returns": {
+        "type": "Boolean",
+        "desc": "Return true if the node can be moved"
+      }
+    }
+  }
+}

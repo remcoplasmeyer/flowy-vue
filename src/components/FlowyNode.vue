@@ -127,6 +127,10 @@ export default {
       type: Function,
       default: () => true,
     },
+    beforeAdd: {
+      type: Function,
+      default: () => true,
+    },
     isDragging: {
       type: Boolean,
     },
@@ -270,12 +274,15 @@ export default {
       this.hoveringWithDrag = false;
     },
     newNode(newNode, parentNode) {
-      this.$emit('add', {
-        node: {
-          parentId: parentNode.id,
-          ...newNode,
-        },
-      });
+      const dropAllowed = this.beforeAdd(newNode);
+      if (dropAllowed) {
+        this.$emit('add', {
+          node: {
+            parentId: parentNode.id,
+            ...newNode,
+          },
+        });
+      }
     },
     moveNode(from, to) {
       this.$emit('move', {

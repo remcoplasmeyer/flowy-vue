@@ -16,6 +16,7 @@
         @drag-stop="onDragStop($event)"
         @enter-drop="onEnterDrop($event)"
         :before-move="onBeforeMove"
+        :before-add="onBeforeAdd"
         :is-dragging="dragging"
       >
       </FlowyNode>
@@ -35,6 +36,10 @@ export default {
       required: false,
     },
     beforeMove: {
+      type: Function,
+      default: () => true,
+    },
+    beforeAdd: {
       type: Function,
       default: () => true,
     },
@@ -67,6 +72,9 @@ export default {
     },
     onBeforeMove(to) {
       return this.beforeMove({ to, from: this.draggingNode });
+    },
+    onBeforeAdd(to) {
+      return this.beforeAdd({ to });
     },
     onDrop(event) {
       this.setNotDragging();

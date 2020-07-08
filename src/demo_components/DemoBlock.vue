@@ -4,9 +4,11 @@
     <div class="flex flex-row flex-no-wrap ml-2">
       <div class="flex-none flex
        flex-row flex-no-wrap items-start justify-start" style="width:60px;">
-        <div class="flex-none drag-handle mt-2 mr-2">
-          <img src="demo_assets/grabme.svg" style="width: 10px;">
-        </div>
+        <flowy-drag-handle>
+          <div class="flex-none mt-2 mr-2">
+            <img src="demo_assets/grabme.svg" style="width: 10px;">
+          </div>
+        </flowy-drag-handle>
         <div class="flex-grow bg-blue-100 p-1 ml-2 mr-2 rounded">
           <img :src="`demo_assets/${icon}.svg`">
         </div>

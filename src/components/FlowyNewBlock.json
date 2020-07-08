@@ -1,0 +1,20 @@
+{
+  "type": "component",
+  "meta": {
+    "docsUrl": "todo"
+  },
+  "props": {
+    "nodes": {
+      "type": "Array",
+      "desc": "An array of node objects"
+    }
+  },
+  "slots": {
+    "preview": {
+      "desc": "Will be used as preview of the node outside of the canvas. Must contain a flowy-drag-handle."
+    },
+    "node": {
+      "desc": "Must contain a Vue component. Will be rendered in the node tree."
+    }
+  }
+}

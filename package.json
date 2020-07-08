@@ -1,6 +1,6 @@
 {
   "name": "@hipsjs/flowy-vue",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "Shopify draggable for Vue",
   "main": "./dist/lib/flowy-vue.common.js",
   "private": false,
@@ -29,7 +29,7 @@
     "vue": "~2"
   },
   "dependencies": {
-    "@hipsjs/shopify-draggable-vue": "^1.0.6",
+    "@hipsjs/shopify-draggable-vue": "^1.0.7",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

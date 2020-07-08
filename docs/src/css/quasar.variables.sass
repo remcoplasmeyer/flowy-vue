@@ -1,0 +1,425 @@
+
+@use "sass:map"
+@import "./tailwind.variables.generated"
+
+// Quasar Stylus Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Stylus variables found in Quasar's source Stylus files.
+
+// Check documentation for full list of Quasar variables
+
+// It's highly recommended to change the default colors
+// to match your app's branding.
+// Tip: Use the "Theme Builder" on Quasar's documentation website.
+
+$space-base: map-get($spacing, 4) !default
+$space-x-base: $space-base !default
+$space-y-base: $space-base !default
+
+$space-none: (x: 0, y: 0) !default
+$space-xs: (x: ($space-x-base * .25), y: ($space-y-base * .25)) !default
+$space-sm: (x: ($space-x-base * .5), y: ($space-y-base * .5)) !default
+$space-md: (x: $space-x-base, y: $space-y-base) !default
+$space-lg: (x: ($space-x-base * 1.5), y: ($space-y-base * 1.5)) !default
+$space-xl: (x: ($space-x-base * 3), y: ($space-y-base * 3)) !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$spaces: ('none': $space-none, 'xs': $space-xs, 'sm': $space-sm, 'md': $space-md, 'lg': $space-lg, 'xl': $space-xl) !default
+
+// Max width at which point
+// current size ends
+$breakpoint-xs: map-get($screens, "sm") !default
+$breakpoint-sm: map-get($screens, "md") !default
+$breakpoint-md: map-get($screens, "lg") !default
+$breakpoint-lg: map-get($screens, "xl") !default
+
+$flex-cols: 12 !default
+$flex-gutter-xs: ($space-base * .25) !default
+$flex-gutter-sm: ($space-base * .5) !default
+$flex-gutter-md: $space-base !default
+$flex-gutter-lg: ($space-base * 1.5) !default
+$flex-gutter-xl: ($space-base * 3) !default
+
+$body-font-size: map-get($fontSize, 'sm') !default
+$body-line-height: map-get($lineHeight, 4) !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$flex-gutter: ('none': 0, 'xs': $flex-gutter-xs, 'sm': $flex-gutter-sm, 'md': $flex-gutter-md, 'lg': $flex-gutter-lg, 'xl': $flex-gutter-xl) !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$sizes: ('xs': 0, 'sm': ($breakpoint-xs + 1), 'md': ($breakpoint-sm + 1), 'lg': ($breakpoint-md + 1), 'xl': ($breakpoint-lg + 1)) !default
+
+$breakpoint-xs-min: 0 !default
+$breakpoint-xs-max: $breakpoint-xs !default
+
+$breakpoint-sm-min: map-get($sizes, "sm") !default
+$breakpoint-sm-max: $breakpoint-sm !default
+
+$breakpoint-md-min: map-get($sizes, "md") !default
+$breakpoint-md-max: $breakpoint-md !default
+
+$breakpoint-lg-min: map-get($sizes, "lg") !default
+$breakpoint-lg-max: $breakpoint-lg !default
+
+$breakpoint-xl-min: map-get($sizes, "xl") !default
+$breakpoint-xl-max: 9999px !default
+
+$h1: (size: 3rem, line-height: 2.6rem, letter-spacing: -.01562em, weight: 300) !default
+$h2: (size: 2.25rem, line-height: 1.85rem, letter-spacing: -.00833em, weight: 300) !default
+$h3: (size: 1.875rem, line-height: 1.475rem, letter-spacing: normal, weight: 400) !default
+$h4: (size: 1.5rem, line-height: 1.4rem, letter-spacing: .00735em, weight: 400) !default
+$h5: (size: 1.25rem, line-height: 2rem, letter-spacing: normal, weight: 400) !default
+$h6: (size: 1.125rem, line-height: 2rem, letter-spacing: .0125em, weight: 500) !default
+$subtitle1: (size: 1rem, line-height: 1.75rem, letter-spacing: .00937em, weight: 400) !default
+$subtitle2: (size: 0.875rem, line-height: 1.375rem, letter-spacing: .00714em, weight: 500) !default
+$body1: (size: 1rem, line-height: 1.5rem, letter-spacing: .03125em, weight: 400) !default
+$body2: (size: 0.875rem, line-height: 1.25rem, letter-spacing: .01786em, weight: 400) !default
+$overline: (size: 0.75rem, line-height: 2rem, letter-spacing: .16667em, weight: 500) !default
+$caption: (size: 0.75rem, line-height: 1.25rem, letter-spacing: .03333em, weight: 400) !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$headings: ('h1': $h1, 'h2': $h2, 'h3': $h3, 'h4': $h4, 'h5': $h5, 'h6': $h6, 'subtitle1': $subtitle1, 'subtitle2': $subtitle2, 'body1': $body1, 'body2': $body2, 'overline': $overline, 'caption': $caption) !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$h-tags: (h1: map-get($headings, "h1"), h2: map-get($headings, "h2"), h3: map-get($headings, "h3"), h4: map-get($headings, "h4"), h5: map-get($headings, "h5"), h6: map-get($headings, "h6")) !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$text-weights: (thin: 100, light: 300, regular: 400, medium: 500, bold: 700, bolder: 900) !default
+
+$primary: #027BE3 !default
+$secondary: #26A69A !default
+$accent: #9C27B0 !default
+
+$positive: #21BA45 !default
+$negative: #C10015 !default
+$info: #31CCEC !default
+$warning: #F2C037 !default
+
+$light: #bdbdbd !default
+$dark: #424242 !default
+$faded: #777 !default
+
+$dimmed-background: rgba(0, 0, 0, .4) !default
+$light-dimmed-background: rgba(255, 255, 255, .6) !default
+
+$separator-color: map-get($colors, 'gray-300') !default
+$separator-dark-color: rgba(255, 255, 255, .48) !default
+
+$red-0: map-get($colors, 'red-50') !default
+$red-1: map-get($colors, 'red-100') !default
+$red-2: map-get($colors, 'red-200') !default
+$red-3: map-get($colors, 'red-300') !default
+$red-4: map-get($colors, 'red-400') !default
+$red-5: map-get($colors, 'red-500') !default
+$red-6: map-get($colors, 'red-600') !default
+$red-7: map-get($colors, 'red-700') !default
+$red-8: map-get($colors, 'red-800') !default
+$red-9: map-get($colors, 'red-900') !default
+$red: map-get($colors, 'red-600') !default
+$pink-0: map-get($colors, 'pink-50') !default
+$pink-1: map-get($colors, 'pink-100') !default
+$pink-2: map-get($colors, 'pink-200') !default
+$pink-3: map-get($colors, 'pink-300') !default
+$pink-4: map-get($colors, 'pink-400') !default
+$pink-5: map-get($colors, 'pink-500') !default
+$pink-6: map-get($colors, 'pink-600') !default
+$pink-7: map-get($colors, 'pink-700') !default
+$pink-8: map-get($colors, 'pink-800') !default
+$pink-9: map-get($colors, 'pink-900') !default
+$pink: map-get($colors, 'pink-600') !default
+$purple-0: map-get($colors, 'purple-50') !default
+$purple-1: map-get($colors, 'purple-100') !default
+$purple-2: map-get($colors, 'purple-200') !default
+$purple-3: map-get($colors, 'purple-300') !default
+$purple-4: map-get($colors, 'purple-400') !default
+$purple-5: map-get($colors, 'purple-500') !default
+$purple-6: map-get($colors, 'purple-600') !default
+$purple-7: map-get($colors, 'purple-700') !default
+$purple-8: map-get($colors, 'purple-800') !default
+$purple-9: map-get($colors, 'purple-900') !default
+$purple: map-get($colors, 'purple-600') !default
+$indigo-0: map-get($colors, 'indigo-50') !default
+$indigo-1: map-get($colors, 'indigo-100') !default
+$indigo-2: map-get($colors, 'indigo-200') !default
+$indigo-3: map-get($colors, 'indigo-300') !default
+$indigo-4: map-get($colors, 'indigo-400') !default
+$indigo-5: map-get($colors, 'indigo-500') !default
+$indigo-6: map-get($colors, 'indigo-600') !default
+$indigo-7: map-get($colors, 'indigo-700') !default
+$indigo-8: map-get($colors, 'indigo-800') !default
+$indigo-9: map-get($colors, 'indigo-900') !default
+$indigo: map-get($colors, 'indigo-600') !default
+$blue-0: map-get($colors, 'blue-50') !default
+$blue-1: map-get($colors, 'blue-100') !default
+$blue-2: map-get($colors, 'blue-200') !default
+$blue-3: map-get($colors, 'blue-300') !default
+$blue-4: map-get($colors, 'blue-400') !default
+$blue-5: map-get($colors, 'blue-500') !default
+$blue-6: map-get($colors, 'blue-600') !default
+$blue-7: map-get($colors, 'blue-700') !default
+$blue-8: map-get($colors, 'blue-800') !default
+$blue-9: map-get($colors, 'blue-900') !default
+$blue: map-get($colors, 'blue-600') !default
+$teal-0: map-get($colors, 'teal-50') !default
+$teal-1: map-get($colors, 'teal-100') !default
+$teal-2: map-get($colors, 'teal-200') !default
+$teal-3: map-get($colors, 'teal-300') !default
+$teal-4: map-get($colors, 'teal-400') !default
+$teal-5: map-get($colors, 'teal-500') !default
+$teal-6: map-get($colors, 'teal-600') !default
+$teal-7: map-get($colors, 'teal-700') !default
+$teal-8: map-get($colors, 'teal-800') !default
+$teal-9: map-get($colors, 'teal-900') !default
+$teal: map-get($colors, 'teal-600') !default
+$green-0: map-get($colors, 'green-50') !default
+$green-1: map-get($colors, 'green-100') !default
+$green-2: map-get($colors, 'green-200') !default
+$green-3: map-get($colors, 'green-300') !default
+$green-4: map-get($colors, 'green-400') !default
+$green-5: map-get($colors, 'green-500') !default
+$green-6: map-get($colors, 'green-600') !default
+$green-7: map-get($colors, 'green-700') !default
+$green-8: map-get($colors, 'green-800') !default
+$green-9: map-get($colors, 'green-900') !default
+$green: map-get($colors, 'green-600') !default
+$yellow-0: map-get($colors, 'yellow-50') !default
+$yellow-1: map-get($colors, 'yellow-100') !default
+$yellow-2: map-get($colors, 'yellow-200') !default
+$yellow-3: map-get($colors, 'yellow-300') !default
+$yellow-4: map-get($colors, 'yellow-400') !default
+$yellow-5: map-get($colors, 'yellow-500') !default
+$yellow-6: map-get($colors, 'yellow-600') !default
+$yellow-7: map-get($colors, 'yellow-700') !default
+$yellow-8: map-get($colors, 'yellow-800') !default
+$yellow-9: map-get($colors, 'yellow-900') !default
+$yellow: map-get($colors, 'yellow-600') !default
+$orange-0: map-get($colors, 'orange-50') !default
+$orange-1: map-get($colors, 'orange-100') !default
+$orange-2: map-get($colors, 'orange-200') !default
+$orange-3: map-get($colors, 'orange-300') !default
+$orange-4: map-get($colors, 'orange-400') !default
+$orange-5: map-get($colors, 'orange-500') !default
+$orange-6: map-get($colors, 'orange-600') !default
+$orange-7: map-get($colors, 'orange-700') !default
+$orange-8: map-get($colors, 'orange-800') !default
+$orange-9: map-get($colors, 'orange-900') !default
+$orange: map-get($colors, 'orange-600') !default
+$grey-0: map-get($colors, 'gray-50') !default
+$grey-1: map-get($colors, 'gray-100') !default
+$grey-2: map-get($colors, 'gray-200') !default
+$grey-3: map-get($colors, 'gray-300') !default
+$grey-4: map-get($colors, 'gray-400') !default
+$grey-5: map-get($colors, 'gray-500') !default
+$grey-6: map-get($colors, 'gray-600') !default
+$grey-7: map-get($colors, 'gray-700') !default
+$grey-8: map-get($colors, 'gray-800') !default
+$grey-9: map-get($colors, 'gray-900') !default
+$grey: map-get($colors, 'gray-600') !default
+$blue-grey-0: map-get($colors, 'cool-gray-50') !default
+$blue-grey-1: map-get($colors, 'cool-gray-100') !default
+$blue-grey-2: map-get($colors, 'cool-gray-200') !default
+$blue-grey-3: map-get($colors, 'cool-gray-300') !default
+$blue-grey-4: map-get($colors, 'cool-gray-400') !default
+$blue-grey-5: map-get($colors, 'cool-gray-500') !default
+$blue-grey-6: map-get($colors, 'cool-gray-600') !default
+$blue-grey-7: map-get($colors, 'cool-gray-700') !default
+$blue-grey-8: map-get($colors, 'cool-gray-800') !default
+$blue-grey-9: map-get($colors, 'cool-gray-900') !default
+$blue-grey: map-get($colors, 'cool-gray-600') !default
+
+$ios-statusbar-height: 20px !default
+
+$z-fab: 990 !default
+$z-side: 1000 !default
+$z-marginals: 2000 !default
+$z-fixed-drawer: 3000 !default
+$z-fullscreen: 6000 !default
+$z-menu: 6000 !default
+$z-top: 7000 !default
+$z-tooltip: 9000 !default
+$z-notify: 9500 !default
+$z-max: 9998 !default
+
+$shadow-color: rgba(0, 0, 0, 0.82) !default
+$shadow-transition: box-shadow .28s cubic-bezier(.4, 0, .2, 1) !default
+$inset-shadow: 0 7px 9px -7px rgba($shadow-color, .7) inset !default
+
+$elevation-umbra: rgba($shadow-color, .2) !default
+$elevation-penumbra: rgba($shadow-color, .14) !default
+$elevation-ambient: rgba($shadow-color, .12) !default
+
+$shadow-0: 0 0 0 $elevation-umbra, 0 0 0 $elevation-penumbra, 0 0 0 $elevation-ambient !default
+$shadow-1: map-get($boxShadow, 'default') !default
+
+
+$shadow-2: map-get($boxShadow, 'sm') !default
+$shadow-3: map-get($boxShadow, 'default') !default
+$shadow-4: map-get($boxShadow, 'md') !default
+$shadow-5: map-get($boxShadow, 'lg') !default
+$shadow-6: map-get($boxShadow, 'xl') !default
+$shadow-7: map-get($boxShadow, '2xl') !default
+$shadow-8: 0 5px 5px -3px $elevation-umbra, 0 8px 10px 1px $elevation-penumbra, 0 3px 14px 2px $elevation-ambient !default
+$shadow-9: 0 5px 6px -3px $elevation-umbra, 0 9px 12px 1px $elevation-penumbra, 0 3px 16px 2px $elevation-ambient !default
+$shadow-10: 0 6px 6px -3px $elevation-umbra, 0 10px 14px 1px $elevation-penumbra, 0 4px 18px 3px $elevation-ambient !default
+$shadow-11: 0 6px 7px -4px $elevation-umbra, 0 11px 15px 1px $elevation-penumbra, 0 4px 20px 3px $elevation-ambient !default
+$shadow-12: 0 7px 8px -4px $elevation-umbra, 0 12px 17px 2px $elevation-penumbra, 0 5px 22px 4px $elevation-ambient !default
+$shadow-13: 0 7px 8px -4px $elevation-umbra, 0 13px 19px 2px $elevation-penumbra, 0 5px 24px 4px $elevation-ambient !default
+$shadow-14: 0 7px 9px -4px $elevation-umbra, 0 14px 21px 2px $elevation-penumbra, 0 5px 26px 4px $elevation-ambient !default
+$shadow-15: 0 8px 9px -5px $elevation-umbra, 0 15px 22px 2px $elevation-penumbra, 0 6px 28px 5px $elevation-ambient !default
+$shadow-16: 0 8px 10px -5px $elevation-umbra, 0 16px 24px 2px $elevation-penumbra, 0 6px 30px 5px $elevation-ambient !default
+$shadow-17: 0 8px 11px -5px $elevation-umbra, 0 17px 26px 2px $elevation-penumbra, 0 6px 32px 5px $elevation-ambient !default
+$shadow-18: 0 9px 11px -5px $elevation-umbra, 0 18px 28px 2px $elevation-penumbra, 0 7px 34px 6px $elevation-ambient !default
+$shadow-19: 0 9px 12px -6px $elevation-umbra, 0 19px 29px 2px $elevation-penumbra, 0 7px 36px 6px $elevation-ambient !default
+$shadow-20: 0 10px 13px -6px $elevation-umbra, 0 20px 31px 3px $elevation-penumbra, 0 8px 38px 7px $elevation-ambient !default
+$shadow-21: 0 10px 13px -6px $elevation-umbra, 0 21px 33px 3px $elevation-penumbra, 0 8px 40px 7px $elevation-ambient !default
+$shadow-22: 0 10px 14px -6px $elevation-umbra, 0 22px 35px 3px $elevation-penumbra, 0 8px 42px 7px $elevation-ambient !default
+$shadow-23: 0 11px 14px -7px $elevation-umbra, 0 23px 36px 3px $elevation-penumbra, 0 9px 44px 8px $elevation-ambient !default
+$shadow-24: 0 11px 15px -7px $elevation-umbra, 0 24px 38px 3px $elevation-penumbra, 0 9px 46px 8px $elevation-ambient !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$shadows: ($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10, $shadow-11, $shadow-12, $shadow-13, $shadow-14, $shadow-15, $shadow-16, $shadow-17, $shadow-18, $shadow-19, $shadow-20, $shadow-21, $shadow-22, $shadow-23, $shadow-24)
+
+$shadow-up-0: 0 0 0 $elevation-umbra, 0 0 0 $elevation-penumbra, 0 0 0 $elevation-ambient !default
+$shadow-up-1: 0 -1px 3px $elevation-umbra, 0 -1px 1px $elevation-penumbra, 0 -2px 1px -1px $elevation-ambient !default
+$shadow-up-2: 0 -1px 5px $elevation-umbra, 0 -2px 2px $elevation-penumbra, 0 -3px 1px -2px $elevation-ambient !default
+$shadow-up-3: 0 -1px 8px $elevation-umbra, 0 -3px 4px $elevation-penumbra, 0 -3px 3px -2px $elevation-ambient !default
+$shadow-up-4: 0 -2px 4px -1px $elevation-umbra, 0 -4px 5px $elevation-penumbra, 0 -1px 10px $elevation-ambient !default
+$shadow-up-5: 0 -3px 5px -1px $elevation-umbra, 0 -5px 8px $elevation-penumbra, 0 -1px 14px $elevation-ambient !default
+$shadow-up-6: 0 -3px 5px -1px $elevation-umbra, 0 -6px 10px $elevation-penumbra, 0 -1px 18px $elevation-ambient !default
+$shadow-up-7: 0 -4px 5px -2px $elevation-umbra, 0 -7px 10px 1px $elevation-penumbra, 0 -2px 16px 1px $elevation-ambient !default
+$shadow-up-8: 0 -5px 5px -3px $elevation-umbra, 0 -8px 10px 1px $elevation-penumbra, 0 -3px 14px 2px $elevation-ambient !default
+$shadow-up-9: 0 -5px 6px -3px $elevation-umbra, 0 -9px 12px 1px $elevation-penumbra, 0 -3px 16px 2px $elevation-ambient !default
+$shadow-up-10: 0 -6px 6px -3px $elevation-umbra, 0 -10px 14px 1px $elevation-penumbra, 0 -4px 18px 3px $elevation-ambient !default
+$shadow-up-11: 0 -6px 7px -4px $elevation-umbra, 0 -11px 15px 1px $elevation-penumbra, 0 -4px 20px 3px $elevation-ambient !default
+$shadow-up-12: 0 -7px 8px -4px $elevation-umbra, 0 -12px 17px 2px $elevation-penumbra, 0 -5px 22px 4px $elevation-ambient !default
+$shadow-up-13: 0 -7px 8px -4px $elevation-umbra, 0 -13px 19px 2px $elevation-penumbra, 0 -5px 24px 4px $elevation-ambient !default
+$shadow-up-14: 0 -7px 9px -4px $elevation-umbra, 0 -14px 21px 2px $elevation-penumbra, 0 -5px 26px 4px $elevation-ambient !default
+$shadow-up-15: 0 -8px 9px -5px $elevation-umbra, 0 -15px 22px 2px $elevation-penumbra, 0 -6px 28px 5px $elevation-ambient !default
+$shadow-up-16: 0 -8px 10px -5px $elevation-umbra, 0 -16px 24px 2px $elevation-penumbra, 0 -6px 30px 5px $elevation-ambient !default
+$shadow-up-17: 0 -8px 11px -5px $elevation-umbra, 0 -17px 26px 2px $elevation-penumbra, 0 -6px 32px 5px $elevation-ambient !default
+$shadow-up-18: 0 -9px 11px -5px $elevation-umbra, 0 -18px 28px 2px $elevation-penumbra, 0 -7px 34px 6px $elevation-ambient !default
+$shadow-up-19: 0 -9px 12px -6px $elevation-umbra, 0 -19px 29px 2px $elevation-penumbra, 0 -7px 36px 6px $elevation-ambient !default
+$shadow-up-20: 0 -10px 13px -6px $elevation-umbra, 0 -20px 31px 3px $elevation-penumbra, 0 -8px 38px 7px $elevation-ambient !default
+$shadow-up-21: 0 -10px 13px -6px $elevation-umbra, 0 -21px 33px 3px $elevation-penumbra, 0 -8px 40px 7px $elevation-ambient !default
+$shadow-up-22: 0 -10px 14px -6px $elevation-umbra, 0 -22px 35px 3px $elevation-penumbra, 0 -8px 42px 7px $elevation-ambient !default
+$shadow-up-23: 0 -11px 14px -7px $elevation-umbra, 0 -23px 36px 3px $elevation-penumbra, 0 -9px 44px 8px $elevation-ambient !default
+$shadow-up-24: 0 -11px 15px -7px $elevation-umbra, 0 -24px 38px 3px $elevation-penumbra, 0 -9px 46px 8px $elevation-ambient !default
+
+// sorry for long line; we need .sass and it doesn't support multi-line list
+$shadows-up: ($shadow-up-1, $shadow-up-2, $shadow-up-3, $shadow-up-4, $shadow-up-5, $shadow-up-6, $shadow-up-7, $shadow-up-8, $shadow-up-9, $shadow-up-10, $shadow-up-11, $shadow-up-12, $shadow-up-13, $shadow-up-14, $shadow-up-15, $shadow-up-16, $shadow-up-17, $shadow-up-18, $shadow-up-19, $shadow-up-20, $shadow-up-21, $shadow-up-22, $shadow-up-23, $shadow-up-24)
+
+$generic-border-radius: 4px !default
+$generic-hover-transition: .3s cubic-bezier(.25, .8, .5, 1) !default
+$min-line-height: 1.12 !default
+
+$button-border-radius: map-get($borderRadius, 'default') !default
+$button-padding: map-get($spacing, 2) map-get($spacing, 4) !default
+$button-dense-padding: map-get($spacing, 2) map-get($spacing, 3) !default
+$button-transition: $generic-hover-transition !default
+$button-font-size: 14px !default
+$button-line-height: 1rem !default
+$button-font-weight: 400 !default
+$button-shadow: $shadow-2 !default
+$button-shadow-active: $shadow-2 !default
+$button-rounded-border-radius: map-get($borderRadius, 'default') !default
+$button-push-border-radius: 7px !default
+
+$chat-message-received-color: #000 !default
+$chat-message-received-bg: $green-4 !default
+$chat-message-sent-color: #000 !default
+$chat-message-sent-bg: $grey-4 !default
+$chat-message-avatar-size: 48px !default
+$chat-message-border-radius: $generic-border-radius !default
+$chat-message-distance: 8px !default
+$chat-message-text-padding: 8px !default
+
+$item-base-color: $grey-5 !default
+
+$editor-border-color: $separator-color !default
+$editor-content-padding: 10px !default
+$editor-content-min-height: 10em !default
+$editor-toolbar-padding: 4px !default
+$editor-hr-color: $editor-border-color !default
+$editor-button-gutter: 4px !default
+
+$fab-margin: map-get($spacing, 1) !default
+
+$table-transition: $generic-hover-transition !default
+$table-border-radius: $generic-border-radius !default
+$table-box-shadow: $shadow-2 !default
+
+$table-border-color: $separator-color !default
+$table-hover-background: rgba(0, 0, 0, .03) !default
+$table-selected-background: rgba(0, 0, 0, .06) !default
+
+$table-dark-border-color: $separator-dark-color !default
+$table-dark-hover-background: rgba(255, 255, 255, .07) !default
+$table-dark-selected-background: rgba(255, 255, 255, .1) !default
+
+$toolbar-min-height: 50px !default
+$toolbar-padding: 0 12px !default
+$toolbar-inset-size: 58px !default
+$toolbar-title-font-size: 21px !default
+$toolbar-title-font-weight: normal !default
+$toolbar-title-letter-spacing: .01em !default
+$toolbar-title-padding: 0 12px !default
+
+$layout-border: 1px solid $separator-color !default
+$layout-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.24) !default
+
+$menu-background: #fff !default
+$menu-box-shadow: $shadow-1 !default
+$menu-max-width: 95vw !default
+
+$rating-grade-color: $yellow !default
+$rating-shadow: none !default
+
+$tooltip-color: #fafafa !default
+$tooltip-background: $grey-7 !default
+$tooltip-padding: map-get($spacing, 1) map-get($spacing, 2) !default
+$tooltip-border-radius: $generic-border-radius !default
+$tooltip-fontsize: 12px !default
+$tooltip-mobile-padding: map-get($spacing, 1) map-get($spacing, 2) !default
+$tooltip-mobile-fontsize: map-get($fontSize, 'sm') !default
+
+$option-focus-transition: .22s cubic-bezier(0, 0, .2, 1) !default
+
+$input-font-size: map-get($fontSize, 'sm') !default
+$input-text-color: rgba(0, 0, 0, .87) !default
+$input-label-color: rgba(0, 0, 0, 1.0) !default
+$input-autofill-color: inherit !default
+
+$img-width: 100% !default
+$img-background-repeat: no-repeat !default
+$img-loading-font-size: 50px !default
+$img-content-position: absolute !default
+$img-content-padding: 16px !default
+$img-content-color: #fff !default
+$img-content-background: rgba(0, 0, 0, .47) !default
+//////////////////////////
+
+$primary: $blue-6;
+$secondary: $orange-6;
+$accent: $blue-grey-6;
+
+$positive: $green-6;
+$negative: $red-6;
+$info: $blue-6;
+$warning: $orange-6;
+
+
+$typography-font-family: map-get($fontFamily, 'sans')
+
+$query-xs: 'screen and (max-width: $breakpoint-xs)';
+$query-sm: 'screen and (max-width: $breakpoint-sm)';
+$query-md: 'screen and (max-width: $breakpoint-md)';
+$query-lg: 'screen and (min-width: $breakpoint-lg)';
+
+$marketing-orange-gradient: linear-gradient(40deg, rgb(240, 83, 35) 0%, rgb(248, 155, 56) 100%);
+$marketing-orange-6: #F57A45;
+$marketing-blue-6: #4A90E2;
+
+// custom colors
+$dark-primary : scale-color($primary, $lightness: -40%)
+$code-color : scale-color($primary, $lightness: 96%)

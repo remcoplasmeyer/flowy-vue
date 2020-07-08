@@ -4,6 +4,8 @@
         :with-handle="false"
         :draggable-mirror="{ xAxis: false, appendTo: 'body' }"
         group="flowy"
+        @start="onStart(nodeData)"
+        @stop="onStop(nodeData)"
         :data="{ type: 'new', ...nodeData }"
       >
       <slot name="preview"></slot>
@@ -43,8 +45,11 @@ export default {
     },
   },
   methods: {
-    remove() {
-
+    onStart(data) {
+      this.$emit('drag-start', data);
+    },
+    onStop(data) {
+      this.$emit('drag-start', data);
     },
   },
 };

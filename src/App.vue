@@ -12,6 +12,8 @@
             <flowy-new-block
               v-for="(block, index) in blocks"
               :key="index"
+              @drag-start="onDragStartNewBlock"
+              @drag-stop="onDragStopNewBlock"
             >
               <template v-slot:preview="{}">
                 <demo-block
@@ -25,6 +27,7 @@
                   :title="block.node.title"
                   :description="block.node.description"
                   :icon="block.node.icon"
+                  :custom-prop="block.node.canBeDragged"
                 />
               </template>
             </flowy-new-block>
@@ -70,8 +73,17 @@ export default {
     dragging: false,
     blocks,
     nodes,
+    newDraggingBlock: null,
   }),
   methods: {
+    onDragStartNewBlock(event) {
+      console.log('onDragStartNewBlock', event);
+      this.newDraggingBlock = event;
+    },
+    onDragStopNewBlock(event) {
+      console.log('onDragStopNewBlock', event);
+      this.newDraggingBlock = null;
+    },
     onDropBlock(_event) {
 
     },
@@ -173,7 +185,7 @@ h1 {
   border: 1px dotted black;
 }
 
-.drag-handle {
+.flowy-drag-handle {
   cursor: grab;
 }
 

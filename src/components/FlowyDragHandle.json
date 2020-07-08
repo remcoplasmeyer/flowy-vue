@@ -1,0 +1,7 @@
+{
+  "type": "component",
+  "desc": "Wrap your drag handle with this component",
+  "meta": {
+    "docsUrl": "todo"
+  }
+}

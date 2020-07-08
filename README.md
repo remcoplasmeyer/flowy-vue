@@ -1,93 +1,25 @@
 
-<h2 align="middle">Shopify Draggable Vue</h2>
-<p align="middle">
-    <a href="https://www.npmjs.com/package/flowy-vue" target="_blank">
-      <img src="https://img.shields.io/npm/v/flowy-vue.svg?style=flat-square&color=007acc&label=version"
-           alt="npm version" /></a>
-    <a href="https://github.com/remcoplasmeyer/flowy-vue" target="_blank">
-      <img
-        src="https://img.shields.io/github/stars/remcoplasmeyer/flowy-vue.svg?color=42b883&style=flat-square"
-        alt="github stars"/></a>
-    <a href="https://github.com/remcoplasmeyer/flowy-vue/blob/master/LICENSE" target="_blank">
-      <img
-        src="https://img.shields.io/github/license/remcoplasmeyer/flowy-vue.svg?style=flat-square&label=license&color=08CE5D"
-        alt="license"
-      />
-    </a>
-    <a href="" target="_blank">
-      <img src="https://flat.badgen.net/bundlephobia/minzip/flowy-vue" alt="Minified library size">
-    </a>
-    <a href="https://github.com/remcoplasmeyer/flowy-vue" target="_blank"><img
-      alt="Vue"
-      src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&color=3fb984"></a>
-</p>
-<p align="middle">Shopify Draggable Vue</p>
-<p align="middle"><a href="https://todo"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Shopify Draggable Vue Demo"></a></p>
+<h2 align="middle">Flowy Vue</h2>
 
 ## 🔥 Features
 
-* todo
+- Use Vue components to create a flowchart or hierarchy system
+- Easily extendable logic
+- Drag and drop events
+- Use any component in your node tree, variable widths supported
+- Based on [Shopify Draggable Vue](https://github.com/remcoplasmeyer/shopify-draggable-vue)
+- (Optional) [Quasar](https://www.quasar.dev) app extension
 
-## ⚙️ Installation
+## 📄 Instructions / documentation
 
-```sh
-npm i @hips/flowy-vue
-```
-
-## 📄 Documents
-
-* [**todo**](https://github.com/remcoplasmeyer/flowy-vue/blob/master/README.md)
-
-## 🚀 How to use
-
-```vue
-<template>
-  <div>todo</div>
-</template>
-<script>
-import { todo } from '@hips/flowy-vue';
-
-export default {
-  name: 'Demo',
-  components: {
-    todo,
-  },
-  data: () => ({
-
-  }),
-  methods: {
-
-  }
-}
-</script>
-```
-
-## Polyfills
-
-Library use few browser built-ins and *doesn't* include polyfills for them. This ensures you don't include unnecessary polyfills in your code, as it should be the responsibility of the consuming app to include them.
-
-[Vue CLI includes them in babel config by default](https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/babel-preset-app#polyfills) but here is a list (in case you what to add them manually):
-
-```
-# for core-js@2
-es6.array.filter
-es6.object.keys
-es6.symbol        # optional
-
-# for core-js@3
-es.array.filter
-es.object.keys
-es.symbol         # optional
-```
-
-For direct usage in browser consider using <https://polyfill.io/v3/>
+* [**Documentation**](https://remcoplasmeyer.github.io/flowy-vue-quasar/)
 
 ## ⚙️ Developments
 
 ### `npm run serve`
 
 Runs the app in the development mode.<br>
-Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
+Open [http://localhost:8080/flowy-vue](http://localhost:8080/flowy-vue) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
@@ -98,7 +30,7 @@ Please give a ⭐️ if this project helped you!
 
 ## 👏 Contributing
 
-If you have any questions or requests or want to contribute to `@hips/flowy-vue` or other packages, please write the [issue](https://github.com/remcoplasmeyer/flowy-vue/issues) or give me a Pull Request freely.
+If you have any questions or requests or want to contribute to `@hipsjs/flowy-vue` or other packages, please write the [issue](https://github.com/remcoplasmeyer/flowy-vue/issues) or give me a Pull Request freely.
 
 ## 🐞 Bug Report
 

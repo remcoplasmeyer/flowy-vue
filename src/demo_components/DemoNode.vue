@@ -14,14 +14,15 @@
         </div>
 
         <div @click.stop="dropdown = !dropdown">
-          <img class="drag-handle" :src="`demo_assets/grabme.svg`" />
+          <flowy-drag-handle>
+            <img :src="`demo_assets/grabme.svg`" />
+          </flowy-drag-handle>
           <div class="absolute z-50 -ml-10 py-2 bg-white shadow rounded text-xs" v-show="dropdown">
             <span class="cursor-pointer p-2 hover:bg-gray-200" @click="remove()">remove</span>
           </div>
         </div>
       </div>
     </div>
-
 
     <div class="flex flex-row flex-no-wrap ml-4 mb-4">
       <div class="flex-grow flex flex-col">
