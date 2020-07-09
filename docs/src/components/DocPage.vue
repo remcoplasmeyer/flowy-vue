@@ -71,7 +71,7 @@ export default {
 
   computed: {
     editHref () {
-      return `https://github.com/quasarframework/quasar/edit/dev/docs/src/pages${this.$route.path}.md`
+      return `https://github.com/remcoplasmeyer/flowy-vue/edit/master/docs/src/pages${this.$route.path}.md`
     }
   },
 
