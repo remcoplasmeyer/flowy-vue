@@ -49,7 +49,7 @@ export default {
       this.$emit('drag-start', data);
     },
     onStop(data) {
-      this.$emit('drag-start', data);
+      this.$emit('drag-stop', data);
     },
   },
 };
