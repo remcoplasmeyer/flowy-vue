@@ -46,6 +46,7 @@
           :beforeAdd="beforeAdd"
           :beforeMove="beforeMove"
           :onEnterDragFn="onEnter"
+          :node-component='DemoNode'
         ></flowy>
       </div>
     </div>
@@ -55,19 +56,19 @@
 <script>
 /* eslint-disable vue/no-unused-components */
 /* eslint-disable no-unused-vars */
-import Vue from 'vue';
-import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import generateId from './lib/generateId';
 import nodes from './demo_data/simple';
 import blocks from './demo_data/sampleBlocks';
 
+import DemoNode from './demo_components/DemoNode.vue';
+
 
 export default {
   name: 'app',
-  components: {
 
-  },
+  DemoNode,
+
   data: () => ({
     holder: [],
     dragging: false,
@@ -75,29 +76,36 @@ export default {
     nodes,
     newDraggingBlock: null,
   }),
+
   methods: {
     onDragStartNewBlock(event) {
       console.log('onDragStartNewBlock', event);
       this.newDraggingBlock = event;
     },
+
     onDragStopNewBlock(event) {
       console.log('onDragStopNewBlock', event);
       this.newDraggingBlock = null;
     },
+
     onDropBlock(_event) {
 
     },
+
     beforeAdd() {
       console.log('before add');
       return true;
     },
+
     afterAdd() {
 
     },
+
     onEnterDrop(event) {
       console.log('entered drop');
       return true;
     },
+
     beforeMove({ to, from }) {
       console.log(to, from);
       if (from && from.id === '1') {
@@ -105,9 +113,11 @@ export default {
       }
       return true;
     },
+
     onEnter() {
 
     },
+
     addNode(_event) {
       const id = this.generateId();
       this.nodes.push({
@@ -115,15 +125,18 @@ export default {
         id,
       });
     },
+
     remove(event) {
       const nodeIndex = findIndex(this.nodes, { id: event.node.id });
       this.nodes.splice(nodeIndex, 1);
     },
+
     move(event) {
       console.log('move', event);
       const { dragged, to } = event;
       dragged.parentId = to.id;
     },
+
     add(event) {
       const id = generateId();
       this.nodes.push({
@@ -131,13 +144,11 @@ export default {
         ...event.node,
       });
     },
+
     onDragStart(event) {
       console.log('onDragStart', event);
       this.dragging = true;
     },
-  },
-  watch: {
-
   },
 };
 </script>
