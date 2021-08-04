@@ -1,10 +1,11 @@
-<template lang="html">
-  <div class="flowy-block mr-24px relative">
-    <slot></slot>
+<template lang='html'>
+  <div class='flowy-block mr-24px relative'>
+    <slot />
+
     <component
-      :is="component"
-      v-bind="{ ...$props, ...$attrs, ...passedProps }"
-      ref="block"
+      :is='component'
+      v-bind='{ ...$props, ...$attrs, ...passedProps }'
+      ref='block'
     />
   </div>
 </template>
@@ -13,44 +14,34 @@
 /* eslint-disable no-unused-vars */
 
 export default {
+  name: 'FlowyBlock',
+
   props: {
     node: {
       type: Object,
       required: true,
     },
+
     remove: {
       type: Function,
       required: true,
     },
-  },
-  data() {
-    return {
 
-    };
+    nodeComponent: Object,
   },
-  mounted() {
 
-  },
-  destroyed() {
-
-  },
   computed: {
     component() {
-      return this.node.nodeComponent;
-      // return find(this.blocks, { name: this.node.block }).name;
+      const { nodeComponent } = this.node;
+      // If component exists in dataset, use it - if not, use prop
+      return nodeComponent || this.nodeComponent;
     },
+
     passedProps() {
       return this.node.data;
     },
   },
-  methods: {
-    onDragEnd(_event) {
 
-    },
-    onDragStart(_event) {
-
-    },
-  },
   render(c) {
     const item = this.$scopedSlots.default()[0];
     return item;

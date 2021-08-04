@@ -6,27 +6,26 @@
     }'
   >
     <div id='flowy-tree'>
-      <FlowyNode
-        v-bind='{ ...$props }'
-        v-on='{ ...$listeners }'
-        :node='node'
-        :key='node.id'
-        v-for='node in parentNodes'
-        @drag-start='onDragStart($event)'
-        @drag-stop='onDragStop($event)'
-        @enter-drop='onEnterDrop($event)'
-        :before-move='onBeforeMove'
-        :before-add='onBeforeAdd'
-        :is-dragging='dragging'
-      >
-      </FlowyNode>
+      <template v-for='node in parentNodes'>
+        <FlowyNode
+          v-bind='{ ...$props }'
+          v-on='{ ...$listeners }'
+          :node='node'
+          :key='node.id'
+          @drag-start='onDragStart($event)'
+          @drag-stop='onDragStop($event)'
+          @enter-drop='onEnterDrop($event)'
+          :before-move='onBeforeMove'
+          :before-add='onBeforeAdd'
+          :is-dragging='dragging'
+        />
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable no-unused-vars */
-import find from 'lodash/find';
 import filter from 'lodash/filter';
 
 export default {
@@ -45,6 +44,8 @@ export default {
       type: Function,
       default: () => true,
     },
+
+    nodeComponent: Object,
   },
 
   data() {
@@ -128,7 +129,12 @@ export default {
 
 .flowy-node {
   transition: all 0.3s;
-  @extend .flex, .flex-col, .flex-no-wrap, .items-center, .relative, .overflow-visible
+  @extend .flex,
+    .flex-col,
+    .flex-no-wrap,
+    .items-center,
+    .relative,
+    .overflow-visible;
 }
 
 .node-dropzone {
@@ -176,7 +182,6 @@ export default {
 .justify-center {
   justify-content: center;
 }
-
 
 .items-center {
   align-items: center;

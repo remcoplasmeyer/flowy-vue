@@ -1,5 +1,7 @@
 <template lang="html">
-  <div class="flowy-node ">
+  <div class="flowy-node " :class='computedClass'>
+    <div class='flex-row'>
+
     <draggable
       class="flowy-draggable"
       group="flowy"
@@ -10,7 +12,7 @@
       :data="{ draggingNode: node }"
     >
       <!-- the node itself -->
-      <flowy-block
+      <FlowyBlock
         :data="node"
         class="draggable"
         :remove="removeNode"
@@ -47,17 +49,17 @@
         >
           <template #default="scope">
             <div :class="scope" class="node-dropzone">
-              <div class=""></div>
+              <div />
             </div>
           </template>
         </dropzone>
-      </flowy-block>
+      </FlowyBlock>
     </draggable>
 
     <!-- children tree -->
     <div class="flowy-tree flex flex-row flex-no-wrap overflow-visible mt-64px">
-      <template v-for="(child, index) in children">
-        <flowy-node
+      <template v-for="(child, index) in children.filter(e => !e.horizontal)">
+        <FlowyNode
           v-bind="{ ...$props }"
           v-on="{ ...$listeners }"
           :index="index"
@@ -69,20 +71,20 @@
         />
       </template>
     </div>
+    </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 /* eslint-disable no-unused-vars */
-import find from "lodash/find";
 import filter from "lodash/filter";
-import isNil from "lodash/isNil";
 import get from "lodash/get";
 import cloneDeep from "lodash/cloneDeep";
 
 import ConnectorLine from "./ConnectorLine";
 import DropIndicator from "./DropIndicator";
+
 
 function getOffset(el) {
   const rect = el.getBoundingClientRect();
@@ -115,6 +117,8 @@ export default {
       required: true,
     },
 
+    horizontal: Boolean,
+
     nodes: {
       type: Array,
       required: true,
@@ -138,6 +142,8 @@ export default {
     isDragging: {
       type: Boolean,
     },
+
+    nodeComponent: Object,
   },
 
   data() {
@@ -172,6 +178,11 @@ export default {
     xPos() {
       if (!this.mounted) return 0;
       return this.xPosProxy;
+    },
+
+    computedClass() {
+      console.debug(this.node);
+      if (this.node.horizontal) return "node-horizontal";
     },
 
     hasChildren() {
@@ -237,7 +248,7 @@ export default {
     },
 
     linePathDown() {
-      const lineHeight = this.lineTotalHeight
+      const lineHeight = this.lineTotalHeight;
       return `M0 0L0 ${lineHeight / 2}L0 ${lineHeight / 2}L0 ${lineHeight / 2}`;
     },
 
@@ -311,9 +322,7 @@ export default {
 
       // Move node
 
-      const isNew = (draggingNode === false)
-
-
+      const isNew = draggingNode === false;
 
       if (draggingNode === false) {
         // not dragging from existing node (so dragged from new node list)
