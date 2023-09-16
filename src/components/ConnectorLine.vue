@@ -11,7 +11,7 @@
       xmlns="http://www.w3.org/2000/svg"
     >
       <!-- line -->
-      <path :d="path" stroke="#C5CCD0" stroke-width="2px" />
+      <path :d="path" stroke="#C5CCD0" stroke-width="4px" />
 
       <!-- arrow -->
       <path v-if="showArrow" />
